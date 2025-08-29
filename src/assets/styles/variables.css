@@ -1,0 +1,100 @@
+:root {
+  /* Main Colors */
+  --brand-primary-color: #1A73E8;
+  --brand-primary-color-hover: #1558B0;
+  --brand-secondary-color: #00BFA6;
+  --brand-secondary-color-hover: #00A58F;
+  --brand-higlight-color: #FBBF24;
+  --brand-secondary-option-color: #ecb425;
+
+  /* Text */
+  --primary-color: #2E2E2E;
+  --secondary-color: #6B7280;
+  --black-color: #000000;
+
+  /* Text Dark */
+  --primary-color-dark: #FFFFFF;
+
+  /* Button */
+  --secondary-btn: #ffffff;
+  --secondary-btn-hover: #e7eaed;
+
+  /* Background */
+  --background-primary: #F5F7FA;
+  --background-primary-opacity: rgba(245, 247, 250, 0.7);
+  --background-content: #FFFFFF;
+  --background-footer: #1F2937;
+
+  /* Messeages/Alerts Bg */
+  --background-success: #22C55E;
+  --background-error: #EF4444;
+
+  /* Logo Color Main */
+  --color-logo: #1A73E8;
+
+  /* hover */
+  --primary-hover: rgba(26, 115, 232, 0.1);
+
+
+  /* Higlighting/Dots/Details */
+  --color-highlight: #FBBF24;
+
+  /* Secondary Option */
+  --color-secondary-option: #00BFA6;
+
+  /* notifications */
+  --unread-notification: #ffecec33;
+  --read-notification: rgba(240, 248, 255, 0.2);
+
+
+  /* Font */
+  --font-family: 'poppins', sans-serif;
+  --font-size: 16px;
+  --line-height: 1.3;
+}
+
+:root.my-add-dark {
+  /* Text */
+  --primary-color: #F5F5F5;
+  --secondary-color: #b9c0cb;
+  --black-color: #FFFFFF;
+
+  /* Text Dark */
+  --primary-color-dark: #000000;
+
+  /* Button */
+  --secondary-btn: #FFFFFF;
+  --secondary-btn-hover: #F5F5F5;
+
+  /* Background */
+  --background-primary: #121212;
+  --background-primary-opacity: rgba(18, 18, 18, 0.7);
+  --background-content: #1E1E1E;
+  --background-footer: #0F172A;
+
+  /* Messages/Alerts Bg */
+  --background-success: #15803D;
+  --background-error: #B91C1C;
+
+  /* Logo Color Main */
+  --color-logo: #1A73E8;
+
+  /* hover */
+  --primary-hover: rgba(5, 59, 125, 0.1);
+
+
+  /* Highlighting/Dots/Details */
+  --color-highlight: #FBBF24;
+
+  /* Secondary Option */
+  --color-secondary-option: #00BFA6;
+
+  /* notifications */
+  --unread-notification: #5a2a2a33;
+  --read-notification: #0b241c33;
+
+  /* Font */
+  --font-family: 'poppins', sans-serif;
+  --font-size: 16px;
+  --line-height: 1.3;
+}

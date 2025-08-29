@@ -1,0 +1,44 @@
+.loader-overlay {
+    position: fixed;
+    inset: 0;
+    /* full viewport */
+    background-color: var(--primary-color-dark);
+    /* white background */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    /* on top of all elements */
+    gap: 1rem;
+}
+
+/* Cube grid remains same */
+:host {
+    --size: 64px;
+    --color: #4f46e5;
+    --gap: 6px;
+    --duration: 1.2s;
+    display: inline-block;
+}
+
+.loader {
+    width: 5rem;
+    height: 5rem;
+    border: 8px solid var(--brand-primary-color);
+    border-bottom-color: var(--primary-color-dark);
+    border-radius: 50%;
+    display: inline-block;
+    box-sizing: border-box;
+    animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

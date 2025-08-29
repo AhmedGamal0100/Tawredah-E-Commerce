@@ -1,0 +1,10 @@
+<div class="supplier-container">
+    <app-supplier-navbar [sidebarCollapsed]="sidebarCollapsed" [userName]="userName" [darkMode]="darkMode"
+        [mobileDrawerVisible]="mobileDrawerVisible" (sidebarToggled)="toggleSidebar()"
+        (darkModeToggled)="toggleDarkMode()" (mobileDrawerVisibleChange)="mobileDrawerVisible = $event"
+        (mobileSidebarToggled)="toggleMobileDrawer($event)" class="relative">
+    </app-supplier-navbar>
+    <div class="w-11 m-auto mt-5">
+        <app-admin-page></app-admin-page>
+    </div>
+</div>

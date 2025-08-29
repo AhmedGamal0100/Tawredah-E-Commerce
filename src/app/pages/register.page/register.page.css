@@ -1,0 +1,235 @@
+.register-page {
+  overflow: hidden;
+  scrollbar-width: none;
+  background-color: rgba(255, 255, 255, 0.908);
+  padding: 1.5rem 1.5rem;
+  height: 85vh;
+  border: 1px solid rgb(218, 218, 218);
+}
+
+
+h2 {
+  text-align: center;
+}
+
+label {
+  color: rgba(26, 115, 232, 1) !important;
+}
+
+input {
+  border: 1px solid rgb(212, 207, 207);
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.password-error {
+  display: block;
+  white-space: normal;
+  word-break: break-word;
+  max-width: 250px;
+}
+
+.address-container {
+  border: 0.5px solid rgb(212, 207, 207);
+  padding: 15px 10px 0 10px;
+  border-radius: 15px;
+  position: relative;
+  margin-top: 10px;
+}
+
+.close-icon {
+  cursor: pointer;
+  border: solid gray 0.5px;
+  border-radius: 50%;
+  padding: 2px;
+  position: absolute;
+  right: -7px;
+  top: -7px;
+  z-index: 2;
+}
+
+.scroll {
+  padding-inline: 1rem;
+  max-height: 23rem;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 10px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: rgba(119, 119, 119, 0.5);
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+}
+
+.register-input {
+  width: 100%;
+}
+
+::ng-deep .p-inputtext {
+  width: 100%;
+}
+
+b {
+  color: var(--brand-primary-color);
+}
+
+b:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.navigator-btn {
+  top: 1rem;
+  left: 1rem;
+
+  color: var(--brand-primary-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin: 0.5rem;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.navigator-btn:hover {
+  scale: 1.1;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid #ccc;
+  border-top-color: #1976d2;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.role-page h2 {
+  margin-bottom: 3rem;
+  font-size: 1.75rem;
+  text-align: center;
+}
+
+.role-card {
+  background-color: rgba(246, 246, 246, 0.8);
+  border: 1px solid rgb(218, 218, 218);
+  border-radius: 0.5rem;
+  padding: 3rem;
+  max-width: 500px;
+  transition: 0.2s ease-in-out;
+}
+
+.role-card:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  scale: 1.01;
+}
+
+.role-card h3 {
+  color: var(--brand-primary-color);
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  padding: 0;
+  font-size: 1.75rem;
+}
+
+.role-card p {
+  color: rgba(0, 0, 0, 0.6);
+  font-size: 1.1rem;
+  padding: 0;
+  margin: 0;
+}
+
+.role-card:last-child {
+  margin-bottom: 2rem;
+}
+.blur-bg{
+  background: rgba(255, 255, 255, 0.3); /* semi-transparent background */
+  backdrop-filter: blur(10px);          /* the actual blur */
+  -webkit-backdrop-filter: blur(10px);  /* Safari support */
+  border-radius: 12px;
+  padding: 1rem;
+
+}
+.role-page a {
+  color: var(--brand-primary-color);
+  /* font-size: 1rem; */
+  margin-top: 1rem;
+  /* transition: 0.5s ease-in-out; */
+}
+
+@media (max-width:768px) {
+  .password-error {
+    max-width: 320px;
+  }
+}
+
+@media (max-width:412px) {
+  .password-error {
+    max-width: 250px;
+  }
+
+  .navigator-btn {
+    scale: 0.75;
+  }
+
+  .register-page {
+    width: 100%;
+    padding: 0;
+    height: 100%;
+  }
+
+  h2 {
+    font-size: 1rem;
+    margin: 0;
+  }
+
+  .header {
+    padding: 0 0 1rem;
+  }
+
+  input {
+    padding: 1rem !important;
+    font-size: 0.75rem;
+    /* border: 1px solid red; */
+    /* height: 24px !important; */
+  }
+
+  label {
+    font-size: 0.75rem;
+  }
+
+  .back-btn {
+    display: none;
+  }
+
+  form {
+    justify-content: space-between;
+  }
+
+}

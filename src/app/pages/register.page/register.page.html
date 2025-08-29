@@ -1,0 +1,271 @@
+@if (isRoleChosen()) {
+<i class="pi pi-home absolute navigator-btn" (click)="goToHome()" pTooltip="Back to home"></i>
+<div class="register-page border-round-2xl flex">
+    @if (isLoading()) {
+    <div class="loading-overlay z-1">
+        <div class="spinner"></div>
+    </div>
+    }
+    <div class="flex flex-column relative">
+        <i class="pi pi-arrow-left absolute navigator-btn back-btn" (click)="goToRolePage()" pTooltip="Select your role"></i>
+        <form [formGroup]="registerForm" (ngSubmit)="submit()" class="flex-column justify-content-between">
+            <div class="p-3 align-items-start header">
+                @if (isRoleChosen() && registerForm.get("role")?.value === "factory") {
+                <h2 class="font-semibold">Sign up as a <span class="font-bold text-blue-700"><u>Factory</u></span></h2>
+                }
+                @else if (isRoleChosen() && registerForm.get("role")?.value === "user") {
+                <h2 class="font-semibold">Sign up as an <span class="font-bold text-blue-700"> <u>User</u></span></h2>
+                }
+            </div>
+
+            <div class="scroll overflow-y-auto overflow-x-hidden flex flex-column gap-3 sm:m-auto">
+                <div class="grid input-group md:flex-column xl:flex-row">
+                    <div class="xl:col-6 md:col-12 col-12">
+                        <div class="mb-1">
+                            <p-floatlabel variant="in">
+                                <input name="firstName" formControlName="firstName" pInputText autocomplete="off"
+                                    class="col-12 input-large" type="text" />
+                                <label for="firstName">First Name</label>
+                            </p-floatlabel>
+                        </div>
+                        @if (registerForm.get('firstName')?.touched && registerForm.get('firstName')?.errors) {
+                        <small class="text-red-500 font-bold">First name required</small>
+                        }
+                    </div>
+                    <div class="xl:col-6 md:col-12 col-12">
+                        <div class="mb-1">
+                            <p-floatlabel variant="in">
+                                <input name="lastName" formControlName="lastName" pInputText autocomplete="off"
+                                    class="col-12" type="text" />
+                                <label for="lastName">Last Name</label>
+                            </p-floatlabel>
+                        </div>
+                        @if (registerForm.get('lastName')?.touched && registerForm.get('lastName')?.errors) {
+                        <small class="text-red-500 font-bold">Last name required</small>
+                        }
+                    </div>
+                </div>
+
+                <div class="grid input-group md:flex-column xl:flex-row">
+                    <div class="xl:col-6 md:col-12 col-12">
+                        <div class="mb-1">
+                            <p-floatlabel variant="in">
+                                <input name="email" formControlName="email" pInputText autocomplete="off" class="col-12"
+                                    type="email" />
+                                <label for="email">Email</label>
+                            </p-floatlabel>
+                        </div>
+                        @if (registerForm.get('email')?.touched && registerForm.get('email')?.errors ) {
+                        @if(registerForm.get('email')?.getError('required')){
+                        <small class="text-red-500 font-bold">email is required</small>
+                        }
+                        @if(registerForm.get('email')?.getError('email')){
+                        <small class="text-red-500 font-bold">This field must be email format</small>
+                        }}
+                    </div>
+                    <div class="xl:col-6 md:col-12 col-12">
+                        <div class="mb-1">
+                            <p-floatlabel variant="in">
+                                <input name="personalPhoneNumber" formControlName="personalPhoneNumber" pInputText
+                                    autocomplete="off" class="col-12" type="text" />
+                                <label for="personalPhoneNumber">Personal Phone Number</label>
+                            </p-floatlabel>
+                        </div>
+                        @if (registerForm.get('personalPhoneNumber')?.touched &&
+                        registerForm.get('personalPhoneNumber')?.errors) {
+                        @if (registerForm.get('personalPhoneNumber')?.getError('required')) {
+                        <small class="text-red-500 font-bold">Personal Phone Number is required</small>
+                        }
+                        @if (registerForm.get('personalPhoneNumber')?.getError('pattern')) {
+                        <small class="text-red-500 font-bold">Enter valid phone number</small>
+                        }
+                        }
+                    </div>
+                </div>
+
+                <div class="grid input-group md:flex-column xl:flex-row">
+                    <div class="xl:col-6 md:col-12 col-12">
+                        <div class="mb-1">
+                            <p-floatlabel variant="in">
+                                <p-password [inputStyle]="{}" class="md:w-full w-full" name="password"
+                                    formControlName="password" [toggleMask]="true" />
+                                <label for="password">Password</label>
+                            </p-floatlabel>
+                        </div>
+
+                        @if(registerForm.get('password')?.touched && registerForm.get('password')?.errors){
+                        @if (registerForm.get('password')?.getError('required')) {
+                        <small class="text-red-500 font-bold">Password is required</small>
+                        }
+                        }
+                        @if(registerForm.get('password')?.getError('pattern')) {
+                        <small class="text-red-500 font-bold w-full password-error">
+                            <!-- <li>password must contain</li>
+                            <li>lower,upper case &special char</li>
+                            <li>at least 8 character</li> -->
+                            password must contain lower, upper case & special char at least 8 characters
+                        </small>
+                        }
+                    </div>
+                    <div class="xl:col-6 md:col-12 col-12">
+                        <div class="mb-1">
+                            <p-floatlabel variant="in">
+                                <p-password [inputStyle]="{}" name="confirmPassword"
+                                    formControlName="confirmPassword" [toggleMask]="true"
+                                    class="border-0 md:w-full w-full" />
+                                <label for="confirmPassword">Confirm Password</label>
+                            </p-floatlabel>
+                        </div>
+                        @if (registerForm.get('confirmPassword')?.touched &&
+                        registerForm.get('confirmPassword')?.errors) {
+                        @if (registerForm.get('confirmPassword')?.getError('required')) {
+                        <small class="text-red-500 font-bold">Confirm Password is required</small>
+                        }
+                        @if (registerForm.get('confirmPassword')?.getError('passwordMismatch')) {
+                        <small class="text-red-500 font-bold">Passwords do not match</small>
+                        }
+                        }
+                    </div>
+
+                </div>
+
+                <h3 class="">Business Information</h3>
+
+                <div class="grid input-group md:flex-column xl:flex-row">
+                    <div class="xl:col-6 md:col-12 col-12">
+                        <div class="mb-1">
+                            <p-floatlabel variant="in">
+                                <input name="businessName" formControlName="businessName" pInputText autocomplete="off"
+                                    class="col-12" type="text" />
+                                <label for="businessName">Business Name</label>
+                            </p-floatlabel>
+                        </div>
+                        @if (registerForm.get('businessName')?.touched && registerForm.get('businessName')?.errors) {
+                        <small class="text-red-500 font-bold">Business Name required</small>
+                        }
+                    </div>
+                    <div class="xl:col-6 md:col-12 col-12">
+                        <div class="mb-1">
+                            <p-floatlabel variant="in">
+                                <input name="businessPhoneNumber" formControlName="businessPhoneNumber" pInputText
+                                    autocomplete="off" class="col-12" type="text" />
+                                <label for="businessPhoneNumber">Business Phone Number</label>
+                            </p-floatlabel>
+                        </div>
+                        @if (registerForm.get('businessPhoneNumber')?.touched &&
+                        registerForm.get('businessPhoneNumber')?.errors) {
+                        @if (registerForm.get('businessPhoneNumber')?.getError('required')) {
+                        <small class="text-red-500 font-bold">Business Phone Number is required</small>
+                        }
+                        @if (registerForm.get('businessPhoneNumber')?.getError('pattern')) {
+                        <small class="text-red-500 font-bold">Enter valid phone number</small>
+                        }
+                        }
+                    </div>
+                </div>
+
+                <div formGroupName="address">
+                    <div class="grid input-group md:flex-column xl:flex-row mb-3">
+                        <div class="xl:col-6 md:col-12 col-12">
+                            <div class="mb-1">
+                                <p-floatlabel variant="in">
+                                    <input name="government" formControlName="government" pInputText autocomplete="off"
+                                        class="col-12" />
+                                    <label for="government">Government</label>
+                                </p-floatlabel>
+                            </div>
+                            @if (registerForm.get('address.government')?.touched &&
+                            registerForm.get('address.government')?.errors) {
+                            <small class="text-red-500 font-bold">Government is required</small>
+                            }
+                        </div>
+                        <div class="xl:col-6 md:col-12 col-12">
+                            <div class="mb-1">
+                                <p-floatlabel variant="in">
+                                    <input name="city" formControlName="city" pInputText autocomplete="off"
+                                        class="col-12" />
+                                    <label for="city">City</label>
+                                </p-floatlabel>
+                            </div>
+                            @if (registerForm.get('address.city')?.touched && registerForm.get('address.city')?.errors)
+                            {
+                            <small class="text-red-500 font-bold">City is required</small>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="grid input-group md:flex-column xl:flex-row">
+                        <div class="xl:col-6 md:col-12 col-12">
+                            <div class="mb-1">
+                                <p-floatlabel variant="in">
+                                    <input name="street" formControlName="street" pInputText autocomplete="off"
+                                        class="col-12" />
+                                    <label for="street">Street</label>
+                                </p-floatlabel>
+                            </div>
+                            @if (registerForm.get('address.street')?.touched &&
+                            registerForm.get('address.street')?.errors) {
+                            <small class="text-red-500 font-bold">Street is required</small>
+                            }
+                        </div>
+                        <div class="xl:col-6 md:col-12 col-12">
+                            <div class="mb-1">
+                                <p-floatlabel variant="in">
+                                    <input formControlName="building" name="building" pInputText autocomplete="off"
+                                        class="col-12" />
+                                    <label for="building">Building</label>
+                                </p-floatlabel>
+                            </div>
+                            @if (registerForm.get('address.building')?.touched &&
+                            registerForm.get('address.building')?.errors) {
+                            <small class="text-red-500 font-bold">Building is required</small>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full px-3 pt-3 mb-5">
+                <p-button type="submit" label="Register" [raised]="true"
+                    [style]="{'width': '100%', 'height': '40px'}" />
+            </div>
+
+            <p class="text-center" (click)="goToLogin()">or already have an account <b>sign-in</b></p>
+        </form>
+    </div>
+
+    <div class="card flex justify-center gap-2 z-5">
+        <p-toast />
+        <p-toast position="top-center" key="confirm" (onClose)="onClose()" [baseZIndex]="5000">
+            <ng-template let-message #headless let-closeFn="closeFn">
+                <section class="flex flex-column p-4 gap-4 w-full rounded-xl">
+                    <div class="mb-3">
+                        You have unsaved changes. Are you sure you want to leave this page?
+                    </div>
+                    <div class="register__toast-btns w-full flex gap-2 justify-content-center">
+                        <p-button severity="contrast" label="Confirm?" (onClick)="onUserConfirmed()" size="small" />
+                        <p-button severity="danger" label="Cancel" (onClick)="onUserCancelled()" size="small" />
+                    </div>
+                </section>
+            </ng-template>
+        </p-toast>
+    </div>
+
+</div>
+} @else {
+<div class="role-page text-center border-round-2xl">
+    <i class="pi pi-home absolute navigator-btn" (click)="goToHome()" pTooltip="Back to home"></i>
+    <h2>What would you like to do</h2>
+    <div class="flex flex-column gap-3">
+        <button class="role-card" (click)="userRole('factory')">
+            <h3>I am a Factory owner</h3>
+            <p>I would like to sell my supplies and services</p>
+        </button>
+        <button class="role-card" (click)="userRole('user')">
+            <h3>I am a Business owner</h3>
+            <p>I would like to buy supplies for my business</p>
+        </button>
+    </div>
+    <a routerLink="/login">Already have an account,<b> log-in</b> here</a>
+</div>
+}

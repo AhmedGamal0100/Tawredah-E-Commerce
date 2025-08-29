@@ -1,0 +1,210 @@
+.sidebar-filter-container {
+  padding: 1rem 1.5rem;
+  height: 100%;
+  background-color: var(--background-content);
+}
+
+
+.filter-title {
+
+  /* padding: 0.5rem 1rem; */
+  /* background-color: var(--brand-primary-color); */
+  /* border-radius: 0.5rem; */
+  h4 {
+    color: var(--primary-color);
+  }
+
+  i {
+    color: var(--brand-primary-color);
+    scale: 1.2;
+  }
+}
+
+
+
+.filter-section {
+  margin-bottom: 1.25rem;
+  /* padding-bottom: 1.25rem; */
+  /* border-bottom: 1px; */
+}
+
+.checkbox-item {
+  display: flex;
+  position: relative;
+
+  label {
+    line-height: 1.5;
+    font-size: 14px;
+  }
+}
+
+/* Hide default checkbox */
+.checkbox-item input[type="checkbox"] {
+  display: none;
+  /* width: min-content; */
+}
+
+/* Custom circle */
+.checkbox-item label::before {
+  content: "";
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 20%;
+  border: 1px solid #aaa;
+  margin-right: 10px;
+  background-color: transparent;
+  transition: all 0.3s ease;
+  vertical-align: middle;
+}
+
+/* Hover effect on circle */
+.checkbox-item:hover label::before {
+  background-color: #e0e0e0;
+  /* light gray hover */
+}
+
+/* When checked -> circle turns gray */
+.checkbox-item input[type="checkbox"]:checked+label::before {
+  border: 2px solid var(--brand-primary-color-hover);
+  background-color: #e0e0e0;
+  /* border-color: #e0e0e0; */
+  box-shadow: inset 0 0 0 8px var(--brand-primary-color);
+  /* red check look */
+}
+
+/* Add a checkmark icon when checked */
+.checkbox-item input[type="checkbox"]:checked+label::after {
+  /* content: "✔"; */
+  /* You can change this to "✖" for X */
+  position: absolute;
+  left: 1px;
+  /* center inside the box */
+  top: 0px;
+  font-size: 1.1rem;
+  color: var(--brand-primary-color);
+  /* checkmark color */
+  transition: all 0.3s ease;
+}
+
+
+/* Checked label highlight */
+.checkbox-item input[type="checkbox"]:checked+label {
+  /* border: 1px solid #aaa; */
+  color: var(--primary-color);
+  /* text-decoration: underline; */
+  /* font-weight: 600; */
+}
+
+.checkbox-item input[type="checkbox"]:checked+label {
+  /* border: 1px solid #aaa; */
+  color: var(--primary-color);
+  /* text-decoration: underline; */
+  /* font-weight: 600; */
+}
+
+.filter-actions button {
+  border: 0;
+  font-size: 16px;
+  line-height: 100%;
+  cursor: pointer;
+  width: 100%;
+  border-radius: 0.5rem;
+  transition: 0.5s;
+  /* font-weight: bold; */
+}
+
+.apply-btn {
+  padding: 1rem 2rem;
+  color: #fff;
+  background-color: var(--brand-primary-color);
+  border: 1px solid var(--brand-primary-color) !important;
+}
+
+.apply-btn:hover {
+  color: #ebebeb;
+  background-color: var(--brand-primary-color-hover);
+}
+
+.clear-btn {
+  padding: 1rem 0;
+  font-size: 1.2rem;
+  background-color: crimson;
+  border: 1px solid crimson !important;
+  border-radius: 80px;
+  color: #fff;
+}
+
+.clear-btn:hover {
+  background-color: rgb(174, 15, 47);
+  color: #ebebeb;
+}
+
+/* Hide sidebar on mobile by default */
+@media (max-width: 576px) {
+  .sidebar-filter-container {
+    display: none;
+    height: 100%;
+  }
+  
+  /* Show when opened as overlay */
+  .sidebar-filter-container.mobile-open {
+    display: block;
+    padding-block: 4rem;
+    /* position: fixed; */
+    top: 0;
+    left: 0;
+    /* bottom: 0; */
+    width: 65%;
+    height: 100%;
+    overflow-y: auto;
+    z-index: 1000;
+    padding-inline: 1.5rem;
+    animation: slideIn 0.3s ease;
+  }
+
+  /* Floating button */
+  .mobile-filter-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 1rem;
+    background-color: var(--brand-primary-color);
+    color: #fff;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1100;
+    cursor: pointer;
+  }
+
+  .mobile-filter-btn:hover {
+    background-color: var(--brand-primary-color-hover);
+  }
+
+
+  .apply-btn {
+    padding: 0.5rem 1rem;
+  }
+
+  .clear-btn {
+    padding: 0.5rem 0;
+    font-size: 1rem;
+  }
+}
+
+/* Slide animation for overlay */
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+  }
+
+  to {
+    transform: translateY(0);
+  }
+}

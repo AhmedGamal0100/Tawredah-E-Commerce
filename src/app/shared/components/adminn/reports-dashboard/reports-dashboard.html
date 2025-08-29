@@ -1,0 +1,237 @@
+<div class="reports-dashboard">
+  <!-- Header Section -->
+  <div class="header-section mb-4">
+    <div class="flex justify-content-between align-items-center">
+      <h2>Reports & Analytics</h2>
+      <div class="action-buttons">
+        <button pButton icon="pi pi-download" label="Export Report" class="p-button-help"
+          (click)="exportReport()"></button>
+        <button pButton icon="pi pi-refresh" class="p-button-outlined p-button-secondary" (click)="refreshData()"
+          pTooltip="Refresh Data"></button>
+      </div>
+    </div>
+    <p>Comprehensive analytics and insights for your business performance. Track sales, inventory, and supplier metrics.
+    </p>
+  </div>
+
+  <!-- Date Range Selector -->
+  <div class="date-filter mb-4">
+    <p-card header="Date Range">
+      <div class="flex flex-wrap gap-2 align-items-center">
+        <div class="custom-date-input">
+          <label for="start-date">Start Date</label>
+          <input type="date" id="start-date" [(ngModel)]="startDate" (change)="applyDateFilter()">
+        </div>
+        <div class="custom-date-input">
+          <label for="end-date">End Date</label>
+          <input type="date" id="end-date" [(ngModel)]="endDate" (change)="applyDateFilter()">
+        </div>
+        <button pButton icon="pi pi-filter" label="Apply Filter" (click)="applyDateFilter()"></button>
+        <button pButton icon="pi pi-history" label="Reset" class="p-button-outlined p-button-secondary"
+          (click)="resetFilter()"></button>
+
+        <!-- Quick Date Presets -->
+        <div class="quick-presets">
+          <span>Quick Range:</span>
+          <button pButton label="Last 7 Days" class="p-button-text p-button-sm" (click)="setDateRange(7)"></button>
+          <button pButton label="Last 30 Days" class="p-button-text p-button-sm" (click)="setDateRange(30)"></button>
+          <button pButton label="Last 90 Days" class="p-button-text p-button-sm" (click)="setDateRange(90)"></button>
+        </div>
+      </div>
+    </p-card>
+  </div>
+
+  <!-- Summary Cards -->
+  <div class="grid mb-4">
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="summary-card revenue">
+        <div class="card-icon">
+          <i class="pi pi-dollar"></i>
+        </div>
+        <div class="card-content">
+          <span class="card-label">Total Revenue</span>
+          <span class="card-value">${{totalRevenue | number:'1.2-2'}}</span>
+          <span class="card-change" [ngClass]="{'positive': revenueChange >= 0, 'negative': revenueChange < 0}">
+            <i class="pi" [ngClass]="revenueChange >= 0 ? 'pi-arrow-up' : 'pi-arrow-down'"></i>
+            {{revenueChange | absolute | number:'1.2-2'}}%
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="summary-card orders">
+        <div class="card-icon">
+          <i class="pi pi-shopping-cart"></i>
+        </div>
+        <div class="card-content">
+          <span class="card-label">Total Orders</span>
+          <span class="card-value">{{totalOrders | number}}</span>
+          <span class="card-change" [ngClass]="{'positive': ordersChange >= 0, 'negative': ordersChange < 0}">
+            <i class="pi" [ngClass]="ordersChange >= 0 ? 'pi-arrow-up' : 'pi-arrow-down'"></i>
+            {{ordersChange | absolute | number:'1.2-2'}}%
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="summary-card products">
+        <div class="card-icon">
+          <i class="pi pi-box"></i>
+        </div>
+        <div class="card-content">
+          <span class="card-label">Products Sold</span>
+          <span class="card-value">{{productsSold | number}}</span>
+          <span class="card-change" [ngClass]="{'positive': productsChange >= 0, 'negative': productsChange < 0}">
+            <i class="pi" [ngClass]="productsChange >= 0 ? 'pi-arrow-up' : 'pi-arrow-down'"></i>
+            {{productsChange | absolute | number:'1.2-2'}}%
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="summary-card customers">
+        <div class="card-icon">
+          <i class="pi pi-users"></i>
+        </div>
+        <div class="card-content">
+          <span class="card-label">New Customers</span>
+          <span class="card-value">{{newCustomers | number}}</span>
+          <span class="card-change" [ngClass]="{'positive': customersChange >= 0, 'negative': customersChange < 0}">
+            <i class="pi" [ngClass]="customersChange >= 0 ? 'pi-arrow-up' : 'pi-arrow-down'"></i>
+            {{customersChange | absolute | number:'1.2-2'}}%
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Charts Grid -->
+  <div class="grid">
+    <!-- Sales Report -->
+    <div class="col-12 md:col-8">
+      <p-card header="Sales Report" class="h-full">
+        <div class="chart-container">
+          <p-chart type="line" [data]="salesData" [options]="chartOptions"></p-chart>
+        </div>
+        <div class="chart-legend">
+          <div class="legend-item">
+            <span class="legend-color" style="background-color: #42A5F5;"></span>
+            <span>Total Sales</span>
+          </div>
+          <div class="legend-item">
+            <span class="legend-color" style="background-color: #FFA726;"></span>
+            <span>Orders</span>
+          </div>
+        </div>
+      </p-card>
+    </div>
+
+    <!-- Inventory Status -->
+    <div class="col-12 md:col-4">
+      <p-card header="Inventory Status" class="h-full">
+        <div class="chart-container">
+          <p-chart type="doughnut" [data]="inventoryData" [options]="doughnutOptions"></p-chart>
+        </div>
+        <div class="inventory-stats">
+          <div class="stat-item">
+            <span class="stat-dot" style="background-color: #4CAF50;"></span>
+            <span>In Stock: {{inStockCount}}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-dot" style="background-color: #FF9800;"></span>
+            <span>Low Stock: {{lowStockCount}}</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-dot" style="background-color: #F44336;"></span>
+            <span>Out of Stock: {{outOfStockCount}}</span>
+          </div>
+        </div>
+      </p-card>
+    </div>
+
+    <!-- Top Products -->
+    <div class="col-12 md:col-6">
+      <p-card header="Top Products" class="h-full">
+        <div class="chart-container">
+          <p-chart type="bar" [data]="topProductsData" [options]="barOptions"></p-chart>
+        </div>
+      </p-card>
+    </div>
+
+    <!-- Supplier Performance -->
+    <div class="col-12 md:col-6">
+      <p-card header="Supplier Performance" class="h-full">
+        <div class="chart-container">
+          <p-chart type="radar" [data]="supplierData" [options]="radarOptions"></p-chart>
+        </div>
+        <div class="supplier-legend">
+          @for (supplier of topSuppliers; track supplier.name; let i = $index) {
+          <div class="legend-item">
+            <span class="legend-color" [style.backgroundColor]="supplierColors[i]"></span>
+            <span>{{supplier.name}}</span>
+          </div>
+          }
+        </div>
+      </p-card>
+    </div>
+
+    <!-- Recent Activities -->
+    <div class="col-12 md:col-6">
+      <p-card header="Recent Activities" class="h-full">
+        <div class="activities-list">
+          @for (activity of activities; track activity.date) {
+          <div class="activity-item">
+            <div class="activity-icon">
+              <i class="pi" [ngClass]="getActivityIcon(activity.status)"></i>
+            </div>
+            <div class="activity-content">
+              <div class="activity-header">
+                <h5>{{activity.status}}</h5>
+                <span class="activity-time">{{activity.date | date:'medium'}}</span>
+              </div>
+              <p>{{activity.description}}</p>
+              <small class="activity-user">{{activity.user}}</small>
+            </div>
+          </div>
+          }
+        </div>
+      </p-card>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="col-12 md:col-6">
+      <p-card header="Performance Metrics" class="h-full">
+        <div class="metrics-grid">
+          <div class="metric-item">
+            <i class="pi pi-chart-line metric-icon"></i>
+            <div class="metric-content">
+              <span class="metric-value">{{conversionRate}}%</span>
+              <span class="metric-label">Conversion Rate</span>
+            </div>
+          </div>
+          <div class="metric-item">
+            <i class="pi pi-shopping-bag metric-icon"></i>
+            <div class="metric-content">
+              <span class="metric-value">${{averageOrderValue | number:'1.2-2'}}</span>
+              <span class="metric-label">Avg. Order Value</span>
+            </div>
+          </div>
+          <div class="metric-item">
+            <i class="pi pi-clock metric-icon"></i>
+            <div class="metric-content">
+              <span class="metric-value">{{customerRetention}}%</span>
+              <span class="metric-label">Retention Rate</span>
+            </div>
+          </div>
+          <div class="metric-item">
+            <i class="pi pi-star metric-icon"></i>
+            <div class="metric-content">
+              <span class="metric-value">{{satisfactionRate}}/5</span>
+              <span class="metric-label">Satisfaction Score</span>
+            </div>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </div>
+</div>

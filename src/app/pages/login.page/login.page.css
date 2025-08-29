@@ -1,0 +1,98 @@
+.login-icons {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+
+  i {
+    font-size: 2.5rem;
+    cursor: pointer;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    padding: 0.5rem;
+    border-radius: 50%;
+  }
+
+  i:hover {
+    scale: 1.02;
+  }
+}
+
+.login-page {
+  background-color: rgba(255, 255, 255, 0.908);
+  /* padding: 3rem; */
+  min-height: 560px;
+  /* width: 500px; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  label {
+    color: #1A73E8;
+  }
+}
+
+input {
+  border: 1px solid #ccc;
+}
+
+.login-input {
+  width: 100%;
+}
+
+::ng-deep .p-inputtext {
+  width: 100%;
+}
+
+.forgot-pass a {
+  cursor: pointer;
+  transition: 0.5s;
+}
+
+.forgot-pass a:hover {
+  font-weight: bolder;
+}
+
+.pi-google {
+  color: #1976D2;
+}
+
+.forget-pass-btn {
+  background: 0;
+  border: 1px solid #ffffff00;
+  color: var(--brand-primary-color);
+  font-weight: bold;
+  padding: 0.25rem 0rem;
+}
+
+.forget-pass-input {
+  display: none;
+  border-radius: 0.5rem;
+}
+
+.navigator-btn {
+  top: 1rem;
+  left: 1rem;
+
+  color: var(--brand-primary-color);
+  font-size: 1.5rem;
+  cursor: pointer;
+  margin: 0.5rem;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  padding: 0.5rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.navigator-btn:hover {
+  scale: 1.1;
+  background-color: rgba(255, 255, 255, 0.7);
+}
+
+b {
+  color: var(--brand-primary-color);
+}
+
+b:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}

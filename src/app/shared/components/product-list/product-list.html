@@ -1,0 +1,18 @@
+<div class="grid ">
+  <!-- <cdk-virtual-scroll-viewport itemSize="20" class="viewport"> -->
+  @for (prod of products(); track prod.id) {
+  <div class="col-12 lg:col-6">
+    <app-product-card-list [productData]="prod"></app-product-card-list>
+  </div>
+  }
+  <!-- </cdk-virtual-scroll-viewport> -->
+
+
+  <!-- @if (showPromoBanner && $index === 7) { -->
+  <!-- } -->
+  @if ((products() ?? []).length > 0) {
+  <div class="col-12">
+    <app-promo-banner></app-promo-banner>
+  </div>
+  }
+</div>

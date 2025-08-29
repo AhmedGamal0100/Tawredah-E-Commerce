@@ -1,0 +1,285 @@
+.notifi-bg {
+  position: absolute;
+  inset: 0; // covers the whole section
+  z-index: -1; // keep behind content
+  overflow: hidden;
+
+  i {
+    position: absolute;
+    font-size: 5rem;
+    color: var(--secondary-color); // subtle color
+    animation: float 12s linear infinite;
+    opacity: 0.1;
+  }
+
+  // random positions for variety
+  i:nth-child(1) {
+    top: 10%;
+    left: 10%;
+    animation-delay: 0s;
+  }
+
+  i:nth-child(2) {
+    top: 90%;
+    left: 20%;
+    animation-delay: 2s;
+  }
+
+  i:nth-child(3) {
+    top: 50%;
+    left: 45%;
+    animation-delay: 4s;
+  }
+
+  i:nth-child(4) {
+    top: 15%;
+    left: 80%;
+    animation-delay: 6s;
+  }
+
+  i:nth-child(5) {
+    top: 55%;
+    left: 70%;
+    animation-delay: 5s;
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.1;
+  }
+
+  25% {
+    transform: translateY(-20px) rotate(60deg);
+    opacity: 0.2;
+  }
+
+  50% {
+    transform: translateY(-40px) rotate(90deg);
+    opacity: 0.2;
+  }
+
+  75% {
+    transform: translateY(-60px) rotate(145deg);
+    opacity: 0.2;
+  }
+
+  100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.1;
+  }
+}
+
+
+.notifications-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 1rem;
+  // margin-bottom: 500px;
+
+  .notifications-clear {
+    display: flex;
+    position: sticky;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+    right: 2rem;
+    top: 2rem;
+    z-index: 500;
+
+    button {
+      padding: 0.6rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: var(--brand-primary-color);
+      color: white;
+      transition: background 0.3s;
+      font-size: 16px;
+
+      &:hover {
+        background-color: var(--brand-primary-color-hover);
+      }
+    }
+  }
+
+}
+
+h1 {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.notification-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+
+  &.unread {
+    background: var(--unread-notification);
+    border-left: 5px solid #ff4d4d;
+  }
+
+  &.read {
+    background: var(--read-notification);
+    border-left: 5px solid #4caf50;
+  }
+
+  .notification-content {
+    flex: 1;
+
+    h3 {
+      margin: 0 0 0.3rem;
+
+      i {
+        font-size: 1.5rem;
+      }
+    }
+
+    p {
+      margin: 0;
+      // color: #555;
+    }
+
+    a {
+      color: var(--primary-color);
+    }
+
+    .time {
+      display: block;
+      font-size: 0.8rem;
+      // color: gray;
+      margin-top: 0.5rem;
+    }
+  }
+
+  button {
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: var(--brand-primary-color);
+    color: white;
+    transition: background 0.3s;
+    font-size: 16px;
+
+    &:hover {
+      background-color: var(--brand-primary-color-hover);
+    }
+  }
+}
+
+.empty-notification {
+  text-align: center;
+  color: var(--secondary-color);
+  margin-bottom: 10rem;
+  i {
+    font-size: 3rem;
+    color: var(--brand-primary-color);
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .notifi-bg {
+    i {
+      font-size: 2rem !important;
+    }
+
+    // random positions for variety
+    i:nth-child(1) {
+      top: 15%;
+      left: 5%;
+    }
+
+    i:nth-child(2) {
+      top: 90%;
+      left: 20%;
+    }
+
+    i:nth-child(3) {
+      top: 80;
+      left: 45%;
+    }
+
+    i:nth-child(4) {
+      top: 20%;
+    }
+
+    i:nth-child(5) {
+      top: 80%;
+      left: 90%;
+    }
+  }
+
+  .notifications-container {
+    h1 {
+      font-size: 2rem !important;
+    }
+
+    .notification-card {
+      .notification-content {
+        h3 {
+          font-size: 1.2rem;
+        }
+
+        p {
+          font-size: 0.8rem;
+        }
+
+        .time {
+          font-size: 0.7rem;
+        }
+      }
+
+      button {
+        font-size: 0.9rem;
+        padding: 0.6rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 412px) {
+  .notifi-bg {
+    i {
+      font-size: 1.5rem !important;
+    }
+  }
+
+  .notifications-container {
+    h1 {
+      font-size: 1.5rem !important;
+    }
+
+    .notification-card {
+      .notification-content {
+        h3 {
+          font-size: 1rem;
+        }
+
+        p {
+          font-size: 0.7rem;
+        }
+
+        .time {
+          font-size: 0.6rem;
+        }
+      }
+
+      button {
+        font-size: 0.7rem;
+        padding: 0.4rem;
+      }
+    }
+  }
+}

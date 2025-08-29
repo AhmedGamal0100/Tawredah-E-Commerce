@@ -1,0 +1,14 @@
+@if (loading()) {
+<div class="loader-overlay" role="status" aria-live="polite" aria-busy="true">
+    <span class="loader"></span>
+
+    <div class="label">
+        <span class="text">{{ message }}</span>
+        <span class="dots">
+            <span class="d dot1">.</span>
+            <span class="d dot2">.</span>
+            <span class="d dot3">.</span>
+        </span>
+    </div>
+</div>
+}

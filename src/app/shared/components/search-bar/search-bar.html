@@ -1,0 +1,27 @@
+<div class="search-container flex flex-col md:flex-row relative">
+  <!-- LEFT SIDE -->
+  <div class="lg:w-7 md:w-full sm:w-full p-4 flex-column">
+    <h3><b>All what you need in one place.</b></h3>
+    <!-- <p>Create your own products</p> -->
+    <div class="search-content">
+      <!-- <p-inputgroup class="w-11 m-auto border-round-2xl"> -->
+      <div class="flex w-full search">
+        <input placeholder="Search..." [(ngModel)]="searchInput" (ngModelChange)="onSearchChange($event)"/>
+        <button variant="text" (click)="applySearch()"><i class="pi pi-search"></i></button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT SIDE -->
+  <div class="w-full w-2 carousel-container flex-column justify-center items-center mr-8 pb-3 lg:block md:hidden sm:hidden">
+    <div class="carousel">
+      @for (img of images; track img; let i= $index) {
+      <div class="carousel-item" [ngClass]="getPositionClass(i)">
+        <img [src]="img" alt="carousel image" />
+      </div>
+      }
+    </div>
+    <span><b><i class="pi pi-sparkles" style="color: var(--brand-higlight-color);"></i> Best sellers this week!</b></span>
+  </div>
+</div>

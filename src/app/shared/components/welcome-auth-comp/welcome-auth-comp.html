@@ -1,0 +1,51 @@
+<section class="welcome-auth col-9 m-auto">
+    <div class="welcome-auth-container w-full h-full">
+        <h1>Welcome to Tawredah</h1>
+        @if (isLoginPage) {
+        <div class="flex welcome-auth-btns justify-content-between gap-2">
+            <div class="w-6">
+                <p-button label="Login" [raised]="true" [style]="{'width': '100%', 'height': '40px'}"
+                    (onClick)="pageSelect('login')" />
+            </div>
+            <div class="w-6">
+                <p-button label="Register" [variant]="'text'" [style]="{'width': '100%', 'height': '40px'}"
+                    (onClick)="pageSelect('register')" />
+            </div>
+        </div>
+        } @else {
+        <div class="flex welcome-auth-btns justify-content-between gap-2">
+            <div class="w-6">
+                <p-button label="Login" [variant]="'text'" [style]="{'width': '100%', 'height': '40px'}"
+                    (onClick)="pageSelect('login')" />
+            </div>
+            <div class="w-6">
+                <p-button label="Register" [raised]="true" [style]="{'width': '100%', 'height': '40px'}"
+                    (onClick)="pageSelect('register')" />
+            </div>
+        </div>
+        }
+        @if (isLoginPage) {
+        <h3>Login as</h3>
+        <div class="welcome-auth-card-btns flex gap-3 justify-content-between">
+            <div class="w-full" pButton (click)="addLoginAccountLoginList()">
+                <app-login-card-auth-component />
+            </div>
+            <div class="w-full" pButton (click)="addLoginAccountLoginList()">
+                <app-login-card-auth-component />
+            </div>
+        </div>
+        } @else {
+        <h3>Your role is:</h3>
+        <div class="welcome-auth-card-btns flex gap-3">
+            <div class="welcome-role-card col-6">
+                <h4>Business owner</h4>
+                <p>I'd like to buy supplies for my business.</p>
+            </div>
+            <div class="welcome-role-card col-6">
+                <h4>Factory owner</h4>
+                <p>I'd like to sell my supplies and services.</p>
+            </div>
+        </div>
+        }
+    </div>
+</section>

@@ -1,0 +1,58 @@
+<!-- <app-navbar-general-component></app-navbar-general-component> -->
+<!-- Animated Background -->
+<div class="notifi-bg">
+  <i class="pi pi-bell"></i>
+  <i class="pi pi-bell"></i>
+  <i class="pi pi-bell"></i>
+  <i class="pi pi-bell"></i>
+  <i class="pi pi-bell"></i>
+</div>
+<div class="notifications-container" data-aos="fade-up" data-aos-duration="1200" data-aos-easing="ease-in-out">
+  <div class="absolute notifications-clear">
+    @if (notifications.length >0) {
+    <button (click)="clearNotifications()">
+      Clear
+    </button>
+    }
+  </div>
+  <h1>Notifications</h1>
+  @if(notifications.length>0){
+  @for (notification of notifications; track notification.id; let i =$index) {
+  <div class="notification-card" [class.read]="notification.read" [class.unread]="!notification.read"
+    [attr.data-aos-delay]="i * 150">
+    <div class="notification-content">
+      @switch (notification.type) {
+      @case ("info") {
+      <h3><i class="pi pi-info-circle"></i></h3>
+      }
+      @case ("error") {
+      <h3><i class="pi pi-times-circle"></i></h3>
+      }
+      @case ("warning") {
+      <h3><i class="pi pi-exclamation-circle"></i></h3>
+      }
+      @case ("success") {
+      <h3><i class="pi pi-check-circle"></i></h3>
+      }
+      }
+      @if (notification.route) {
+      <a [routerLink]="notification.route">{{ notification.message }}</a>
+      } @else {
+      <p>{{notification.message}}</p>
+      }
+      <!-- <span class="time">{{ notification.time }}</span> -->
+    </div>
+
+    <button (click)="toggleRead(notification)">
+      {{ notification.read ? "Mark as Unread" : "Mark as Read" }}
+    </button>
+  </div>
+  }
+  } @else {
+  <div class="empty-notification" data-aos="fade-up" data-aos-delay="200">
+    <i class="pi pi-info-circle"></i>
+    <p>Your notification page is empty!</p>
+  </div>
+  }
+
+</div>

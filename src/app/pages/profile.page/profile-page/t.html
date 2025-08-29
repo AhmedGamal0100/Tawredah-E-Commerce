@@ -1,0 +1,228 @@
+
+<div class="flex flex-column items-center py-3 bg-slate-50 min-h-screen font-sans">
+    <!--  
+    <!-- Loading indicator -->
+    @if (isLoading) {
+    <div class="p-4">Loading profile...</div>
+    } @else {
+    <!-- Avatar + Info -->
+    <div class="flex flex-column justify-content-center align-items-center gap-4">
+        <img [src]="loggedAccount()?.avatarUrl" class="object-cover profile-img" alt="avatar" />
+        <div class="text-center">
+            <p class="text-2xl font-bold m-0">{{ (loggedAccount()?.firstName || '') + ' ' + (loggedAccount()?.lastName
+                || '') }}</p>
+            <p class="">{{ loggedAccount()?.email }}</p>
+            <div class="pb-3">
+                @if (!isEditing) {
+                <button pButton type="button" label="Edit Profile" class="p-button-outlined"
+                    (click)="toggleEdit()"></button>
+                }
+                <a class="change-password">Change Password</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Personal Info -->
+    <div class="w-full max-w-xl bg-white shadow-md rounded-lg container-fluid">
+        <form [formGroup]="profileForm" class="space-y-4 grid">
+            <div class="col-12 md:col-6 p-5 left-info">
+                <h2 class="text-xl mb-4">Personal Information</h2>
+                <div class="">
+                    <label class="block font-medium mb-1">First Name</label>
+                    <input class="input" formControlName="firstName" [readonly]="!isEditing" />
+                    @if (profileForm.get('firstName')?.touched && profileForm.get('firstName')?.errors) {
+                    <small class="text-red-500 font-bold">First name required</small>
+                    }
+                </div>
+                <div class="pt-2">
+                    <label class="block font-medium mb-1">Last Name</label>
+                    <input class="input" formControlName="lastName" [readonly]="!isEditing" />
+                    @if (profileForm.get('lastName')?.touched && profileForm.get('lastName')?.errors) {
+                    <small class="text-red-500 font-bold">Last name required</small>
+                    }
+                </div>
+                <div class="pt-2">
+                    <label class="block font-medium mb-1">Email</label>
+                    <input class="input" formControlName="email" [readonly]="!isEditing" />
+                    @if (profileForm.get('email')?.touched && profileForm.get('email')?.errors) {
+                    @if (profileForm.get('email')?.getError('required')) {
+                    <small class="text-red-500 font-bold">Email is required</small>
+                    }
+                    @if (profileForm.get('email')?.getError('email')) {
+                    <small class="text-red-500 font-bold">Email format is invalid</small>
+                    }
+                    }
+                </div>
+                <div class="pt-2">
+                    <label class="block font-medium mb-1">Phone Number</label>
+                    <input class="input" formControlName="personalPhoneNumber" [readonly]="!isEditing" />
+                    @if (profileForm.get('personalPhoneNumber')?.touched &&
+                    profileForm.get('personalPhoneNumber')?.errors) {
+                    @if (profileForm.get('personalPhoneNumber')?.getError('required')) {
+                    <small class="text-red-500 font-bold">Personal Phone Number is required</small>
+                    }
+                    @if (profileForm.get('personalPhoneNumber')?.getError('pattern')) {
+                    <small class="text-red-500 font-bold">Enter valid phone number</small>
+                    }
+                    }
+                </div>
+
+                <h2 class="text-xl pt-5">Business Information</h2>
+                <div>
+                    <label class="block font-medium mb-1">Business Name</label>
+                    <input class="input" formControlName="businessName" [readonly]="!isEditing" />
+                    @if (profileForm.get('businessName')?.touched && profileForm.get('businessName')?.errors) {
+                    <small class="text-red-500 font-bold">Business name required</small>
+                    }
+                </div>
+                <div class="pt-2">
+                    <label class="block font-medium mb-1">Business Phone</label>
+                    <input class="input" formControlName="businessPhoneNumber" [readonly]="!isEditing" />
+                    @if (profileForm.get('businessPhoneNumber')?.touched &&
+                    profileForm.get('businessPhoneNumber')?.errors) {
+                    @if (profileForm.get('businessPhoneNumber')?.getError('required')) {
+                    <small class="text-red-500 font-bold">Business Phone Number is required</small>
+                    }
+                    @if (profileForm.get('businessPhoneNumber')?.getError('pattern')) {
+                    <small class="text-red-500 font-bold">Enter valid phone number</small>
+                    }
+                    }
+                </div>
+            </div>
+
+            <div class="col-12 md:col-6 p-5 right-info">
+                <!-- Payment Methods -->
+                <div>
+                    <h2 class="text-xl block mb-4">Payment Methods</h2>
+                    <div formArrayName="paymentMethods" class="space-y-3">
+                        @if (paymentMethods.controls.length === 0 && !isEditing) {
+                        <div class="text-gray-500">No payment methods added</div>
+                        }
+                        @for (group of paymentMethods.controls; track $index; let i = $index) {
+                        <div [formGroupName]="i" class="payment-method-item">
+                            <div class="px-2">
+                                <label class="block font-medium mb-1" for="cardNumber">Card Number</label>
+                                <input name="cardNumber" class="input" formControlName="cardNumber"
+                                    [readonly]="!isEditing" placeholder="Card Number" />
+                                @if (group.get('cardNumber')?.touched && group.get('cardNumber')?.errors) {
+                                @if (group.get('cardNumber')?.getError('required')) {
+                                <small class="text-red-500 font-bold">Card Number is required</small>
+                                }
+                                @if (group.get('cardNumber')?.getError('pattern')) {
+                                <small class="text-red-500 font-bold">Please enter valid card number</small>
+                                }
+                                }
+                            </div>
+
+                            <div class="flex gap-2 mt-2">
+                                <div class="flex-1">
+                                    <label class="block font-medium mb-1" for="securityCode">Security Code</label>
+                                    <input name="securityCode" class="input" formControlName="securityCode"
+                                        [readonly]="!isEditing" placeholder="CVV" />
+                                    @if (group.get('securityCode')?.touched && group.get('securityCode')?.errors) {
+                                    @if (group.get('securityCode')?.getError('required')) {
+                                    <small class="text-red-500 font-bold">CVV is required</small>
+                                    }
+                                    @if (group.get('securityCode')?.getError('pattern')) {
+                                    <small class="text-red-500 font-bold">Please enter valid CVV</small>
+                                    }
+                                    }
+                                </div>
+                                <div class="flex-1">
+                                    <label class="block font-medium mb-1" for="expiryDate">Expiry Date</label>
+                                    <input class="input" formControlName="expiryDate" [readonly]="!isEditing"
+                                        placeholder="MM/YY" />
+                                    @if (group.get('expiryDate')?.touched && group.get('expiryDate')?.errors) {
+                                    @if (group.get('expiryDate')?.getError('required')) {
+                                    <small class="text-red-500 font-bold">Expiry date is required</small>
+                                    }
+                                    @if (group.get('expiryDate')?.getError('pattern')) {
+                                    <small class="text-red-500 font-bold">Enter a valid expiry date in MM/YY
+                                        format</small>
+                                    }
+                                    }
+                                </div>
+                            </div>
+                            @if (isEditing && paymentMethods.length > 1) {
+                            <button pButton type="button" label="Remove" class="p-button-danger p-button-sm mt-2"
+                                (click)="removePaymentMethod(i)"></button>
+                            }
+                            <hr class="my-3">
+                        </div>
+                        }
+                    </div>
+                    @if (isEditing && paymentMethods.length < 3) { <button pButton type="button"
+                        label="Add Payment Method" class="p-button-outlined mt-2" (click)="addPaymentMethod()"></button>
+                        }
+                </div>
+                <!-- Addresses -->
+                <div class="mt-6">
+                    <h2 class="text-xl block mb-4">Addresses</h2>
+                    <div formArrayName="addresses" class="space-y-4">
+                        @if (addresses.controls.length === 0 && !isEditing) {
+                        <div class="text-gray-500">No addresses added</div>
+                        }
+                        @for (group of addresses.controls; track $index; let i = $index) {
+                        <div [formGroupName]="i" class="address-item">
+                            <div class="grid gap-2">
+                                <div class="col-6">
+                                    <label for="government" class="block font-medium mb-1">Government</label>
+                                    <input name="government" class="input" formControlName="government"
+                                        [readonly]="!isEditing" placeholder="Government" />
+                                    @if (group.get('government')?.touched && group.get('government')?.errors) {
+                                    <small class="text-red-500 font-bold">Government is required</small>
+                                    }
+                                </div>
+                                <div class="col-6">
+                                    <label for="city" class="block font-medium mb-1">City</label>
+                                    <input name="city" class="input" formControlName="city" [readonly]="!isEditing"
+                                        placeholder="City" />
+                                    @if (group.get('city')?.touched && group.get('city')?.errors) {
+                                    <small class="text-red-500 font-bold">City is required</small>
+                                    }
+                                </div>
+                            </div>
+                            <div class="grid gap-2 mt-2">
+                                <div class="col-6">
+                                    <label for="street" class="block font-medium mb-1">Street</label>
+                                    <input name="street" class="input" formControlName="street" [readonly]="!isEditing"
+                                        placeholder="Street" />
+                                    @if (group.get('street')?.touched && group.get('street')?.errors) {
+                                    <small class="text-red-500 font-bold">Street is required</small>
+                                    }
+                                </div>
+                                <div class="col-6">
+                                    <label for="building" class="block font-medium mb-1">Building</label>
+                                    <input name="building" class="input" formControlName="building"
+                                        [readonly]="!isEditing" placeholder="Building" />
+                                    @if (group.get('building')?.touched && group.get('building')?.errors) {
+                                    <small class="text-red-500 font-bold">Building is required</small>
+                                    }
+                                </div>
+                            </div>
+                            @if (isEditing && addresses.length > 1) {
+                            <button pButton type="button" label="Remove" class="p-button-danger p-button-sm mt-2"
+                                (click)="removeAddress(i)"></button>
+                            }
+                            <hr class="my-3">
+                        </div>
+                        }
+                    </div>
+                    @if (isEditing && addresses.length < 3) { <button pButton type="button" label="Add Address"
+                        class="p-button-outlined mt-2" (click)="addAddress()"></button>
+                        }
+                </div>
+            </div>
+        </form>
+
+        <!-- Buttons -->
+        <div class="flex justify-end gap-2 edit-btns p-5">
+            @if (isEditing) {
+            <button pButton type="button" label="Cancel" class="p-button-secondary" (click)="toggleEdit()"></button>
+            <button pButton type="button" label="Save Changes" class="p-button-primary"
+                (click)="saveChanges()"></button>
+            }
+        </div>
+    </div>
+    }
+</div>

@@ -1,0 +1,136 @@
+<nav class="navbar-general">
+  <!-- Left: Logo -->
+  <div class="logo">
+    <a routerLink="/">
+      <div class="logo-crop">
+        <img src="logo/tawredah-logo-en.png" alt="Tawredah Logo" />
+      </div>
+    </a>
+  </div>
+
+  <!-- Right: Desktop & Tablet Menu -->
+  <div class="nav-right">
+    <!-- Desktop Links (Home, About, Products, Contact) -->
+    @if (!isTabletOrMobile) {
+    <div class="desktop-links">
+      @for (item of mainNavItems; track item.link) {
+      <a [routerLink]="item.link" class="nav-link">
+        <i class="{{ item.icon }}"></i>
+        {{ item.menuName }}
+        <!-- {{ item.name }}  -->
+        <!-- to render icons only -->
+      </a>
+      }
+      @if(role == "factory"){
+      <a routerLink="/supplier" class="nav-link"><i class="pi pi-chart-bar"></i> Dashboard</a>
+      }
+    </div>
+    }
+
+    <!-- cart button -->
+    @if(role != 'factory'){
+    <button class="theme-btn desktop-render relative" routerLink="/cart">
+      <i class="pi pi-shopping-cart"></i>
+      <div class="enumerator">{{cartCount}}</div>
+    </button>
+    <!-- wishlist button -->
+    <button class="theme-btn desktop-render relative" routerLink="/wishlist">
+      <i class="pi pi-heart"></i>
+      <div class="enumerator">{{wishListCount}}</div>
+    </button>
+    <!-- notification button -->
+    <button class="theme-btn desktop-render relative" routerLink="/notifications">
+      <i class="pi pi-bell"></i>
+      <div class="enumerator">{{notificationCount}}</div>
+    </button>
+    <!-- Theme Toggle (All sizes) -->
+    <button class="theme-btn desktop-render" (click)="toggleTheme()">
+      <i class="pi" [ngClass]="isDarkMode ? 'pi-sun' : 'pi-moon'"></i>
+    </button>
+
+
+    <!-- Login/Register Links (Desktop) -->
+    @if (!isTabletOrMobile) { @if (!isLoggedIn) {
+    <div class="auth-links">
+      <a [routerLink]="'/login'" class="auth-link"><i class="pi pi-sign-in"></i> Login</a>
+      <a [routerLink]="'/register'" class="auth-link"><i class="pi pi-user-plus"></i> Register</a>
+    </div>
+    } @else {
+    <div class="user-menu" (click)="toggleDropdown($event)">
+      <span class="user-name">Hello, {{ userName }} </span>
+      <i class="pi pi-chevron-down"></i>
+      @if (isDropdownOpen) {
+      <div class="dropdown-menu-user">
+        <a [routerLink]="'/profile'"><i class="pi pi-user"></i> Profile</a>
+        <a [routerLink]="'/pastorders'"><i class="pi pi-clone"></i> Orders</a>
+        <a (click)="logout()"><i class="pi pi-sign-out"></i> Logout</a>
+      </div>
+      }
+    </div>
+    } }
+    }
+
+    <!-- Tablet Auth Links -->
+    <!-- @if (isTablet) { @if (!isLoggedIn) {
+    <div class="tablet-auth">
+      <a [routerLink]="'/login'" class="auth-link"><i class="pi pi-sign-in"></i> Login</a>
+      <a [routerLink]="'/register'" class="auth-link"><i class="pi pi-user-plus"></i> Register</a>
+    </div>
+    } @else {
+    <div class="tablet-user-menu" (click)="toggleDropdown($event)">
+      <span class="user-name">Hello, {{ userName }}</span>
+      <i class="pi pi-chevron-down"></i>
+      @if (isDropdownOpen) {
+      <div class="dropdown-menu-user">
+        <a [routerLink]="'/main/profile'"><i class="pi pi-user"></i> Profile</a>
+        <a (click)="logout()"><i class="pi pi-sign-out"></i> Logout</a>
+      </div>
+      }
+    </div>
+    }} -->
+
+    <!-- Mobile Menu Button -->
+    @if (isTabletOrMobile) {
+    <button class="menu-btn" (click)="toggleMenu()">
+      <i class="pi pi-bars"></i>
+      <!-- <span class="user-name">Hello, {{ userName }} </span>
+      <i class="pi pi-chevron-down"></i> -->
+    </button>}
+
+  </div>
+
+  <!-- Mobile & Tablet Dropdown Menu -->
+  @if (menuOpen && isTabletOrMobile) {
+  <div class="dropdown-menu">
+    <!-- <span class="user-name">Hello, {{ userName }} </span> -->
+
+    @for (item of filteredMobileNavItems; track item.link) {
+    <!-- <a [routerLink]="item.link" class="dropdown-link" (click)="toggleMenu()">
+      <i class="{{ item.icon }}"></i>
+      {{ item.name }}
+    </a> -->
+    @if (item.name !== 'Logout') {
+    <a [routerLink]="item.link" class="dropdown-link" (click)="toggleMenu()">
+      <i class="{{ item.icon }}"></i>
+      {{ item.name }}
+    </a>
+    } @else {
+    <a class="dropdown-link" (click)="logout(); toggleMenu()">
+      <i class="{{ item.icon }}"></i>
+      {{ item.name }}
+    </a>
+    } }
+
+    <!-- Logout button for logged-in users -->
+    <!-- @if (isMobile && isLoggedIn) {
+    <a class="dropdown-link" (click)="logout(); toggleMenu()">
+      <i class="pi pi-sign-out"></i> Logout
+    </a>
+    } -->
+
+    <!-- <button class="theme-btn-item" (click)="toggleTheme()">
+      <i class="pi" [ngClass]="isDarkMode ? 'pi-sun' : 'pi-moon'"></i> Theme
+    </button> -->
+  </div>
+  }
+</nav>

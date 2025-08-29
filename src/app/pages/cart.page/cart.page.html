@@ -1,0 +1,125 @@
+  <section class="cart">
+    <!-- Animated Background -->
+    <div class="cart-bg">
+      <i class="pi pi-shopping-cart"></i>
+      <i class="pi pi-shopping-bag"></i>
+      <i class="pi pi-credit-card"></i>
+      <i class="pi pi-gift"></i>
+      <i class="pi pi-box"></i>
+    </div>
+
+    <!-- Page Title -->
+    <div class="cart-header">
+      <h1>My Cart</h1>
+      <p>Review your selected products and proceed to checkout.</p>
+    </div>
+
+    <!-- Cart Items -->
+    <div class="cart-data">
+      <div class="cart-items">
+        @for (item of cartItems; track item.id; let i = $index) {
+        <div class="cart-item" [attr.id]="'cart-item-' + item.id">
+          <div class="item-image">
+            <img [src]="item.imageUrl" [alt]="item.name" />
+          </div>
+
+          <div class="item-details">
+            <h3>{{ item.name }}</h3>
+
+            <!-- Discount tiers -->
+            <div class="price-options">
+              @for (tier of item.price.discountTiers; track $index; let ti = $index) {
+              <label class="price-option">
+                <input type="radio" name="price-{{ item.id }}" [value]="ti" (change)="onTierChange(item, ti)"
+                  [checked]="item.selectedOptions?.tier?.minQty === tier.minQty" />
+                <span>
+                  {{ tier.minQty }} units -
+                  ({{ tier.percent }}% off)
+                </span>
+              </label>
+              }
+
+            </div>
+          </div>
+
+          <div class="right-side pr-4">
+            <!-- Current Selected Total Price -->
+            <p class="price pt-3">
+              {{ getItemPrice(item).toFixed(1) }} EGP
+            </p>
+
+            <!-- Remove button -->
+            <div class="actions">
+              <button pButton type="button" class="p-button-danger remove-btn pt-4 mt-2"
+                (click)="removeFromCart(item.id, item.name)">
+                <i class="pi pi-trash"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+      <!-- Cart Summary -->
+      <div class="cart-summary-shipping">
+        <!-- Cart Shipping Options -->
+        <div class="shipping-box">
+          <h3>Choose Shipping</h3>
+
+          @for (option of shippingOptions; track option.id) {
+          <div class="shipping-option">
+            <label>
+              <input type="radio" name="shipping" [value]="option" [checked]="selectedShipping.id === option.id"
+                (change)="onShippingChange(option)" />
+              <div class="option-details">
+                <div class="option-main">
+                  <span class="company">{{ option.name }}</span>
+                  <span class="price">{{ option.price | currency : "EGP" }}</span>
+                </div>
+                <div class="option-sub">
+                  <span class="stars">⭐ {{ option.rating }}</span>
+                  <div class="days-badge">
+                    <span class="time">{{ option.time }}</span>
+                    @if (option.badge) {
+                    <span class="badge" [ngClass]="{
+                        fastest: option.badge === 'Fastest',
+                        cheapest: option.badge === 'Cheapest'
+                      }">{{ option.badge }}</span>
+                    }
+                  </div>
+                </div>
+              </div>
+            </label>
+          </div>
+          }
+        </div>
+
+        <!-- Cart Summary -->
+        <div class="cart-summary">
+          <h3>Order Summary</h3>
+          <div class="summary-item">
+            <span>Subtotal</span>
+            <span>{{ getSubtotal() | currency : "EGP" }}</span>
+          </div>
+          <div class="summary-item">
+            <span>Shipping</span>
+            <span>{{ shippingCost | currency : "EGP" }}</span>
+          </div>
+          <div class="summary-item total">
+            <span>Total</span>
+            <span>{{ getTotal() | currency : "EGP" }}</span>
+          </div>
+          <button type="button" class="btn btn-primary checkout-btn" (click)="goToCheckout()"
+            routerLinkActive="router-link-active">
+            <i class="pi pi-credit-card"></i> Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- confirm dialog -->
+  <p-confirmDialog></p-confirmDialog>
+
+  <div class="card flex justify-center gap-2">
+    <p-toast />
+  </div>

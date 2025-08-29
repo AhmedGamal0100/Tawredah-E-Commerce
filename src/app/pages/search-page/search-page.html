@@ -1,0 +1,40 @@
+<section class="flex">
+  <div class="min-h-screen  sidebar z-1">
+    <app-sidebar-filter (filtersToParent)="handleFilterFromChild($event)"></app-sidebar-filter>
+  </div>
+
+  <main class=" min-h-screen main px-3 py-3 z-0">
+    <div>
+      <app-search-bar (searchToParent)="handleSearchFromChild($event)"></app-search-bar>
+    </div>
+    <div class="lg:col-12 md:col-8">
+      <!-- Search Section -->
+
+      <!-- Results Section -->
+      <div>
+        <div class="flex justify-content-between align-items-center mb-4">
+          @if(productCount() > 0){
+          <h2 class="text-xl pt-3">{{productCount()}} results found</h2>
+          } @else {
+          <div class="flex-column justify-content-center align-items-center text-center relative mt-3">
+            <h2 class="text-xl pt-3 text-500 absolute text-center w-full mt-5"> No result found</h2>
+            <div class="w-12">
+              <img src="https://res.cloudinary.com/dg4emwgrs/image/upload/v1755955806/notfound_result_szbelz.png"
+                alt="not found" class="w-4">
+            </div>
+          </div>
+          }
+        </div>
+        <!-- @if(productCount() > 0){ -->
+        <app-product-list [products]="products" (countToParent)="handleCountFromChild($event)"></app-product-list>
+        <!-- } -->
+
+      </div>
+    </div>
+  </main>
+  <!-- Main Content -->
+
+  <!-- Content Area - lg:col-9 for large screens, full width on small -->
+
+  <!-- </div> -->
+</section>

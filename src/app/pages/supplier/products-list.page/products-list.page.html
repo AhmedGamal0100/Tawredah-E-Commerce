@@ -1,0 +1,67 @@
+
+<section>
+    <div class="page-header card-container ">
+        <div class="flex align-items-center justify-content-between ">
+          <h1>Products List</h1>
+          <button class=" addProduct btn-primary "  routerLink="/supplier/add-product">Add Product</button>
+        </div>
+      </div>
+      <p-card
+      
+  class="card-container mt-0"
+  [ngClass]="{ expanded: sidebarCollapsed }"
+>
+  <p-table
+  [value]="products"
+  [rows]="5"
+  [paginator]="true"
+  class="p-datatable-sm"
+  [scrollable]="true"
+  scrollHeight="flex"
+>
+  <ng-template pTemplate="header">
+    <tr>
+      <th class="header" pSortableColumn="id">ID</th>
+      <th class="header">Image</th>
+      <th class="header">Name</th>
+      <th class="header">Description</th>
+      <th class="header">Category</th>
+      <th class="header">Material</th>
+      <th class="header">Stock</th>
+      <th class="header">Price (EGP)</th>
+      <th class="header">Dimensions(W*H*L)</th>
+    </tr>
+  </ng-template>
+
+  <ng-template pTemplate="body" let-order>
+    <tr (click)="selectOrder(order)" class="clickable-row">
+      <td class="py-3 data">{{ order.id }}</td>
+      <td class="data">
+        <img class="product-img" [src]="order.imageUrl[0]" (click)="toProductId(order.id)" alt="" />
+      </td>
+      <td class="data">{{ order.name }}</td>
+      <td class="data">{{ order.description }}</td>
+      <td class="data">{{ order.category.sub }}</td>
+      <td class="data">{{ order.specs.material }}</td>
+      <td class="data">{{ order.inventory.stock }}</td>
+      <td class="data">
+        {{
+          order.price.discountTiers[0].minQty *
+            order.price.unit *
+            ((100 - order.price.discountTiers[0].percent) / 100) |currency:'EGP':'symbol':'1.0-0'
+        }}
+        -
+        {{
+          order.price.discountTiers[2].minQty *
+            order.price.unit *
+            ((100 - order.price.discountTiers[2].percent) / 100) |currency:'EGP':'symbol':'1.0-0'
+        }}
+      </td>
+      <td class="data">
+        {{ order.specs.dimensions.width }}cm *
+        {{ order.specs.dimensions.height }}cm *
+        {{ order.specs.dimensions.length }}cm
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

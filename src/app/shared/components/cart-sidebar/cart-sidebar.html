@@ -1,0 +1,18 @@
+<div class="cart-sidebar" [class.open]="isOpen">
+  <div class="header">
+    <h3>Cart</h3>
+    <button (click)="close.emit()">✕</button>
+  </div>
+
+  @if (product) {
+    <div class="details">
+      <img [src]="product.imageUrl?.[0]" [alt]="product.name" />
+      <h4>{{ product.name }}</h4>
+      <p>{{ product.description }}</p>
+      <p>Supplier: {{ product.supplier?.name }}</p>
+      <p>Price: {{ product.price.unit }} {{ product.price.currency }}</p>
+    </div>
+  } @else {
+    <p>No product selected</p>
+  }
+</div>

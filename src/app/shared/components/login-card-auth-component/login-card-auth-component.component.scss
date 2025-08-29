@@ -1,0 +1,38 @@
+:host {
+    ::ng-deep .p-card {
+        box-shadow: none !important;
+    }
+
+    ::ng-deep .p-card-body {
+        padding: 0;
+    }
+
+    .login-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 164px;
+        padding: 1.5rem 1rem 1rem;
+        border: 1px solid rgb(218, 218, 218);
+        border-radius: 0.5rem;
+    }
+
+
+    .login-card:hover {
+        background-color: rgba(218, 218, 218, 0.5);
+    }
+
+
+    .login-card-img {
+        width: 4.75rem;
+        height: 4.75rem;
+        border-radius: 50%;
+    }
+
+
+    h3 {
+        margin-top: 1rem;
+        font-size: 1rem;
+    }
+}

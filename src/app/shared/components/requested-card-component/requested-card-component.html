@@ -1,0 +1,19 @@
+<div class="p-2">
+    <div class="requestCard">
+        <div class="card-image relative">
+                <img class="border-round-md mb-2"
+                    src="/requestedPage/the-interior-has-a-armchair-on-empty-white-wall-background-3d-rendering 1.png"
+                    alt="">
+                    <p-tag severity="success" value="Trending" [rounded]="true" class="absolute top-0 left-0 m-2" />
+        </div>
+        <div class="card-content">
+            <h4 class="card-title">{{ product.name }}</h4>
+            <p class="card-description">{{ product.description }}</p>
+            <div class="button-group flex justify-content-between">
+                <p-button label="Details" variant="outlined" />
+                <p-button label={{product.upvotes}} icon="pi pi-arrow-up" class="mr-2"
+                    (click)="upvoteProduct(product)" />
+            </div>
+        </div>
+    </div>
+</div>

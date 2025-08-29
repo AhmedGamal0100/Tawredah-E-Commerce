@@ -1,0 +1,17 @@
+<div class="slider-container w-11 m-auto"
+     (mouseenter)="onMouseEnter()"
+     (mouseleave)="onMouseLeave()">
+
+  <div class="slider-wrapper flex flex-wrap"
+       >
+
+    @for (item of items; track $index) {
+      <div class="slider-item lg:w-3 md:w-6 sm:w-12">
+        <div class="px-2">
+        <app-new-requested-card [product]="item"></app-new-requested-card>
+            </div>
+      </div>
+    }
+
+  </div>
+</div>

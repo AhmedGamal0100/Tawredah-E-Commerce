@@ -1,0 +1,134 @@
+<div class="supplier-container">
+
+
+  <div class="main-content" [ngClass]="{'content-collapsed': sidebarCollapsed}">
+    <div class="admin-page">
+      <!-- Admin Header -->
+      <div class="page-header">
+        <h1>Admin Dashboard</h1>
+        <p>Complete management system for products, suppliers, and customers</p>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="grid p-fluid mt-3">
+        <div class="col-12 md:col-6 lg:col-3">
+          <p-card class="h-full">
+            <div class="flex justify-content-between align-items-center">
+              <div>
+                <span class="block text-600 font-medium mb-2">Total Products</span>
+                <div class="text-900 font-medium text-xl">{{totalProducts}}</div>
+              </div>
+              <div class="flex align-items-center justify-content-center bg-blue-100"
+                style="width:2.5rem;height:2.5rem; border-radius: 50%;">
+                <i class="pi pi-box text-blue-500"></i>
+              </div>
+            </div>
+          </p-card>
+        </div>
+
+        <div class="col-12 md:col-6 lg:col-3">
+          <p-card class="h-full">
+            <div class="flex justify-content-between align-items-center">
+              <div>
+                <span class="block text-600 font-medium mb-2">Active Suppliers</span>
+                <div class="text-900 font-medium text-xl">{{activeSuppliers}}</div>
+              </div>
+              <div class="flex align-items-center justify-content-center bg-green-100"
+                style="width:2.5rem;height:2.5rem; border-radius: 50%;">
+                <i class="pi pi-users text-green-500"></i>
+              </div>
+            </div>
+          </p-card>
+        </div>
+
+        <div class="col-12 md:col-6 lg:col-3">
+          <p-card class="h-full">
+            <div class="flex justify-content-between align-items-center">
+              <div>
+                <span class="block text-600 font-medium mb-2">Total Customers</span>
+                <div class="text-900 font-medium text-xl">{{totalCustomers}}</div>
+              </div>
+              <div class="flex align-items-center justify-content-center bg-purple-100"
+                style="width:2.5rem;height:2.5rem; border-radius: 50%;">
+                <i class="pi pi-user text-purple-500"></i>
+              </div>
+            </div>
+          </p-card>
+        </div>
+
+        <div class="col-12 md:col-6 lg:col-3">
+          <p-card class="h-full">
+            <div class="flex justify-content-between align-items-center">
+              <div>
+                <span class="block text-600 font-medium mb-2">Custom Requests</span>
+                <div class="text-900 font-medium text-xl">{{customRequests}}</div>
+              </div>
+              <div class="flex align-items-center justify-content-center bg-orange-100"
+                style="width:2.5rem;height:2.5rem; border-radius: 50%;">
+                <i class="pi pi-cog text-orange-500"></i>
+              </div>
+            </div>
+          </p-card>
+        </div>
+      </div>
+
+      <!-- Main Content Tabs Replacement -->
+      <div class="custom-tabs-container mt-4">
+        <!-- Tabs Navigation -->
+        <div class="tabs-header">
+          @for (tab of tabs; track tab.id) {
+          <div class="tab-item" [class.active]="activeTab === tab.id" (click)="setActiveTab(tab.id)">
+            <i [class]="tab.icon"></i>
+            <span>{{ tab.label }}</span>
+          </div>
+          }
+        </div>
+
+        <!-- Tabs Content -->
+        <div class="tabs-content">
+          <!-- Products Management -->
+          @if (activeTab === 'products') {
+          <div class="fade-in">
+            <app-products-management></app-products-management>
+          </div>
+          }
+
+          <!-- Suppliers Management -->
+          @if (activeTab === 'suppliers') {
+          <div class="fade-in">
+            <app-suppliers-management></app-suppliers-management>
+          </div>
+          }
+
+          <!-- Categories Management -->
+          <!-- @if (activeTab === 'categories') {
+          <div class="fade-in">
+            <app-categories-management></app-categories-management>
+          </div>
+          } -->
+
+          <!-- Customers Management -->
+          @if (activeTab === 'customers') {
+          <div class="fade-in">
+            <app-customers-management></app-customers-management>
+          </div>
+          }
+
+          <!-- Customization Requests -->
+          @if (activeTab === 'customization') {
+          <div class="fade-in">
+            <app-customization-requests></app-customization-requests>
+          </div>
+          }
+
+          <!-- Reports -->
+          @if (activeTab === 'reports') {
+          <div class="fade-in">
+            <app-reports-dashboard></app-reports-dashboard>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="past-orders" data-aos="fade-up" data-aos-duration="1200" data-aos-easing="ease-in-out">
+  <h1>Past Orders</h1>
+  @if (orders.length > 0) {
+  @for (order of orders; track order.id) {
+  <div class="order-card">
+    <div class="order-header">
+      <span class="order-id">Order #{{ order.id }}</span>
+      <span class="order-status" [ngClass]="order.status.toLowerCase()">
+        {{ order.status }}
+      </span>
+    </div>
+
+    <div class="order-details">
+      <p><strong>Date:</strong> {{ order.dueDate | date: 'medium' }}</p>
+      <p><strong>Items:</strong> {{ order.items }}</p>
+      <p><strong>Total:</strong> {{ order.price.total | currency: 'EGP' }}</p>
+    </div>
+  </div>
+  }
+  } @else {
+  <ng-template #noOrders>
+    <p class="empty-message">You have no past orders.</p>
+  </ng-template>
+  }
+</div>

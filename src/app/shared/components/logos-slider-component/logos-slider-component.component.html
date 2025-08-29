@@ -1,0 +1,11 @@
+<div class="slider-container">
+  <h2 style="color: var(--background-primary);">.................................................</h2>
+
+  <div class="slider-track" [ngStyle]="{'--speed': speed + 's'}">
+    @for (logo of logos; track $index) {
+    <div class="slide">
+      <img [src]="logo" alt="logo" />
+    </div>
+    }
+  </div>
+</div>

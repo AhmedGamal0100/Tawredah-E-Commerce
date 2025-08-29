@@ -1,0 +1,186 @@
+<div class="products-management">
+  <!-- Header Section -->
+  <div class="header-section mb-4">
+    <div class="flex justify-content-between align-items-center">
+      <h2>Products Management</h2>
+      <button pButton icon="pi pi-plus" label="Add Product" class="p-button-success" (click)="addProduct()"></button>
+    </div>
+    <p>Manage all your products, view their details, and track inventory and sales performance.</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid mb-4">
+    <div class="col-12 md:col-6 lg:col-3">
+      <p-card class="h-full">
+        <div class="flex justify-content-between align-items-center">
+          <div>
+            <span class="block text-600 font-medium mb-2">Total Products</span>
+            <div class="text-900 font-medium text-xl">{{ totalProducts }}</div>
+          </div>
+          <div class="flex align-items-center justify-content-center bg-blue-100"
+            style="width:2.5rem;height:2.5rem; border-radius: 50%;">
+            <i class="pi pi-box text-blue-500"></i>
+          </div>
+        </div>
+      </p-card>
+    </div>
+
+    <div class="col-12 md:col-6 lg:col-3">
+      <p-card class="h-full">
+        <div class="flex justify-content-between align-items-center">
+          <div>
+            <span class="block text-600 font-medium mb-2">Active Products</span>
+            <div class="text-900 font-medium text-xl">{{ activeProducts }}</div>
+          </div>
+          <div class="flex align-items-center justify-content-center bg-green-100"
+            style="width:2.5rem;height:2.5rem; border-radius: 50%;">
+            <i class="pi pi-check-circle text-green-500"></i>
+          </div>
+        </div>
+      </p-card>
+    </div>
+
+    <div class="col-12 md:col-6 lg:col-3">
+      <p-card class="h-full">
+        <div class="flex justify-content-between align-items-center">
+          <div>
+            <span class="block text-600 font-medium mb-2">Verified Products</span>
+            <div class="text-900 font-medium text-xl">{{ verifiedProducts }}</div>
+          </div>
+          <div class="flex align-items-center justify-content-center bg-purple-100"
+            style="width:2.5rem;height:2.5rem; border-radius: 50%;">
+            <i class="pi pi-star text-purple-500"></i>
+          </div>
+        </div>
+      </p-card>
+    </div>
+
+    <div class="col-12 md:col-6 lg:col-3">
+      <p-card class="h-full">
+        <div class="flex justify-content-between align-items-center">
+          <div>
+            <span class="block text-600 font-medium mb-2">Low Stock</span>
+            <div class="text-900 font-medium text-xl">{{ lowStockProducts }}</div>
+          </div>
+          <div class="flex align-items-center justify-content-center bg-orange-100"
+            style="width:2.5rem;height:2.5rem; border-radius: 50%;">
+            <i class="pi pi-exclamation-triangle text-orange-500"></i>
+          </div>
+        </div>
+      </p-card>
+    </div>
+  </div>
+
+  <!-- Search and Filter -->
+  <div class="flex flex-wrap gap-2 align-items-center mb-4">
+    <div class="search-container">
+      <div class="search-content">
+        <div class="flex w-full search">
+          <input placeholder="Search products..." [(ngModel)]="searchInput" (ngModelChange)="onSearchChange($event)" />
+          <button variant="text"><i class="pi pi-search"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Custom Category Selector -->
+    <div class="custom-selector">
+      <button class="selector-trigger" (click)="toggleCategoryDropdown()">
+        <span>{{ selectedCategory ? selectedCategory : 'All Categories' }}</span>
+        <i class="pi" [ngClass]="{'pi-chevron-down': !categoryDropdownOpen, 'pi-chevron-up': categoryDropdownOpen}"></i>
+      </button>
+      <div class="selector-options" [class.open]="categoryDropdownOpen">
+        @for (option of categoryOptions; track option.value) {
+        <div class="option" (click)="selectCategory(option.value)">
+          {{ option.label }}
+        </div>
+        }
+      </div>
+    </div>
+
+    <!-- Custom Status Selector -->
+    <div class="custom-selector">
+      <button class="selector-trigger" (click)="toggleStatusDropdown()">
+        <span>{{ getStatusLabel(selectedStatus) }}</span>
+        <i class="pi" [ngClass]="{'pi-chevron-down': !statusDropdownOpen, 'pi-chevron-up': statusDropdownOpen}"></i>
+      </button>
+      <div class="selector-options" [class.open]="statusDropdownOpen">
+        @for (option of statusOptions; track option.value) {
+        <div class="option" (click)="selectStatus(option.value)">
+          {{ option.label }}
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Products Table -->
+  <p-table [value]="filteredProducts" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10, 25, 50]"
+    [globalFilterFields]="['name','sku','description','supplier.name']">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>SKU</th>
+        <th>Product Name</th>
+        <th>Supplier</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td>{{product.sku}}</td>
+        <td>
+          <div class="flex align-items-center gap-2">
+            <img [src]="product.imageUrl[0]" [alt]="product.name" class="product-image">
+            <span>{{product.name}}</span>
+          </div>
+        </td>
+        <td>
+          <span class="supplier-badge">{{product.supplier.name}}</span>
+          <small class="rating">⭐ {{product.supplier.rating}}</small>
+        </td>
+        <td>
+          <p-tag [value]="product.category.main" severity="info"></p-tag>
+        </td>
+        <td>
+          <span class="price">{{product.price.unit | currency:product.price.currency}}</span>
+          <small *ngIf="product.price.discountTiers.length" class="discount">Discount available</small>
+        </td>
+        <td>
+          <div class="stock-info">
+            <span [class]="getStockClass(product.inventory.stock)">{{product.inventory.stock}}</span>
+            <small>{{product.inventory.unitType}}</small>
+          </div>
+        </td>
+        <td>
+          <p-tag [value]="product.status.isActive ? 'Active' : 'Inactive'"
+            [severity]="product.status.isActive ? 'success' : 'danger'"></p-tag>
+          <p-tag *ngIf="product.status.isVerified" value="Verified" severity="success" class="ml-1"></p-tag>
+        </td>
+        <td>
+          <div class="action-buttons">
+            <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-sm"
+              (click)="editProduct(product)" pTooltip="Edit"></button>
+            <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger p-button-sm"
+              (click)="deleteProduct(product)" pTooltip="Delete"></button>
+            <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text p-button-sm"
+              (click)="viewProduct(product)" pTooltip="View Details"></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8" class="empty-table">
+          <div class="empty-content">
+            <i class="pi pi-box"></i>
+            <h4>No products found</h4>
+            <p>Try adjusting your search or filter criteria</p>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

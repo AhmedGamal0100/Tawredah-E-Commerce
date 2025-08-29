@@ -1,0 +1,21 @@
+<section class="testimonials-section pt-5">
+  <h2 class="section-title">Testimonials</h2>
+  <div class="section-overlay"><i class="pi pi-comment"></i></div>
+  <div class="testimonial-wrapper">
+    <div class="testimonial-scroll-container" #scrollContainer>
+      @for (card of testimonials; track card; let i = $index) {
+      <div class="testimonial-card" (mouseenter)="focusCard(i)" (mouseleave)="unFocusCard()"
+        [ngClass]="{ 'active': i === activeIndex, 'inactive': i !== activeIndex }">
+        <div class="flex align-items-center gap-3 relative mb-3">
+          <div class="avatar-circle">
+            <img [src]="card.img" alt="{{ card.name }} photo" />
+          </div>
+          <p class="testimonial-author">{{ card.name }} <br> {{ card.role }}</p>
+          <div class="rating"><i class="pi pi-star-fill"></i> {{ card.rate }}</div>
+        </div>
+        <p class="testimonial-text">"{{ card.review }}"</p>
+      </div>
+      }
+    </div>
+  </div>
+</section>

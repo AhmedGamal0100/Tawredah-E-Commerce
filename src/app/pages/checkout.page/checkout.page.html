@@ -1,0 +1,228 @@
+
+<form #checkoutForm="ngForm" (ngSubmit)="placeOrder()" novalidate>
+  <!-- Animated Background -->
+  <div class="checkout-bg">
+    <i class="pi pi-shopping-cart"></i>
+    <i class="pi pi-shopping-bag"></i>
+    <i class="pi pi-credit-card"></i>
+    <i class="pi pi-gift"></i>
+    <i class="pi pi-box"></i>
+  </div>
+
+  <section class="checkout">
+    <div class="checkout-header">
+      <h1>Checkout</h1>
+      <p>Complete your order by providing your details below.</p>
+    </div>
+
+    <div class="checkout-content">
+      <!-- LEFT SIDE: FORM SECTIONS -->
+      <div class="checkout-form">
+        <!-- Shipping Details -->
+        <div class="form-section">
+          <h3>Shipping Information</h3>
+          <div class="form-group">
+            <label>Full Name <small>*</small></label>
+            <input
+              type="text"
+              name="name"
+              [(ngModel)]="shippingDetails.name"
+              placeholder="Enter your name"
+              required
+              minlength="3"
+              #nameRef="ngModel"
+            />
+            @if (nameRef.invalid && nameRef.touched) {
+            <small class="error-msg">
+              Name is required (min 3 characters).
+            </small>
+            }
+          </div>
+
+          <div class="form-group">
+            <label>Address <small>*</small></label>
+            <input
+              type="text"
+              name="address"
+              [(ngModel)]="shippingDetails.address"
+              placeholder="Street address"
+              required
+              minlength="5"
+              #addressRef="ngModel"
+            />
+            @if (addressRef.invalid && addressRef.touched) {
+            <small class="error-msg">
+              Address is required (min 5 characters).
+            </small>
+            }
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>City <small>*</small></label>
+              <input
+                type="text"
+                name="city"
+                [(ngModel)]="shippingDetails.city"
+                placeholder="City"
+                required
+                #cityRef="ngModel"
+              />
+              @if (cityRef.invalid && cityRef.touched) {
+              <small class="error-msg"> City is required. </small>
+              }
+            </div>
+
+            <div class="form-group">
+              <label>Postal Code</label>
+              <input
+                type="text"
+                name="postalCode"
+                [(ngModel)]="shippingDetails.postalCode"
+                placeholder="Postal code"
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Phone Number <small>*</small></label>
+            <input
+              type="tel"
+              name="phone"
+              [(ngModel)]="shippingDetails.phone"
+              placeholder="+20 123 456 7890"
+              required
+              pattern="^\+?\d{7,15}$"
+              #phoneRef="ngModel"
+            />
+            @if (phoneRef.invalid && phoneRef.touched) {
+            <small class="error-msg"> Enter a valid phone number. </small>
+            }
+          </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="form-section">
+          <h3>Payment Method</h3>
+          <label class="radio-option">
+            <input
+              type="radio"
+              name="payment"
+              value="cod"
+              [(ngModel)]="paymentMethod"
+            />
+            Cash on Delivery
+          </label>
+          <label class="radio-option">
+            <input
+              type="radio"
+              name="payment"
+              value="card"
+              [(ngModel)]="paymentMethod"
+            />
+            Credit/Debit Card
+          </label>
+        </div>
+
+        <!-- Payment Details -->
+        @if (paymentMethod === 'card') {
+        <div class="form-section">
+          <h3>Payment Details</h3>
+          <div class="form-group">
+            <label>Card Number <small>*</small></label>
+            <input
+              type="text"
+              name="cardNumber"
+              [(ngModel)]="paymentDetails.cardNumber"
+              placeholder="1234 5678 9012 3456"
+              required
+              pattern="^\d{16}$"
+              #cardNumberRef="ngModel"
+            />
+            @if (cardNumberRef.invalid && cardNumberRef.touched) {
+            <small class="error-msg"> Card number must be 16 digits. </small>
+            }
+          </div>
+
+          <div class="form-group">
+            <label>Name on Card <small>*</small></label>
+            <input
+              type="text"
+              name="cardName"
+              [(ngModel)]="paymentDetails.cardName"
+              placeholder="Full name"
+              required
+              #cardNameRef="ngModel"
+            />
+            @if (cardNameRef.invalid && cardNameRef.touched) {
+            <small class="error-msg"> Name on card is required. </small>
+            }
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label>Expiry Date <small>*</small></label>
+              <input
+                type="text"
+                name="expiry"
+                [(ngModel)]="paymentDetails.expiry"
+                placeholder="MM/YY"
+                required
+                pattern="^(0[1-9]|1[0-2])\/\d{2}$"
+                #expiryRef="ngModel"
+              />
+              @if (expiryRef.invalid && expiryRef.touched) {
+              <small class="error-msg"> Format must be MM/YY. </small>
+              }
+            </div>
+
+            <div class="form-group">
+              <label>CVV <small>*</small></label>
+              <input
+                type="text"
+                name="cvv"
+                [(ngModel)]="paymentDetails.cvv"
+                placeholder="123"
+                required
+                pattern="^\d{3,4}$"
+                #cvvRef="ngModel"
+              />
+              @if (cvvRef.invalid && cvvRef.touched) {
+              <small class="error-msg"> CVV must be 3–4 digits. </small>
+              }
+            </div>
+          </div>
+        </div>
+        }
+      </div>
+
+      <!-- RIGHT SIDE: ORDER SUMMARY -->
+      <div class="checkout-summary">
+        <h3>Order Summary</h3>
+        <div class="summary-item">
+          <span>Subtotal</span>
+          <span>{{ subtotalPrice | currency : "EGP" }}</span>
+        </div>
+        <div class="summary-item">
+          <span>Shipping</span>
+          <span>{{ shippingPrice | currency : "EGP" }}</span>
+        </div>
+        <div class="summary-item total">
+          <span>Total</span>
+          <span>{{ totalPrice | currency : "EGP" }}</span>
+        </div>
+        <div class="btn-container">
+          <button
+            type="button"
+            class="checkout-btn btn btn-primary"
+            (click)="placeOrder()"
+            >
+            <!-- [disabled]="checkoutForm.invalid" -->
+            <i class="pi pi-check"></i> Place Order
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+<p-toast></p-toast>

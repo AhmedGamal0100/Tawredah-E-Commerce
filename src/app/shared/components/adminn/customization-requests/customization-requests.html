@@ -1,0 +1,182 @@
+<div class="customization-requests">
+  <!-- Header Section -->
+  <div class="header-section mb-4">
+    <div class="flex justify-content-between align-items-center">
+      <h2>Customization Requests</h2>
+      <button pButton icon="pi pi-filter" label="Filter Requests" class="p-button-outlined p-button-secondary"
+        (click)="showFilterDialog()"></button>
+    </div>
+    <p>Manage and review product customization requests from customers. Approve, reject, or request more information.
+    </p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid mb-4">
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-blue-100">
+          <i class="pi pi-inbox text-blue-500"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Total Requests</span>
+          <span class="stat-value">{{ totalRequests }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-yellow-100">
+          <i class="pi pi-clock text-yellow-500"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Pending Review</span>
+          <span class="stat-value">{{ pendingRequests }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-green-100">
+          <i class="pi pi-check-circle text-green-500"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Approved</span>
+          <span class="stat-value">{{ approvedRequests }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-red-100">
+          <i class="pi pi-times-circle text-red-500"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Rejected</span>
+          <span class="stat-value">{{ rejectedRequests }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search and Filter -->
+  <div class="flex flex-wrap gap-2 align-items-center mb-4">
+    <div class="search-container">
+      <div class="search-content">
+        <div class="flex w-full search">
+          <input placeholder="Search requests..." [(ngModel)]="searchInput" (input)="applyFilters()" />
+          <button variant="text"><i class="pi pi-search"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-selector">
+      <button class="selector-trigger" (click)="toggleStatusDropdown()">
+        <span>{{ getStatusLabel(selectedStatus) }}</span>
+        <i class="pi" [ngClass]="{'pi-chevron-down': !statusDropdownOpen, 'pi-chevron-up': statusDropdownOpen}"></i>
+      </button>
+      <div class="selector-options" [class.open]="statusDropdownOpen">
+        @for (option of statusOptions; track option.value) {
+        <div class="option" (click)="selectStatus(option.value)">
+          {{ option.label }}
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="custom-selector">
+      <button class="selector-trigger" (click)="togglePriorityDropdown()">
+        <span>{{ getPriorityLabel(selectedPriority) }}</span>
+        <i class="pi" [ngClass]="{'pi-chevron-down': !priorityDropdownOpen, 'pi-chevron-up': priorityDropdownOpen}"></i>
+      </button>
+      <div class="selector-options" [class.open]="priorityDropdownOpen">
+        @for (option of priorityOptions; track option.value) {
+        <div class="option" (click)="selectPriority(option.value)">
+          {{ option.label }}
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Requests Table -->
+  <p-table [value]="filteredRequests" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10, 25, 50]"
+    [globalFilterFields]="['customerName','productName','description','requestId']">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="requestId" style="width: 120px">Request ID <p-sortIcon field="requestId"></p-sortIcon></th>
+        <th pSortableColumn="customerName">Customer <p-sortIcon field="customerName"></p-sortIcon></th>
+        <th pSortableColumn="productName">Product <p-sortIcon field="productName"></p-sortIcon></th>
+        <th pSortableColumn="requestDate">Request Date <p-sortIcon field="requestDate"></p-sortIcon></th>
+        <th pSortableColumn="dueDate">Due Date <p-sortIcon field="dueDate"></p-sortIcon></th>
+        <th pSortableColumn="priority">Priority <p-sortIcon field="priority"></p-sortIcon></th>
+        <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+        <th style="width: 150px">Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-request>
+      <tr>
+        <td>
+          <span class="request-id">{{ request.requestId }}</span>
+        </td>
+        <td>
+          <div class="customer-info">
+            <div class="customer-avatar">
+              {{ request.customerName.charAt(0).toUpperCase() }}
+            </div>
+            <div class="customer-details">
+              <span class="customer-name">{{ request.customerName }}</span>
+              <span class="customer-email">{{ request.customerEmail }}</span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="product-info">
+            <span class="product-name">{{ request.productName }}</span>
+            <span class="product-sku">{{ request.productSku }}</span>
+          </div>
+        </td>
+        <td>
+          <span class="request-date">{{ request.requestDate | date:'mediumDate' }}</span>
+        </td>
+        <td>
+          <span class="due-date"
+            [ngClass]="{'due-soon': isDueSoon(request.dueDate), 'overdue': isOverdue(request.dueDate)}">
+            {{ request.dueDate | date:'mediumDate' }}
+          </span>
+        </td>
+        <td>
+          <p-tag [value]="request.priority" [severity]="request.priority === 'High' ? 'danger' : 
+                            (request.priority === 'Medium' ? 'warning' : 'info')"></p-tag>
+        </td>
+        <td>
+          <p-tag [value]="request.status" [severity]="request.status === 'Approved' ? 'success' : 
+                            (request.status === 'Rejected' ? 'danger' : 
+                            (request.status === 'In Progress' ? 'info' : 'warning'))"></p-tag>
+        </td>
+        <td>
+          <div class="action-buttons">
+            <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text p-button-sm"
+              (click)="viewRequest(request)" pTooltip="View Details"></button>
+            @if (request.status === 'Pending') {
+            <button pButton icon="pi pi-check" class="p-button-rounded p-button-text p-button-success p-button-sm"
+              (click)="approveRequest(request)" pTooltip="Approve"></button>
+            <button pButton icon="pi pi-times" class="p-button-rounded p-button-text p-button-danger p-button-sm"
+              (click)="rejectRequest(request)" pTooltip="Reject"></button>
+            }
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="8" class="empty-table">
+          <div class="empty-content">
+            <i class="pi pi-inbox"></i>
+            <h4>No customization requests found</h4>
+            <p>Try adjusting your search or filter criteria</p>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

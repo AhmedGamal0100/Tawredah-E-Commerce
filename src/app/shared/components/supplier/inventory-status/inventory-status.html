@@ -1,0 +1,30 @@
+<p-card header="Inventory Status" class="h-full">
+  <p-table [value]="inventoryStatus" [rows]="5" [paginator]="true" styleClass="p-datatable-sm inventory-table"
+    [scrollable]="true" scrollHeight="flex" [paginator]="true" >
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Product</th>
+        <th>Stock Level</th>
+        <th>Status</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td>
+          <div class="product-name">{{item.product}}</div>
+        </td>
+        <td>
+          <p-progressBar [value]="getInventoryPercentage(item.stock)" [showValue]="false"
+            [style]="{'height': '16px'}" [styleClass]="getProgressBarClass(item.status)">
+          </p-progressBar>
+          <div class="stock-info">
+            <small>{{item.stock}} unit</small>
+          </div>
+        </td>
+        <td>
+          <p-tag [value]="item.status" [severity]="getSeverity(item.status)"></p-tag>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

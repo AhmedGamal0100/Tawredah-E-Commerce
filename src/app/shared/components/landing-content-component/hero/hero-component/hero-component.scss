@@ -1,0 +1,158 @@
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 400px; // full screen hero
+  padding: 0 5%;
+  background: var(--background-primary);
+  overflow: hidden;
+  position: relative;
+
+  .hero-content {
+    flex: 1;
+    z-index: 2; // stay above images
+    // max-width: 500px;
+
+    .hero-title {
+      font-size: 100px;
+      // font-weight: 900;
+      margin-bottom: -10px;
+      color: var(--primary-color);
+    }
+
+    .hero-subtitle {
+      font-size: 30px;
+      margin-bottom: 2rem;
+      margin-left: 20px;
+      color: var(--secondary-color);
+    }
+
+    .explore-btn {
+      // cursor: pointer !important;
+      padding: 0.8rem 2rem;
+      font-size: 2.2rem;
+      border-radius: 15px;
+      margin-left: 20px;
+    }
+  }
+}
+
+.hero img {
+  position: absolute;
+  width: 160px; /* small size */
+  height: 160px;
+  object-fit: contain;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  opacity: 0.9;
+}
+
+/* Floating down */
+.float1 {
+  top: 0; /* start above viewport */
+  left: 85%;
+  animation-name: moveDown;
+  animation-duration: 10s; /* adjust speed */
+}
+.float3 {
+  top: -120px; /* start above viewport */
+  left: 85%;
+  animation-name: moveDown;
+  animation-duration: 10s; /* adjust speed */
+}
+.float5 {
+  top: -240px; /* start above viewport */
+  left: 85%;
+  animation-name: moveDown;
+  animation-duration: 10s; /* adjust speed */
+}
+.float7 {
+  top: -360px; /* start above viewport */
+  left: 85%;
+  animation-name: moveDown;
+  animation-duration: 10s; /* adjust speed */
+}
+.float9 {
+  top: -480px; /* start above viewport */
+  left: 85%;
+  animation-name: moveDown;
+  animation-duration: 10s; /* adjust speed */
+}
+.float11 {
+  top: -600px; /* start above viewport */
+  left: 85%;
+  animation-name: moveDown;
+  animation-duration: 10s; /* adjust speed */
+}
+
+/* Floating up */
+.float2 {
+  bottom: 0; /* start below viewport */
+  left: 70%;
+  animation-name: moveUp;
+  animation-duration: 10s; /* adjust speed */
+}
+.float4 {
+  bottom: 120px; /* start below viewport */
+  left: 70%;
+  animation-name: moveUp;
+  animation-duration: 10s; /* adjust speed */
+}
+.float6 {
+  bottom: 240px; /* start below viewport */
+  left: 70%;
+  animation-name: moveUp;
+  animation-duration: 10s; /* adjust speed */
+}
+.float8 {
+  bottom: -120px; /* start below viewport */
+  left: 70%;
+  animation-name: moveUp;
+  animation-duration: 10s; /* adjust speed */
+}
+.float10 {
+  bottom: -240px; /* start below viewport */
+  left: 70%;
+  animation-name: moveUp;
+  animation-duration: 10s; /* adjust speed */
+}
+.float12 {
+  bottom: -360px; /* start below viewport */
+  left: 70%;
+  animation-name: moveUp;
+  animation-duration: 10s; /* adjust speed */
+}
+
+@keyframes moveDown {
+  0% {
+    transform: translateY(-100px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(110vh);
+    opacity: 0;
+  }
+}
+
+@keyframes moveUp {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
+}

@@ -1,0 +1,81 @@
+<!-- Sidebar for desktop -->
+<div class="supplier-sidebar hidden md:block" [ngClass]="{'collapsed': collapsed}">
+  <div class="sidebar-menu">
+    <ul class="p-list p-0">
+      @for (item of menuItems; track item.label) {
+      <li>
+        <a [routerLink]="item.routerLink" class="p-3 flex align-items-center gap-3 menu-item"
+          [ngClass]="{'active': item.routerLink === activeRoute}">
+          <i [class]="'pi ' + item.icon"></i>
+          @if (!collapsed) {
+          <span>{{item.label}}</span>
+          }
+        </a>
+      </li>
+      }
+    </ul>
+  </div>
+
+  <!-- Upgrade to Pro Card -->
+  @if (!collapsed) {
+  <div class="upgrade-card">
+    <div class="upgrade-content">
+      <div class="upgrade-icon">
+        <i class="pi pi-star-fill"></i>
+      </div>
+      <h4>Upgrade to Pro</h4>
+      <p>Unlock all premium features and advanced analytics</p>
+      <button pButton class="upgrade-btn">Upgrade Now</button>
+    </div>
+  </div>
+  } @else {
+  <div class="upgrade-card-collapsed">
+    <div class="upgrade-icon-collapsed">
+      <i class="pi pi-star-fill"></i>
+    </div>
+  </div>
+  }
+</div>
+
+<!-- Drawer for mobile -->
+<div class="mobile-drawer-overlay" [class.active]="mobileDrawerVisible" (click)="closeMobileDrawer()"></div>
+<div class="mobile-drawer" [class.active]="mobileDrawerVisible">
+  <div class="drawer-header">
+    <h3>Menu</h3>
+    <button class="drawer-close-btn" (click)="closeMobileDrawer()">
+      <i class="pi pi-times"></i>
+    </button>
+  </div>
+  <div class="drawer-content">
+    <ul class="p-list p-0">
+      @for (item of menuItems; track item.label) {
+      <li>
+        <a [routerLink]="item.routerLink" class="p-3 flex align-items-center gap-3 menu-item"
+          [ngClass]="{'active': item.routerLink === activeRoute}" (click)="closeMobileDrawer()">
+          <i [class]="'pi ' + item.icon"></i>
+          <span>{{item.label}}</span>
+        </a>
+      </li>
+      }
+    </ul>
+
+    <!-- Upgrade to Pro Card for Mobile -->
+    <div class="upgrade-card-mobile">
+      <div class="upgrade-content">
+        <div class="upgrade-icon">
+          <i class="pi pi-star-fill"></i>
+        </div>
+        <h4>Upgrade to Pro</h4>
+        <p>Unlock all premium features and advanced analytics</p>
+        <button pButton class="upgrade-btn">Upgrade Now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Mobile toggle button -->
+<div class="mobile-sidebar-toggle md:hidden">
+  <button pButton class="p-button-text p-button-rounded" (click)="toggleMobileDrawer()">
+    <i class="pi pi-bars"></i>
+  </button>
+</div>

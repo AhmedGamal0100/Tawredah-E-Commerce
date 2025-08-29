@@ -1,0 +1,121 @@
+@import './assets/styles/variables.css';
+@import "primeicons/primeicons.css";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: auto;
+
+  font-family: var(--font-family);
+  font-size: var(--font-size);
+  line-height: var(--line-height);
+
+  color: var(--primary-color);
+  background-color: var(--background-primary);
+}
+
+/* ======= Typography ======= */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin-top: 0;
+  font-weight: 700;
+  color: var(--primary-color);
+  margin-bottom: 0.5em;
+}
+
+h1 {
+  font-size: 48px;
+}
+
+h2 {
+  font-size: 32px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+li {
+  font-size: 16px;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1em;
+  color: var(--secondary-color);
+  font-size: 16px;
+  line-height: 140%;
+  font-weight: 400;
+}
+
+a {
+  color: var(--brand-primary-color);
+  transition: 0.3s ease-in-out;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ======= Buttons ======= */
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  border: none;
+  font-size: 1.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--brand-primary-color);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--brand-primary-color-hover);
+}
+
+.btn-secondary {
+  background-color: #ffffff;
+  color: #000000;
+}
+
+.btn-secondary:hover {
+  background-color: #e7eaed;
+  /* color: var(--secondary-btn); */
+}
+
+.primary-color {
+  color: var(--brand-primary-color);
+}
+

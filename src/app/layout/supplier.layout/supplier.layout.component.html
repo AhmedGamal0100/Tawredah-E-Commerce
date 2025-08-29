@@ -1,0 +1,12 @@
+<div class="supplier-container">
+    <app-supplier-navbar [sidebarCollapsed]="sidebarCollapsed" [userName]="userName" [darkMode]="darkMode"
+        [mobileDrawerVisible]="mobileDrawerVisible" (sidebarToggled)="toggleSidebar()"
+        (darkModeToggled)="toggleDarkMode()" (mobileDrawerVisibleChange)="mobileDrawerVisible = $event"
+        (mobileSidebarToggled)="toggleMobileDrawer($event)">
+    </app-supplier-navbar>
+
+    <app-supplier-sidebar [collapsed]="sidebarCollapsed" [mobileDrawerVisible]="mobileDrawerVisible"
+        (collapsedToggled)="sidebarCollapsed = $event" (mobileDrawerVisibleChange)="mobileDrawerVisible = $event">
+    </app-supplier-sidebar>
+    <router-outlet />
+</div>

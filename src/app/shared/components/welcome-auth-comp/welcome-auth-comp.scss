@@ -1,0 +1,64 @@
+.welcome-auth {
+    background-color: rgba(246, 246, 246, 0.6);
+    border-radius: 1rem;
+    min-height: 560px;
+    border: 1px solid rgb(218, 218, 218);
+
+    .welcome-auth-container {
+        padding: 3rem;
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+    }
+
+    .welcome-auth-btns {
+        border: 1px solid var(--brand-primary-color);
+        border-radius: 0.25rem;
+        padding: 10px 12px;
+        margin-bottom: 1.5rem;
+    }
+
+    h3 {
+        font-weight: 700;
+        margin-bottom: 1.625rem;
+    }
+
+    .welcome-auth-card-btns {
+        ::ng-deep .p-button {
+            border: 0;
+            padding: 0;
+            background: 0;
+        }
+    }
+
+    .welcome-role-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 164px;
+        padding: 1.5rem 1rem 1rem;
+        border: 1px solid rgb(218, 218, 218);
+        border-radius: 0.5rem;
+        cursor: pointer;
+
+        h4 {
+            width: 100%;
+            color: var(--brand-primary-color);
+            font-weight: bold;
+            font-size: 1.25rem;
+        }
+
+        p{
+            color: var(--text-secondary-color);
+        }
+    }
+
+    .welcome-role-card:hover {
+        background-color: rgba(218, 218, 218, 0.7);
+    }
+}

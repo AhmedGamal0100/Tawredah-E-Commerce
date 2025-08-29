@@ -1,0 +1,103 @@
+body {
+    background-color: var(--background-primary);
+}
+
+// .container {
+//     width: 90%;
+//     margin: auto;
+// }
+
+.request-box {
+    background: rgba(255, 255, 255, 0.2); // transparent glass effect
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    width: 90%;
+    margin: auto;
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+h3,
+h2 {
+    margin: 0;
+}
+
+.requset-product {
+    background-image: url(/home/Rectangle\ 86.png);
+    background-size: cover;
+}
+
+.icon-responsive {
+    font-size: 1.5rem;
+    /* mobile */
+}
+
+.search input {
+    background-color: var(--background-content);
+    border: 1px solid var(--secondary-color);
+    border-right: none;
+    border-radius: 0.5rem 0 0 0.5rem;
+    padding: 0 1rem 0 1rem;
+}
+
+.search button {
+    background-color: var(--brand-primary-color);
+    border: none;
+    border-radius: 0 0.5rem 0.5rem 0;
+}
+
+.search button:hover {
+    background-color: var(--brand-primary-color-hover);
+}
+
+.search i {
+    color: white;
+    padding: 0.5rem;
+}
+
+.search .addFormBtn {
+    border-radius: 0.5rem;
+}
+
+.categories {
+    // justify-content: center;
+    // margin-bottom: 2rem;
+
+    .category-chip {
+        background: var(--background-content);
+        padding: 0.5rem 1rem;
+        border-radius: 20px;
+        border: none;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: var(--brand-primary-color-hover);
+            color: white;
+        }
+
+        &.active {
+            background: var(--brand-primary-color);
+            color: white;
+        }
+    }
+}
+
+@media (min-width: 769px) {
+    .icon-responsive {
+        font-size: 2.2rem;
+    }
+}
+
+@media (min-width: 1024px) {
+    .icon-responsive {
+        font-size: 3rem;
+    }
+}
+
+/* Extra small text utility for PrimeFlex */
+.text-2xs {
+    font-size: 0.65rem;
+}

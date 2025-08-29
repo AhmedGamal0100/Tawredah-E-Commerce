@@ -1,0 +1,89 @@
+<p-card header="Product Customization Requests" class="h-full">
+  <!-- Search Bar and Filter -->
+  <div class="flex flex-wrap gap-3 align-items-center mb-3">
+    <!-- Search Bar -->
+    <div class="search-container flex-grow-1">
+      <div class="search-content">
+        <div class="flex w-full search">
+          <input placeholder="Search requests..." [(ngModel)]="searchInput" (ngModelChange)="onSearchChange($event)" />
+          <button variant="text" (click)="applySearch()"><i class="pi pi-search"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Menu -->
+    <!-- <p-menu #menu [model]="statusMenuItems" [popup]="true"></p-menu>
+    <button pButton pRipple icon="pi pi-filter" label="{{getSelectedStatusLabel()}}" (click)="menu.toggle($event)"
+      class="p-button-outlined filter-btn"></button> -->
+
+    @if (selectedStatus) {
+    <button pButton pRipple icon="pi pi-times" label="Clear Filter" (click)="clearStatusFilter()"
+      class="p-button-text p-button-secondary"></button>
+    }
+  </div>
+
+  <p-table [value]="filteredRequests" [rows]="5" [paginator]="true" styleClass="p-datatable-sm" [scrollable]="true"
+    scrollHeight="flex">
+
+    <ng-template pTemplate="header">
+      <tr>
+        <!-- <th>Image</th> -->
+        <!-- <th>Image</th> -->
+        <th>Name</th>
+        <th>Request ID</th>
+        <th>Custom Details</th>
+        <th>Status</th>
+        <th>Vote</th>
+        <th>To Details</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-request>
+      <tr>
+        <!-- <td><img [src]="request.image" alt="image"></td> -->
+        <!-- <td>{{request.image}}</td> -->
+        <td>{{request.product}}</td>
+        <td>{{request.id}}</td>
+        <td class="text-justify	">{{request.details}}</td>
+        <td>
+          <p-tag [value]="request.status" [severity]="getSeverity(request.status)"></p-tag>
+        </td>
+        <td>
+          {{request.votes}}
+        </td>
+        <td>
+          <button pButton pRipple icon="pi pi-eye" class="p-button-rounded p-button-text p-button-sm"
+            [pTooltip]="'View details'" tooltipPosition="top" (click)="toDetails(request.id)"></button>
+
+          <!-- @if (request.status === 'Under Review') { -->
+          <!-- <button pButton pRipple icon="pi pi-check"
+            class="p-button-rounded p-button-text p-button-success p-button-sm ml-2" (click)="approveRequest(request)"
+            [pTooltip]="'Approve request'" tooltipPosition="top"></button> -->
+          <!-- <button pButton pRipple icon="pi pi-times"
+            class="p-button-rounded p-button-text p-button-danger p-button-sm ml-2" (click)="rejectRequest(request)"
+            [pTooltip]="'Reject request'" tooltipPosition="top"></button> -->
+          <!-- } -->
+          <!-- @else {
+          <button pButton pRipple icon="pi pi-check"
+            class="p-button-rounded p-button-text p-button-success p-button-sm ml-2 p-disabled" disabled></button>
+          <button pButton pRipple icon="pi pi-times"
+            class="p-button-rounded p-button-text p-button-danger p-button-sm ml-2 p-disabled" disabled></button>
+          } -->
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5" class="text-center p-4">
+          <i class="pi pi-search" style="font-size: 2rem;"></i>
+          <p class="text-500 mt-2">No requests found matching your criteria</p>
+          @if (selectedStatus || searchInput) {
+          <button pButton label="Clear All Filters" icon="pi pi-times" (click)="clearAllFilters()"
+            class="p-button-text p-button-sm mt-2"></button>
+          }
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-card>

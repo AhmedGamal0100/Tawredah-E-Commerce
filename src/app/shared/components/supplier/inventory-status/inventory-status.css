@@ -1,0 +1,197 @@
+:host {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.p-card {
+  height: 100%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--surface-border);
+  border-radius: 12px;
+}
+
+.p-card .p-card-header {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+  padding: 1.5rem 1.5rem 0.5rem;
+}
+
+.p-card .p-card-body {
+  padding: 0.5rem 1.5rem 1.5rem;
+}
+
+.p-datatable-sm {
+  font-size: 0.95rem;
+}
+
+/* تحسين تنسيق الجدول */
+::ng-deep .inventory-table .p-datatable-thead > tr > th {
+  background-color: var(--surface-50);
+  color: var(--text-color);
+  font-weight: 600;
+  padding: 1rem 0.75rem;
+  text-align: center;
+  border: none;
+}
+
+::ng-deep .inventory-table .p-datatable-tbody > tr > td {
+  padding: 1rem 0.75rem;
+  text-align: center;
+  vertical-align: middle;
+  border: none;
+  border-bottom: 1px solid var(--surface-border);
+}
+
+::ng-deep .inventory-table .p-datatable-tbody > tr:last-child > td {
+  border-bottom: none;
+}
+
+/* تحسين عمود المنتج */
+::ng-deep .inventory-table .p-datatable-thead > tr > th:first-child,
+::ng-deep .inventory-table .p-datatable-tbody > tr > td:first-child {
+  text-align: left;
+  width: 25%;
+  padding-left: 1.5rem;
+}
+
+/* تحسين عمود مستوى المخزون */
+::ng-deep .inventory-table .p-datatable-tbody > tr > td:nth-child(2) {
+  width: 45%;
+}
+
+/* تحسين عمود الحالة */
+::ng-deep .inventory-table .p-datatable-tbody > tr > td:last-child {
+  width: 30%;
+}
+
+/* تحسين شريط التقدم */
+::ng-deep .inventory-table .p-progressbar {
+  height: 16px !important;
+  border-radius: 10px;
+  background-color: var(--surface-100) !important;
+  margin-bottom: 0.5rem;
+}
+
+::ng-deep .inventory-table .p-progressbar-value {
+  border-radius: 10px;
+}
+
+::ng-deep .progressbar-success .p-progressbar-value {
+  background: linear-gradient(90deg, #10b981, #34d399) !important;
+}
+
+::ng-deep .progressbar-warning .p-progressbar-value {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24) !important;
+}
+
+::ng-deep .progressbar-danger .p-progressbar-value {
+  background: linear-gradient(90deg, #ef4444, #f87171) !important;
+}
+
+/* تحسين النص تحت شريط التقدم */
+.stock-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.stock-info small {
+  color: var(--text-color-secondary);
+  font-weight: 500;
+}
+
+.stock-info .text-500 {
+  color: var(--text-color-secondary);
+  font-size: 0.85rem;
+}
+
+/* تحسين الـ Tag */
+::ng-deep .inventory-table .p-tag {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.4rem 0.8rem;
+  min-width: 100px;
+}
+
+/* تأثيرات عند التمرير */
+::ng-deep .inventory-table .p-datatable-tbody > tr {
+  transition: background-color 0.2s;
+}
+
+::ng-deep .inventory-table .p-datatable-tbody > tr:hover {
+  background-color: var(--surface-50) !important;
+}
+
+/* تحسين Paginator */
+::ng-deep .inventory-table .p-paginator {
+  background: transparent;
+  border: none;
+  padding: 1rem 0;
+}
+
+::ng-deep .inventory-table .p-paginator .p-paginator-pages .p-paginator-page {
+  min-width: 2.5rem;
+  height: 2.5rem;
+}
+
+::ng-deep
+  .inventory-table
+  .p-paginator
+  .p-paginator-pages
+  .p-paginator-page.p-highlight {
+  background: var(--primary-color);
+  color: white;
+  border-radius: 8px;
+}
+
+/* تصميم متجاوب */
+@media (max-width: 960px) {
+  .p-datatable-sm {
+    font-size: 0.9rem;
+  }
+
+  ::ng-deep .inventory-table .p-datatable-thead > tr > th,
+  ::ng-deep .inventory-table .p-datatable-tbody > tr > td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  ::ng-deep .inventory-table .p-datatable-thead > tr > th:first-child,
+  ::ng-deep .inventory-table .p-datatable-tbody > tr > td:first-child {
+    padding-left: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .p-card .p-card-header {
+    padding: 1rem 1rem 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  .p-card .p-card-body {
+    padding: 0.5rem 1rem 1rem;
+  }
+
+  .stock-info {
+    flex-direction: column;
+    gap: 0.25rem;
+    align-items: flex-start;
+  }
+
+  ::ng-deep .inventory-table .p-progressbar {
+    height: 14px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .p-datatable-sm {
+    font-size: 0.85rem;
+  }
+
+  ::ng-deep .inventory-table .p-tag {
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
+    min-width: 80px;
+  }
+}

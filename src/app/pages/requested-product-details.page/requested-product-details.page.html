@@ -1,0 +1,70 @@
+<div>
+  <div
+    class="flex flex-wrap product-details-container align-content-center pt-5 m-0 lg:justify-content-evenly md:justify-content-evenly">
+
+    <!-- Left Side (Images) -->
+    <div class="lg:w-6 md:w-6 sm:w-full">
+      <p-galleria [value]="product()?.images" [showThumbnails]="product()?.images?.length > 1"
+        [thumbnailsPosition]="'bottom'" [containerStyle]="{ 'max-width': '100%' }" [numVisible]="4">
+
+        <ng-template pTemplate="item" let-item>
+          <img [src]="item" class="main-image" />
+        </ng-template>
+
+        <ng-template pTemplate="thumbnail" let-item>
+          <img [src]="item" class="thumb-image px-3" />
+        </ng-template>
+      </p-galleria>
+    </div>
+
+    <!-- Right Side (Details) -->
+    <div class="lg:w-4 md:w-5 sm:w-full align-content-center lg:pt-0 md:pt-0 sm:pt-4">
+      <h2 class="product-title">{{ product()?.name }}</h2>
+
+      <p class="description">
+        {{ product()?.description }}
+      </p>
+
+      <div>
+        <h4>Recommendations:</h4>
+        <div class="flex lg:justify-content-between">
+          <div>
+            <p><span class="font-bold">Colors: </span>Red, Brown, Green</p>
+            <ul>
+              <span class="font-bold">Sizes: </span>
+              <li>Height: {{ product()?.productHeight }}</li>
+              <li>Width: {{ product()?.productWidth }}</li>
+              <li>Length: {{ product()?.productLength }}</li>
+              <li>Weight: {{ product()?.productWeight }}</li>
+            </ul>
+            <p class="pt-3"><span class="font-bold">Extras: </span>Red, Brown, Green</p>
+          </div>
+          <div>
+            <p><span class="font-bold">Category: </span>{{ product()?.category }}</p>
+            <p><span class="font-bold">Sub-Category: </span>{{ product()?.subCategory }}</p>
+            <p><span class="font-bold">Material: </span>{{ product()?.material }}</p>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="flex align-items-center w-7 mt-5">
+        <button class="btn-upvote px-4 py-2 w-full" (click)="upvoteProduct(product)">{{upvotes}}<i
+            class="pi pi-thumbs-up-fill pl-2" [class.animate-thumb]="upvoteClicked"></i></button>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Extra Info -->
+  <div class="extra py-5 w-10 m-auto">
+    <h3>Extra Information</h3>
+    <p>{{ product()?.extraInfo }}</p>
+  </div>
+</div>
+
+<!-- Similar Products -->
+<div class="p-5">
+  <h3 class="pl-8">Similar products</h3>
+  <app-similar-product-slider [items]="requestedProducts()"></app-similar-product-slider>
+</div>

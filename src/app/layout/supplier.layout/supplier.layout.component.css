@@ -1,0 +1,131 @@
+.supplier-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: var(--surface-ground);
+}
+
+app-supplier-navbar {
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.main-content {
+    flex: 1;
+    padding: 1.5rem;
+    margin-left: 250px;
+    transition: all 0.3s ease;
+    min-height: calc(100vh - 70px);
+    background-color: var(--surface-ground);
+    padding-top: 70px;
+}
+
+.content-collapsed {
+    margin-left: 70px;
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0;
+        padding: 1rem;
+        padding-top: 70px;
+    }
+
+    .content-collapsed {
+        margin-left: 0;
+    }
+}
+
+.header {
+    background-color: var(--background-content);
+    padding: 1rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--surface-border);
+    margin-bottom: 1.5rem;
+}
+
+.header h1 {
+    color: var(--primary-color);
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.header .text-600 {
+    color: var(--text-color-secondary);
+    font-size: 0.9rem;
+}
+
+app-supplier-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 998;
+    transition: width 0.3s ease;
+}
+
+.p-card {
+    height: 100%;
+    background-color: var(--background-content);
+    border: 1px solid var(--surface-border);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-bottom: 1rem;
+    border-radius: 12px;
+}
+
+.p-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px);
+    border-color: var(--brand-primary-color);
+}
+
+.grid {
+    margin: 0 -0.5rem;
+}
+
+.grid>[class*="col-"] {
+    padding: 0.5rem;
+}
+
+.sidebar-toggle {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--primary-color);
+    padding: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-toggle:hover {
+    background-color: var(--primary-hover);
+}
+
+.sidebar-toggle:focus {
+    color: var(--brand-primary-color);
+    background-color: var(--primary-hover);
+}
+
+.p-divider {
+    margin: 1rem 0;
+    border-color: var(--surface-border);
+}
+
+.main-content,
+.main-content * {
+    color: var(--primary-color);
+}
+
+p-badge {
+    color: var(--primary-color-text);
+}

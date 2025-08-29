@@ -1,0 +1,359 @@
+.reports-dashboard {
+  padding: 1rem;
+  background-color: var(--surface-ground);
+  min-height: 100%;
+}
+
+/* Header Section */
+.header-section h2 {
+  color: var(--text-color);
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.header-section p {
+  color: var(--text-color-secondary);
+  margin: 0.5rem 0 0 0;
+  font-size: 1rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Date Filter */
+.date-filter .p-card {
+  background: var(--surface-card);
+}
+
+.custom-date-input {
+  display: flex;
+  flex-direction: column;
+  min-width: 150px;
+}
+
+.custom-date-input label {
+  font-size: 0.875rem;
+  color: var(--text-color-secondary);
+  margin-bottom: 0.25rem;
+}
+
+.custom-date-input input {
+  padding: 0.5rem;
+  border: 1px solid var(--surface-border);
+  border-radius: 4px;
+  background: var(--surface-card);
+  color: var(--text-color);
+}
+
+.quick-presets {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-left: 1rem;
+  flex-wrap: wrap;
+}
+
+.quick-presets span {
+  color: var(--text-color-secondary);
+  font-size: 0.875rem;
+}
+
+/* Summary Cards */
+.summary-card {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  background: var(--surface-card);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--surface-border);
+  height: 100%;
+}
+
+.summary-card.revenue {
+  border-left: 4px solid #4caf50;
+}
+
+.summary-card.orders {
+  border-left: 4px solid #2196f3;
+}
+
+.summary-card.products {
+  border-left: 4px solid #ff9800;
+}
+
+.summary-card.customers {
+  border-left: 4px solid #9c27b0;
+}
+
+.card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background: var(--surface-100);
+  margin-right: 1rem;
+}
+
+.card-icon i {
+  font-size: 1.5rem;
+  color: var(--text-color-secondary);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-label {
+  color: var(--text-color-secondary);
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
+}
+
+.card-value {
+  color: var(--text-color);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.card-change {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.card-change.positive {
+  color: #4caf50;
+}
+
+.card-change.negative {
+  color: #f44336;
+}
+
+/* Chart Containers */
+.chart-container {
+  position: relative;
+  height: 300px;
+  margin-bottom: 1rem;
+}
+
+/* Chart Legends */
+.chart-legend,
+.supplier-legend {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+/* Inventory Stats */
+.inventory-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  background: var(--surface-50);
+  border-radius: 6px;
+}
+
+.stat-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* Activities List */
+.activities-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.activity-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--surface-50);
+  border-radius: 8px;
+  border-left: 4px solid var(--primary-color);
+}
+
+.activity-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: var(--surface-100);
+}
+
+.activity-icon i {
+  font-size: 1.25rem;
+  color: var(--primary-color);
+}
+
+.activity-content {
+  flex: 1;
+}
+
+.activity-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.activity-header h5 {
+  margin: 0;
+  color: var(--text-color);
+}
+
+.activity-time {
+  font-size: 0.875rem;
+  color: var(--text-color-secondary);
+}
+
+.activity-content p {
+  margin: 0 0 0.5rem 0;
+  color: var(--text-color);
+}
+
+.activity-user {
+  color: var(--text-color-secondary);
+  font-size: 0.875rem;
+}
+
+/* Performance Metrics */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.metric-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--surface-50);
+  border-radius: 8px;
+}
+
+.metric-icon {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+.metric-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.metric-value {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.metric-label {
+  font-size: 0.875rem;
+  color: var(--text-color-secondary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .header-section {
+    text-align: center;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  .date-filter .flex {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .custom-date-input {
+    width: 100%;
+  }
+
+  .quick-presets {
+    margin-left: 0;
+    margin-top: 0.5rem;
+    justify-content: center;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-legend,
+  .supplier-legend {
+    justify-content: center;
+  }
+
+  .inventory-stats {
+    align-items: center;
+  }
+
+  .activity-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+}
+
+/* Dark Mode Support */
+:host-context(.dark-mode) .summary-card {
+  background: var(--surface-800);
+  border-color: var(--surface-600);
+}
+
+:host-context(.dark-mode) .card-icon {
+  background: var(--surface-700);
+}
+
+:host-context(.dark-mode) .stat-item,
+:host-context(.dark-mode) .metric-item,
+:host-context(.dark-mode) .activity-item {
+  background: var(--surface-700);
+}
+
+:host-context(.dark-mode) .custom-date-input input {
+  background: var(--surface-700);
+  border-color: var(--surface-600);
+  color: var(--surface-100);
+}

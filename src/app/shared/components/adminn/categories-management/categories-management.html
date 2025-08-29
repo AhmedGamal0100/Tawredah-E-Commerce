@@ -1,0 +1,150 @@
+<div class="categories-management">
+  <!-- Header Section -->
+  <div class="header-section mb-4">
+    <div class="flex justify-content-between align-items-center">
+      <h2>Categories Management</h2>
+      <div class="action-buttons">
+        <button pButton icon="pi pi-plus" label="Add Category" class="p-button-success"
+          (click)="addCategory()"></button>
+        <button pButton icon="pi pi-refresh" class="p-button-outlined p-button-secondary" (click)="loadCategories()"
+          pTooltip="Refresh"></button>
+      </div>
+    </div>
+    <p>Organize your products with a hierarchical category system. Create, edit, and manage categories and
+      subcategories.</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid mb-4">
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-blue-100 ">
+          <i class="pi pi-folder text-blue-500 "></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Total Categories</span>
+          <span class="stat-value">{{ totalCategories }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-green-100">
+          <i class="pi pi-tags text-green-500"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Main Categories</span>
+          <span class="stat-value">{{ mainCategoriesCount }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-purple-100">
+          <i class="pi pi-sitemap text-purple-500"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Subcategories</span>
+          <span class="stat-value">{{ subcategoriesCount }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-orange-100">
+          <i class="pi pi-box text-orange-500"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Total Products</span>
+          <span class="stat-value">{{ totalProducts }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search and Actions -->
+  <div class="flex flex-wrap gap-2 align-items-center justify-content-between mb-4">
+    <div class="search-container">
+      <div class="search-content">
+        <div class="flex w-full search">
+          <input placeholder="Search categories..." [value]="searchInput" (input)="onSearchInput($event)" />
+          <button variant="text"><i class="pi pi-search"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="view-options">
+      <button pButton icon="pi pi-list" class="p-button-primary" pTooltip="List View"></button>
+    </div>
+  </div>
+
+  <!-- Categories Table -->
+  <div class="list-view">
+    <p-table [value]="flattenedCategories" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10, 25, 50]"
+      [globalFilterFields]="['name', 'type', 'description']">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Category Name</th>
+          <th>Type</th>
+          <th>Level</th>
+          <th>Products Count</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-category>
+        <tr>
+          <td>
+            <div class="category-info">
+              <div class="category-icon" [style.backgroundColor]="getCategoryColor(category?.level || 1)">
+                <i class="pi" [ngClass]="getCategoryIcon(category)"></i>
+              </div>
+              <div class="category-details">
+                <span class="category-name">{{category?.name || 'Unknown'}}</span>
+                <span class="category-description">{{category?.description || ''}}</span>
+              </div>
+            </div>
+          </td>
+          <td>
+            <span class="category-type">{{category?.type || ''}}</span>
+          </td>
+          <td>
+            <p-tag [value]="'Level ' + (category?.level || 1)"
+              [severity]="(category?.level || 1) === 1 ? 'success' : ((category?.level || 1) === 2 ? 'info' : 'warning')"></p-tag>
+          </td>
+          <td>
+            <div class="products-count">
+              <span>{{ category?.productCount || 0 }}</span>
+              <small>products</small>
+            </div>
+          </td>
+          <td>
+            <p-tag [value]="category?.status || 'Unknown'"
+              [severity]="category?.status === 'Active' ? 'success' : 'danger'"></p-tag>
+          </td>
+          <td>
+            <div class="action-buttons">
+              <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-sm"
+                (click)="editCategory(category)" pTooltip="Edit Category"></button>
+              <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger p-button-sm"
+                (click)="deleteCategory(category)" pTooltip="Delete Category"></button>
+              <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text p-button-sm"
+                (click)="viewCategory(category)" pTooltip="View Details"></button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6" class="empty-table">
+            <div class="empty-content">
+              <i class="pi pi-folder-open"></i>
+              <h4>No categories found</h4>
+              <p>Try adjusting your search or add a new category</p>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

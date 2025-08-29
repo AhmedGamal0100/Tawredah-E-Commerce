@@ -1,0 +1,91 @@
+@if (!isMobile || isMobileOpen) {
+<form [formGroup]="filtersForm" class="sidebar-filter-container" (ngSubmit)="applyFilters()"
+  [ngClass]="{ 'mobile-open': isMobile && isMobileOpen }">
+  <!-- Supplier Filter -->
+  <div class="filter-section">
+    <div class="filter-title flex w-full align-items-center mb-3">
+      <i class="pi pi-warehouse mr-2"></i>
+      <h4 class="mb-0">Suppliers</h4>
+    </div>
+    <div class="checkbox-group">
+      @for (supplier of suppliers; track supplier.value) {
+      <div class="checkbox-item">
+        <input type="checkbox" [value]="supplier.value" id="supplier-{{supplier.value}}"
+          (change)="onCheckboxChange($event, 'suppliers')">
+        <label class="py-1" [attr.for]="'supplier-' + supplier.value">
+          {{ supplier.label }}
+        </label>
+      </div>
+      }
+    </div>
+  </div>
+
+
+  <!-- Category Filter -->
+  <div class="filter-section">
+    <div class="filter-title flex w-full align-items-center mb-3">
+      <i class="pi pi-th-large mr-2"></i>
+      <h4 class="mb-0">Category</h4>
+    </div>
+    <div class="checkbox-group">
+      @for (category of categories; track category.value) {
+      <div class="checkbox-item">
+        <input type="checkbox" [value]="category.value" id="category-{{category.value}}"
+          (change)="onCheckboxChange($event, 'categories')">
+        <label class="py-1" [attr.for]="'category-' + category.value">{{ category.label }}</label>
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- State Filter -->
+  <div class="filter-section sm:w-6">
+    <div class="filter-title flex w-full align-items-center mb-3">
+      <i class="pi pi-tags mr-2"></i>
+      <h4 class="mb-0">State</h4>
+    </div>
+    <div class="checkbox-group">
+      @for (st of state; track st.value) {
+      <div class="checkbox-item">
+        <input type="checkbox" [value]="st.value" id="state-{{st.value}}" (change)="onCheckboxChange($event, 'state')">
+        <label class="py-1" [attr.for]="'state-' + st.value">{{ st.label }}</label>
+      </div>
+      }
+    </div>
+  </div>
+  <!-- MOQ Filter -->
+  <div class="filter-section mb-5">
+    <div class="filter-title flex w-full align-items-center mb-3">
+      <i class="pi pi-sort-numeric-up-alt mr-2"></i>
+      <h4 class="mb-0">MOQ</h4>
+    </div>
+    <div class="checkbox-group">
+      @for (moq of moqs; track moq.value) {
+      <div class="checkbox-item">
+        <input type="checkbox" [value]="moq.value" id="moq-{{moq.value}}" (change)="onCheckboxChange($event, 'moqs')">
+        <label class="py-1" [attr.for]="'moq-' + moq.value">{{ moq.label }}</label>
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- Filter Actions -->
+  <div class="filter-actions flex mb-2">
+    <div class="w-9  pr-2">
+      <button class="apply-btn" type="submit">Apply</button>
+    </div>
+    <div class="w-3 ">
+      <button class="clear-btn" type="button" (click)="resetFilters()"><i class="pi pi-trash"></i></button>
+    </div>
+  </div>
+</form>
+}
+@if (isMobile && !isMobileOpen) {
+<button class="mobile-filter-btn" (click)="toggleMobileFilter()">
+  <i class="pi pi-filter"></i>
+</button>
+}@else if (isMobile && isMobileOpen){
+<button class="mobile-filter-btn" (click)="toggleMobileFilter()">
+  <i class="pi pi-times"></i>
+</button>
+}

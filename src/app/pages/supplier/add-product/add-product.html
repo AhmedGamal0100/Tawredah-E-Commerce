@@ -1,0 +1,252 @@
+<section class="flex justify-content-center container-all">
+<div class="grid product-details-container pt-5 m-0">
+  <div class="col-12">
+    <h2 class="text-center p-3 w-full bg-blue-100 border-round-2xl">Add New Product</h2>
+    
+    <div class="flex gap-2 w-full pb-3 edit-mode-btn justify-content-center align-items-center">
+      <button class="px-4 py-2 bg-blue-700 w-3/4" (click)="onSubmit()" [disabled]="loading">
+        {{ loading ? 'Adding Product...' : 'Add Product' }}
+      </button>
+      <button class="px-4 py-2 bg-red-400 w-3/4" (click)="onCancel()">Cancel</button>
+    </div>
+    
+    <div class="custom-container">
+      <!-- Image Upload Section -->
+      <div class="edit-images">
+        <h3>Product Images </h3>
+        <div class="flex flex-wrap mb-3 align-items-center">
+          @for (img of imagePreviews; track $index; let i = $index) {
+          <div class="relative p-2" style="width:120px; height:120px;">
+            <img [src]="img" class="w-full h-full object-cover" />
+            <button pButton icon="pi pi-times" severity="danger" class="absolute m-1 close-img"
+              (click)="removeImage(i)" [disabled]="imagePreviews.length === 1">
+            </button>
+          </div>
+          }
+        </div>
+        
+        @if (imagePreviews.length < 4) {
+        <p-fileupload mode="advanced" name="files[]" accept="image/*" [auto]="true" [multiple]="true" 
+          chooseLabel="Add Images" (onSelect)="onImageSelect($event)">
+          <ng-template #empty>
+            <div>Drag and drop files here or click "Add Images".</div>
+          </ng-template>
+        </p-fileupload>
+        }
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div [formGroup]="form" class="custom-container">
+      <!-- Product Name -->
+      <div class="flex justify-content-between align-items-center">
+        <div class="w-full ">
+          <h3>Product Title *</h3>
+          <input pInputText type="text" formControlName="name" class="p-3 w-full border-round-sm edit-input" />
+        </div>
+      </div>
+      
+      <!-- Product Description -->
+      <div class="mt-3">
+        <h3>Description *</h3>
+        <textarea pTextarea [autoResize]="true" formControlName="description" rows="5" cols="30"
+          class="w-full p-2 edit-input"></textarea>
+      </div>
+    </div>
+
+    <!-- Price Tiers Editing -->
+    <div class="custom-container">
+      <h3 class="pt-3">Price Tiers</h3>
+
+      <!-- Base Price Editing -->
+      <div class="grid mb-4">
+        <div class="col-12 md:col-6">
+          <h4>Base Unit Price *</h4>
+          <input type="number" formControlName="unit" class="w-full p-inputtext" placeholder="Base Unit Price" min="0"
+            step="0.01" />
+        </div>
+        <div class="col-12 md:col-6">
+          <h4>Currency *</h4>
+          <p-select [options]="currencyOptions" formControlName="currency" optionLabel="name" optionValue="code"
+            placeholder="Select Currency" class="w-full">
+          </p-select>
+        </div>
+      </div>
+
+      <!-- Discount Tiers Editing -->
+      @for (tier of discountTiers; track $index; let i = $index) {
+      <div class="grid pt-2 add-price-container">
+        <div class="col-6 md:col-4">
+          <label>Minimum Quantity</label>
+          <p-inputNumber class="w-full" [(ngModel)]="tier.minQty"
+            (ngModelChange)="updateDiscountTier(i, 'minQty', $event)" placeholder="Min Qty">
+          </p-inputNumber>
+        </div>
+
+        <div class="col-6 md:col-4">
+          <label>Discount %</label>
+          <input pInputText type="number" class="w-full" [(ngModel)]="tier.percent"
+            (ngModelChange)="updateDiscountTier(i, 'percent', $event)" placeholder="Discount %" min="0" max="100"
+            step="0.01" />
+        </div>
+
+        <div class="flex align-items-center justify-content-between gap-2 col-12 md:col-4">
+          <div class="price-calculation">
+            <span class="block text-sm">Unit: {{ calculateDiscountedUnitPrice(tier) | currency:form.get('price.currency')?.value }}</span>
+            <span class="block text-sm">Total: {{ calculateTotalPrice(tier) | currency:form.get('price.currency')?.value }}</span>
+          </div>
+          <button class="align-self-end" pButton icon="pi pi-trash" severity="danger" (click)="removeDiscountTier(i)"
+            [disabled]="discountTiers.length === 1">
+          </button>
+        </div>
+      </div>
+      <hr class="my-3">
+      }
+
+      <div>
+        @if (discountTiers.length < 4) {
+        <button pButton icon="pi pi-plus" label="Add Discount Tier" (click)="addDiscountTier()" class="mt-3"></button>
+        }
+      </div>
+    </div>
+
+    <!-- Options Section -->
+    <div class="grid dropdowns mt-3 custom-container">
+      <!-- Color -->
+      <div class="col-12 md:col-4">
+        <h4>Color</h4>
+        <p-select class="custom-select p-0 w-full" [(ngModel)]="selectedColor" [options]="colors" optionLabel="label"
+          placeholder="Select color">
+        </p-select>
+
+        <div class="flex mt-2 gap-2">
+          <input type="text" [(ngModel)]="newColor" placeholder="New color"
+            class="p-inputtext p-component w-full edit-input">
+          <button pButton type="button" label="+" (click)="addOption('colors', newColor)"></button>
+        </div>
+        <ul class="mt-2">
+          @for (c of colors; track $index) {
+          <li class="flex justify-content-between align-items-center">
+            {{ c.label }}
+            <button pButton icon="pi pi-times" class="p-button-text p-button-danger"
+              (click)="removeOption('colors', $index)"></button>
+          </li>
+          }
+        </ul>
+      </div>
+
+      <!-- Size -->
+      <div class="col-12 md:col-4">
+        <h4>Size</h4>
+        <p-select class="custom-select p-0 w-full" [(ngModel)]="selectedSize" [options]="sizes" optionLabel="label"
+          placeholder="Select size">
+        </p-select>
+
+        <div class="flex mt-2 gap-2">
+          <input type="text" [(ngModel)]="newSize" placeholder="New size"
+            class="p-inputtext p-component w-full edit-input">
+          <button pButton type="button" label="+" (click)="addOption('sizes', newSize)"></button>
+        </div>
+        <ul class="mt-2">
+          @for (s of sizes; track $index) {
+          <li class="flex justify-content-between align-items-center">
+            {{ s.label }}
+            <button pButton icon="pi pi-times" class="p-button-text p-button-danger"
+              (click)="removeOption('sizes', $index)"></button>
+          </li>
+          }
+        </ul>
+      </div>
+
+      <!-- Extras -->
+      <div class="col-12 md:col-4">
+        <h4>Extras</h4>
+        <p-select class="custom-select p-0 w-full" [(ngModel)]="selectedExtra" [options]="extra" optionLabel="label"
+          placeholder="Select extra">
+        </p-select>
+
+        <div class="flex mt-2 gap-2">
+          <input type="text" [(ngModel)]="newExtra" placeholder="New extra"
+            class="p-inputtext p-component w-full edit-input">
+          <button pButton type="button" label="+" (click)="addOption('extra', newExtra)"></button>
+        </div>
+        <ul class="mt-2">
+          @for (e of extra; track $index) {
+          <li class="flex justify-content-between align-items-center">
+            {{ e.label }}
+            <button pButton icon="pi pi-times" class="p-button-text p-button-danger"
+              (click)="removeOption('extra', $index)"></button>
+          </li>
+          }
+        </ul>
+      </div>
+    </div>
+
+    <!-- Item Specs -->
+    <div [formGroup]="form" class="custom-container">
+      <h3 class="mt-4">Item Specs</h3>
+      <div class="grid" formGroupName="category">
+        <div class="col-12 lg:col-4">
+          <div class="item-specs">
+            <h4>Main Category *</h4>
+            <input pInputText class="py-2 border-round-sm edit-input w-full" type="text" formControlName="main" />
+          </div>
+        </div>
+        <div class="col-12 lg:col-4">
+          <div class="item-specs">
+            <h4>Sub Category *</h4>
+            <input pInputText class="py-2 border-round-sm edit-input  w-full" type="text" formControlName="sub" />
+          </div>
+        </div>
+        <div class="col-12 lg:col-4">
+          <div class="item-specs">
+            <h4>Type *</h4>
+            <input pInputText class="py-2 border-round-sm edit-input  w-full" type="text" formControlName="type" />
+          </div>
+        </div>
+      </div>
+
+      <div formGroupName="specs" class="grid mt-3">
+        <div class="col-12 lg:col-4">
+          <div class="item-specs">
+            <h4>Material *</h4>
+            <input pInputText class="py-2 border-round-sm edit-input  w-full" type="text" formControlName="material" />
+          </div>
+        </div>
+        <div class="col-12 lg:col-4">
+          <div class="item-specs">
+            <h4>Weight (gm) *</h4>
+            <input pInputText class="py-2 border-round-sm edit-input  w-full" type="text" formControlName="weight" />
+          </div>
+        </div>
+      </div>
+
+      <h3 class="mt-3">Dimensions</h3>
+      <div formGroupName="specs" class="grid">
+        <div class="col-12 lg:col-4" formGroupName="dimensions">
+          <div class="item-specs">
+            <h4>Length (cm) *</h4>
+            <input pInputText class="py-2 border-round-sm edit-input  w-full" type="text" formControlName="length" />
+          </div>
+        </div>
+        <div class="col-12 lg:col-4" formGroupName="dimensions">
+          <div class="item-specs">
+            <h4>Width (cm) *</h4>
+            <input pInputText class="py-2 border-round-sm edit-input  w-full" type="text" formControlName="width" />
+          </div>
+        </div>
+        <div class="col-12 lg:col-4" formGroupName="dimensions">
+          <div class="item-specs">
+            <h4>Height (cm) *</h4>
+            <input pInputText class="py-2 border-round-sm edit-input  w-full" type="text" formControlName="height" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<p-toast></p-toast>
+</section>
+

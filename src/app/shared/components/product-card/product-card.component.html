@@ -1,0 +1,56 @@
+<div class="grid">
+  <!-- Repeat this card as needed -->
+  <div class="col-12 md:col-6 lg:col-4 xl:col-3 w-full">
+    <div class="mb-4 p-2">
+      <p-card class="product-card hover-trigger hover-card">
+        <ng-template #header>
+          <div class="image-wrapper">
+            <img alt="Card" class="product-image w-full"
+              src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=800&h=600&fit=crop" />
+          </div>
+        </ng-template>
+
+        <ng-template #title>
+          <div class="flex justify-content-between align-items-center">
+            <span style="color: var(--primary-color)">Product 1</span>
+            <div class="flex align-items-center gap-1">
+              <i class="pi pi-star-fill text-sm" style="color: var(--brand-higlight-color)"></i>
+              <span style="color: var(--primary-color)" class="text-sm">4.9</span>
+              <span style="color: var(--secondary-color)" class="text-xs">(1000+)</span>
+            </div>
+          </div>
+        </ng-template>
+
+        <div class="subtitle mb-2" style="color: var(--secondary-color)">Factory</div>
+
+
+        <div class="description-container mb-3" style="color: var(--secondary-color)">
+          <p class="description-text m-0 line-height-3 text-sm">
+            This is a sample product description that should be limited to two lines.
+            If the text is longer than two lines, it will be truncated with an ellipsis.
+          </p>
+        </div>
+
+        <div class="flex justify-content-between align-items-center m-0">
+          <div class="flex align-items-center gap-2">
+            <span style="color: var(--brand-primary-color)" class="font-bold">399 EGP</span>
+            <span style="color: var(--secondary-color)" class="line-through">499 EGP</span>
+          </div>
+          <p-button icon="pi pi-heart" [variant]="'text'" [style]="{ color: 'var(--background-error)' }"
+            [rounded]="true">
+          </p-button>
+
+        </div>
+
+        <ng-template #footer>
+          <div class="footer ">
+            <p-button label="View Details" class="w-9" styleClass="w-full"> </p-button>
+            <div class="flex gap-2">
+            </div>
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,170 @@
+<div class="customers-management">
+  <!-- Header Section -->
+  <div class="header-section mb-4">
+    <div class="flex justify-content-between align-items-center">
+      <h2>Customers Management</h2>
+      <button pButton icon="pi pi-plus" label="Add Customer" class="p-button-success" (click)="addCustomer()"></button>
+    </div>
+    <p>Manage all your customers, view their details, and track their orders and activities.</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid mb-4">
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-blue-100">
+          <i class="pi pi-users text-blue-500"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Total Customers</span>
+          <span class="stat-value">{{ totalCustomers }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-green-100">
+          <i class="pi pi-shopping-cart text-green-500"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Active Customers</span>
+          <span class="stat-value">{{ activeCustomers }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-purple-100">
+          <i class="pi pi-star text-purple-500"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Avg. Rating</span>
+          <span class="stat-value">{{ averageRating | number:'1.1-1' }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-orange-100">
+          <i class="pi pi-credit-card text-orange-500"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Total Orders</span>
+          <span class="stat-value">{{ totalOrders }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search and Filter -->
+  <div class="flex flex-wrap gap-2 align-items-center mb-4">
+    <div class="search-container">
+      <div class="search-content">
+        <div class="flex w-full search">
+          <input placeholder="Search customers..." [(ngModel)]="searchInput" (input)="applyFilters()" />
+          <button variant="text"><i class="pi pi-search"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-selector">
+      <button class="selector-trigger" (click)="toggleStatusDropdown()">
+        <span>{{ getStatusLabel(selectedStatus) }}</span>
+        <i class="pi" [ngClass]="{'pi-chevron-down': !statusDropdownOpen, 'pi-chevron-up': statusDropdownOpen}"></i>
+      </button>
+      <div class="selector-options" [class.open]="statusDropdownOpen">
+        @for (option of statusOptions; track option.value) {
+        <div class="option" (click)="selectStatus(option.value)">
+          {{ option.label }}
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="custom-selector">
+      <button class="selector-trigger" (click)="toggleTierDropdown()">
+        <span>{{ getTierLabel(selectedTier) }}</span>
+        <i class="pi" [ngClass]="{'pi-chevron-down': !tierDropdownOpen, 'pi-chevron-up': tierDropdownOpen}"></i>
+      </button>
+      <div class="selector-options" [class.open]="tierDropdownOpen">
+        @for (option of tierOptions; track option.value) {
+        <div class="option" (click)="selectTier(option.value)">
+          {{ option.label }}
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Customers Table -->
+  <p-table [value]="filteredCustomers" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10, 25, 50]"
+    [globalFilterFields]="['name','email','phone','company']">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name">Customer <p-sortIcon field="name"></p-sortIcon></th>
+        <th pSortableColumn="email">Email <p-sortIcon field="email"></p-sortIcon></th>
+        <th pSortableColumn="phone">Phone <p-sortIcon field="phone"></p-sortIcon></th>
+        <th pSortableColumn="orders">Orders <p-sortIcon field="orders"></p-sortIcon></th>
+        <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+        <th pSortableColumn="tier">Tier <p-sortIcon field="tier"></p-sortIcon></th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-customer>
+      <tr>
+        <td>
+          <div class="customer-info">
+            <div class="customer-avatar">
+              {{ customer.name.charAt(0).toUpperCase() }}
+            </div>
+            <div class="customer-details">
+              <span class="customer-name">{{ customer.name }}</span>
+              <span class="customer-company">{{ customer.company }}</span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="customer-email">{{ customer.email }}</span>
+        </td>
+        <td>
+          <span class="customer-phone">{{ customer.phone }}</span>
+        </td>
+        <td>
+          <div class="orders-count">
+            <span>{{ customer.orders }}</span>
+            <small>orders</small>
+          </div>
+        </td>
+        <td>
+          <p-tag [value]="customer.status" [severity]="customer.status === 'Active' ? 'success' : 
+                            (customer.status === 'Inactive' ? 'warning' : 'secondary')"></p-tag>
+        </td>
+        <td>
+          <p-tag [value]="customer.tier" [severity]="customer.tier === 'Premium' ? 'info' : 
+                            (customer.tier === 'Gold' ? 'warning' : 'success')"></p-tag>
+        </td>
+        <td>
+          <div class="action-buttons">
+            <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text p-button-sm"
+              (click)="viewCustomer(customer)" pTooltip="View Details"></button>
+            <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-sm"
+              (click)="editCustomer(customer)" pTooltip="Edit Customer"></button>
+            <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger p-button-sm"
+              (click)="deleteCustomer(customer)" pTooltip="Delete Customer"></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="7" class="empty-table">
+          <div class="empty-content">
+            <i class="pi pi-users"></i>
+            <h4>No customers found</h4>
+            <p>Try adjusting your search or filter criteria</p>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

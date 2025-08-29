@@ -1,0 +1,109 @@
+<div class="supplier-navbar p-shadow-2">
+  <div class="navbar-content">
+    <div class="nav-left">
+      <!-- <button pButton class="p-button-text p-button-rounded sidebar-toggle hidden md:block" (click)="toggleSidebar()">
+        <i class="pi pi-bars menu-icon"></i>
+      </button> -->
+      <div class="logo-container">
+        <a routerLink="">
+          <img src="logo/tawredah-logo-en.png" alt="app logo" class="logo" />
+        </a>
+      </div>
+    </div>
+
+    <div class="nav-right">
+      <!-- Notification Button -->
+      <button pButton icon="pi pi-bell" class="p-button-text p-button-rounded notification-btn"
+        (click)="toggleNotificationsMenu($event)">
+        @if (unreadNotifications > 0) {
+        <span class="notification-badge">{{unreadNotifications}}</span>
+        }
+      </button>
+
+      <!-- Notifications Menu -->
+      <div class="notification-menu" [class.show]="isNotificationsMenuOpen">
+        <div class="notification-header">
+          <h4>Notifications</h4>
+        </div>
+        <div class="notification-list">
+          @for (notification of notifications; track notification.id) {
+          <div class="notification-item">
+            <div class="flex align-items-center gap-2">
+              <!-- [ngClass]="'bg-' + notification.severity" -->
+              @switch(notification.type){
+              @case ("info") {
+              <i class='pi pi-shopping-cart' ngClass="bg-info"></i>
+              }
+              @case ("warning") {
+              <i class='pi pi-exclamation-triangle' ngClass="bg-warning"></i>
+              }
+              @case ("success") {
+              <i class='pi pi-credit-card' ngClass="bg-success"></i>
+              }
+              }
+              <div>
+                <!-- <h5 class="m-0">{{notification.title}}</h5> -->
+                <p class="m-0 text-sm">{{notification.message}}</p>
+                <span class="text-xs text-500">{{notification.createdAt}}</span>
+              </div>
+            </div>
+          </div>
+          }
+          <!-- <div class="p-menu-separator"></div>
+          <a class="p-menuitem-link" (click)="viewAllNotifications()">
+            <span class="p-menuitem-icon pi pi-list"></span>
+            <span class="p-menuitem-text">View All Notifications</span>
+          </a> -->
+        </div>
+      </div>
+
+      <!-- Company Dropdown -->
+      <div class="company-dropdown-container">
+        <div class="company-dropdown" (click)="toggleCompanyDropdown($event)">
+          <div class="company-info">
+            <p-avatar [image]="company.avatarUrl" shape="circle" size="large"
+              [style]="{'background-color': '#007ad9', 'color': 'white'}"></p-avatar>
+            <span class="company-name">{{company.businessName}}</span>
+            <i class="pi pi-chevron-down dropdown-arrow desktop-arrow"></i>
+          </div>
+
+          <div class="mobile-dropdown-trigger" (click)="toggleCompanyDropdown($event)">
+            <i class="pi pi-chevron-down mobile-dropdown-arrow"></i>
+          </div>
+        </div>
+
+        @if (isCompanyDropdownOpen) {
+        <div class="dropdown-menu-company" [class.dark-mode]="darkMode">
+          @if (!currentSubmenu) {
+          <a [routerLink]="'/supplier/profile'" class="dropdown-item">
+            <i class="pi pi-user"></i>
+            <span>Profile</span>
+          </a>
+          <!-- <a [routerLink]="''" class="dropdown-item">
+            <i class="pi pi-home"></i>
+            <span>Home</span>
+          </a> -->
+          <div class="dropdown-item theme-option" (click)="toggleTheme()">
+            <i class="pi" [ngClass]="darkMode ? 'pi-sun' : 'pi-moon'"></i>
+            <span>{{ darkMode ? 'Light Mode' : 'Dark Mode' }}</span>
+          </div>
+
+          <div class="dropdown-divider"></div>
+
+          <a class="dropdown-item logout-item" (click)="logout()">
+            <i class="pi pi-sign-out"></i>
+            <span>Logout</span>
+          </a>
+          }
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mobile-sidebar-toggle md:hidden" [class.mobile-sidebar-toggle-dark]="darkMode">
+  <button pButton class="p-button-text p-button-rounded mobile-toggle-btn" (click)="toggleMobileSidebar()">
+    <i class="pi pi-bars"></i>
+  </button>
+</div>

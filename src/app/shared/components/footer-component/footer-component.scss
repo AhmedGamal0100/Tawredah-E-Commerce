@@ -1,0 +1,226 @@
+$footer-bg: rgb(0, 15, 32);
+$footer-text: #ffffff;
+// $footer-heading: #1a73e8;
+
+.footer {
+  background-color: $footer-bg;
+  color: $footer-text;
+  padding: 3rem 5%;
+
+  .footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-between;
+
+    .footer-section {
+      flex: 1 1 180px;
+      min-width: 180px;
+
+      h3 {
+        color: var(--color-highlight);
+        margin-bottom: 1rem;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+
+        li {
+          margin-bottom: 0.5rem;
+          font-size: 0.95rem;
+
+          i {
+            margin-right: 0.5rem;
+            color: var(--color-highlight);
+          }
+
+          a {
+            color: $footer-text;
+            text-decoration: none;
+
+            &:hover {
+              color: var(--color-highlight);
+            }
+          }
+        }
+      }
+    }
+
+    .logo-section {
+      flex: 2 1 350px;
+      // margin-bottom: 2rem;
+
+      .footer-logo {
+        // width: 192px;
+        // height: 72px; // 192 - 60 - 60 = 72px visible
+        // overflow: hidden; // hide the top and bottom
+        // position: relative;
+
+        // img {
+        //   position: absolute;
+        //   top: -60px; // move image up by 60px to hide the top part
+        //   left: 0;
+        //   width: 192px; // match original image size
+        //   height: 192px; // keep original image height
+        // }
+        img {
+          width: 220px;
+        }
+      }
+
+      .footer-description {
+        font-size: 0.95rem;
+        margin-bottom: 1.5rem;
+        color: $footer-text;
+      }
+
+      .footer-rights {
+        font-size: 0.8rem;
+        color: $footer-text;
+      }
+    }
+
+    .contact-section {
+      ul {
+        li {
+          font-size: 14px;
+        }
+      }
+
+      .social-icons {
+        margin-top: 1rem;
+
+        a {
+          margin-right: 0.75rem;
+          font-size: 1.2rem;
+          color: var(--color-highlight);
+
+          &:hover {
+            color: $footer-text;
+          }
+        }
+      }
+    }
+
+    .footer-rights-mobile {
+      display: none;
+    }
+  }
+
+  // Tablet (≤768px): Logo full width, others in 2 columns
+  @media (max-width: 768px) {
+    .footer-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 0.5rem;
+
+      .logo-section {
+        grid-column: 1 / -1;
+
+        // .logo-crop {
+        //   width: 172px;
+        //   height: 42px;
+
+        //   img {
+        //     top: -55px; // move image up by 60px to hide the top part
+        //     width: 172px; // match original image size
+        //     height: 172px; // keep original image height
+        //   }
+        // }
+        .logo-crop {
+          img {
+            width: 280px;
+          }
+        }
+
+        .footer-description {
+          font-size: 0.9rem;
+          margin-bottom: 0;
+        }
+
+        .footer-rights {
+          display: none;
+        }
+      }
+
+      .footer-rights-mobile {
+        grid-column: 1 / -1;
+        margin-top: 20px;
+        display: block;
+      }
+    }
+  }
+
+  // Mobile (≤412px): All stacked vertically, centered
+  @media (max-width: 412px) {
+    padding: 2rem 1.5rem;
+
+    .footer-container {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+
+      .footer-section {
+        flex: 1 1 150px;
+        width: 100%;
+        margin-left: 30px;
+        // text-align: center;
+
+        h3 {
+          font-size: 18px;
+          margin-bottom: 12px;
+        }
+
+        ul {
+          li {
+            margin-bottom: 0.4rem !important;
+            font-size: 12px !important;
+          }
+        }
+      }
+
+      .logo-section {
+        flex: 2 1 0;
+
+        .footer-logo {
+          margin-bottom: -30px;
+          margin-left: -20px;
+          // margin-top: -30px;
+
+          //   .logo-crop {
+          //     width: 122px;
+          //     height: 30px;
+
+          //     img {
+          //       top: -5px; // move image up by 60px to hide the top part
+          //       width: 122px; // match original image size
+          //       height: 122px; // keep original image height
+          //     }
+          //   }
+          .logo-crop {
+            img {
+              width: 200px;
+            }
+          }
+        }
+
+        .footer-description {
+          display: none;
+        }
+      }
+
+      .contact-section {
+        .social-icons {
+          justify-content: flex-start;
+          width: 100%;
+        }
+      }
+      .footer-rights-mobile {
+        margin-left: 30px;
+      }
+    }
+  }
+}

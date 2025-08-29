@@ -1,0 +1,28 @@
+<div class="supplier-container">
+  <div class="main-content" [ngClass]="{'content-collapsed': sidebarCollapsed}">
+    <div class="dashboard-page">
+      <div class="grid p-fluid mt-3">
+        <!-- <div class="col-12 mb-4"> -->
+        <!-- <app-kpi-cards></app-kpi-cards> -->
+        <div class="page-header">
+          <div>
+            <h1>Supplier Dashboard</h1>
+            <p>
+              Manage your orders, track inventory, and stay updated with real-time notifications.
+              Access insights to grow your business and keep everything organized in one place.
+            </p>
+          </div>
+        </div>
+        <!-- </div> -->
+
+        <div class="col-12 md:col-8 mb-4">
+          <app-sales-chart></app-sales-chart>
+        </div>
+
+        <div class="col-12 md:col-4 mb-4">
+          <app-top-products></app-top-products>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+:host {
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.text-600 {
+  color: var(--text-color-secondary);
+}
+
+.text-900 {
+  color: var(--text-color);
+}

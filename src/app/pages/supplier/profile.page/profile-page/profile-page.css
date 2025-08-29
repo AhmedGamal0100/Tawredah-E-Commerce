@@ -1,0 +1,252 @@
+:host {
+  position: relative;
+}
+
+.container-all {
+  margin-top: 7rem;
+  width: 80%;
+  position: relative;
+  left: 17%;
+}
+
+.account-container {
+  display: flex;
+  gap: 2rem;
+  padding: 1.5rem;
+  /* background: #f9f9f9; */
+  flex-wrap: wrap;
+}
+
+.left-column,
+.right-column {
+  flex: 1;
+  min-width: 300px;
+
+}
+
+.underline {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.section-title {
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.profile-section {
+  display: flex;
+  gap: 3rem;
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.profile-section .avatar-img {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+
+.profile-section .edit-icon {
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+  color: #007ad9;
+}
+
+.business-section {
+  position: relative;
+  padding-top: 1rem;
+}
+
+.business-section .edit-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  color: #007ad9;
+}
+
+.payment-card,
+.address-card {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background: white;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  position: relative;
+}
+
+.payment-card .card-icon {
+  width: 40px;
+  height: 25px;
+  background: #ccc;
+  border-radius: 3px;
+}
+
+.payment-card .card-info {
+  flex: 1;
+  font-size: 0.9rem;
+}
+
+.payment-card .card-info small {
+  display: block;
+  color: gray;
+}
+
+.payment-card .edit-icon,
+.address-card .edit-icon {
+  color: #007ad9;
+  cursor: pointer;
+}
+
+.payment-card .delete-icon,
+.address-card .delete-icon {
+  color: red;
+  cursor: pointer;
+}
+
+.mt-4 {
+  margin-top: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .container-all {
+    width: 75%;
+    left: 25%;
+  }
+
+  .edit-btns {
+    margin-top: 15px;
+    padding: 0 !important;
+  }
+
+  .left-info,
+  .right-info {
+    padding: 10px !important;
+  }
+
+  .account-container {
+    flex-direction: column;
+  }
+
+  .profile-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-section .edit-icon {
+    position: static;
+    margin-top: 0.5rem;
+  }
+
+  .business-section .edit-icon {
+    position: static;
+    margin-left: 0.5rem;
+  }
+
+  .payment-card,
+  .address-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .payment-card .edit-icon,
+  .address-card .edit-icon,
+  .payment-card .delete-icon,
+  .address-card .delete-icon {
+    position: static;
+    margin-top: 0.25rem;
+  }
+}
+
+.input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cedbe8;
+  border-radius: 8px;
+  background-color: #f9fafb;
+}
+
+.input[readonly] {
+  background-color: #f3f4f6;
+  color: #6b7280;
+  cursor: not-allowed;
+}
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.profile-img:hover {
+  transform: scale(1.2);
+}
+
+.container-fluid {
+  width: 90% !important;
+  padding: 15px;
+  margin: auto;
+  border-radius: 12px;
+  margin: 20px auto;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px)
+}
+
+.profile-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.avatar-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #e9ecef;
+}
+
+.avatar-controls {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}
+
+.avatar-edit-controls {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .profile-img {
+    width: 120px;
+    height: 120px;
+  }
+
+  .avatar-edit-controls {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 412px) {
+  .container-all {
+    margin-top: 5rem !important;
+    width: 100%;
+    left: 0;
+    margin: auto;
+  }
+}

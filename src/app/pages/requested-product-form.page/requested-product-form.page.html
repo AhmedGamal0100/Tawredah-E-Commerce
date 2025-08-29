@@ -1,0 +1,209 @@
+<div class="register-page px-4 py-6 border-round-2xl w-full md:w-7 mx-auto">
+  <div class="flex flex-column">
+    <div class="align-items-start w-full">
+      <h2 class="m-0">Request Product Form</h2>
+      <p class="mt-3">Product Information</p>
+    </div>
+
+    <div class="container">
+      <form [formGroup]="registerForm" (ngSubmit)="submit()" class="flex flex-column gap-3">
+
+        <p-floatlabel variant="on" class="w-full">
+          <input name="name" formControlName="name" pInputText autocomplete="off" class="w-full"
+            type="text" />
+          <label for="name">Product Name</label>
+        </p-floatlabel>
+        @if (registerForm.get('name')?.touched && registerForm.get('name')?.errors) {
+        <small class="text-red-600">Product Name required</small>
+        }
+
+        <p-floatlabel variant="on" class="w-full">
+          <textarea rows="5" pTextarea formControlName="description" class="w-full"></textarea>
+          <label for="description">Description</label>
+        </p-floatlabel>
+        @if (registerForm.get('description')?.touched && registerForm.get('description')?.errors) {
+        <small class="text-red-600">Description is required</small>
+        }
+
+        <div class="flex flex-wrap md:flex-nowrap gap-2">
+          <div class="flex flex-column w-full md:w-6 lg:w-4">
+            <p-select formControlName="category" [options]="category" placeholder="Select a Category" class="w-full" />
+            @if (registerForm.get('category')?.touched && registerForm.get('category')?.errors) {
+            <small class="text-red-600">Category is required</small>
+            }
+          </div>
+
+          <div class="flex flex-column w-full md:w-6 lg:w-4">
+            <p-select formControlName="subCategory" [options]="subCategory" placeholder="Select a Sub-category"
+              class="w-full" />
+            @if (registerForm.get('subCategory')?.touched && registerForm.get('subCategory')?.errors) {
+            <small class="text-red-600">Sub-Category is required</small>
+            }
+          </div>
+
+          <div class="flex flex-column w-full md:w-6 lg:w-4">
+            <p-select formControlName="material" [options]="material" placeholder="Select a Material" class="w-full" />
+            @if (registerForm.get('material')?.touched && registerForm.get('material')?.errors) {
+            <small class="text-red-600">Material is required</small>
+            }
+          </div>
+
+        </div>
+
+
+        <div class="flex flex-wrap gap-2 md:flex-nowrap">
+          <div class="flex flex-column w-full md:w-6 lg:w-3">
+            <p-floatlabel variant="on" class="w-full">
+              <input name="productHeight" formControlName="productHeight" pInputText autocomplete="off" class="w-full"
+                type="text" />
+              <label for="productHeight">Product Height</label>
+            </p-floatlabel>
+            @if (registerForm.get('productHeight')?.touched && registerForm.get('productHeight')?.errors) {
+            <small class="text-red-600">Product Height required</small>
+            }
+          </div>
+
+          <div class="flex flex-column w-full md:w-6 lg:w-3">
+            <p-floatlabel variant="on" class="w-full">
+              <input name="productWidth" formControlName="productWidth" pInputText autocomplete="off" class="w-full"
+                type="text" />
+              <label for="productWidth">Product Width</label>
+            </p-floatlabel>
+            @if (registerForm.get('productWidth')?.touched && registerForm.get('productWidth')?.errors) {
+            <small class="text-red-600">Product Width required</small>
+            }
+          </div>
+
+
+          <div class="flex flex-column w-full md:w-6 lg:w-3">
+            <p-floatlabel variant="on" class="w-full">
+              <input name="productLength" formControlName="productLength" pInputText autocomplete="off" class="w-full"
+                type="text" />
+              <label for="productLength">Product Length</label>
+            </p-floatlabel>
+            @if (registerForm.get('productLength')?.touched && registerForm.get('productLength')?.errors) {
+            <small class="text-red-600">Product Length required</small>
+            }
+          </div>
+
+          <div class="flex flex-column w-full md:w-6 lg:w-3">
+            <p-floatlabel variant="on" class="w-full">
+              <input name="productWeight" formControlName="productWeight" pInputText autocomplete="off" class="w-full"
+                type="text" />
+              <label for="productWeight">Product Weight</label>
+            </p-floatlabel>
+            @if (registerForm.get('productWeight')?.touched && registerForm.get('productWeight')?.errors) {
+            <small class="text-red-600">Product Weight required</small>
+            }
+          </div>
+        </div>
+
+
+        <p-floatlabel variant="on" class="w-full">
+          <textarea rows="5" pTextarea formControlName="extraInfo" class="w-full"></textarea>
+          <label for="extraInfo">Extra Information</label>
+        </p-floatlabel>
+
+        <!-- Uploader -->
+
+        <div class="card">
+          <p class="text-lg font-semibold mb-4">Product Images</p>
+          <p class="text-sm mb-4">You can upload multiple images of the product. Maximum size for each image is 1MB.</p>
+          <p-toast />
+          <!-- <p-fileupload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="true"
+            accept="image/*" maxFileSize="100000000000000"  
+            (onSelect)="onSelectedFiles($event)">
+            <ng-template #header let-files let-chooseCallback="chooseCallback" let-clearCallback="clearCallback"
+              let-uploadCallback="uploadCallback">
+              <div class="flex flex-wrap justify-between items-center flex-1 gap-4">
+                <div class="flex gap-2">
+                  <p-button (onClick)="choose($event, chooseCallback)" icon="pi pi-images" [rounded]="true"
+                    [outlined]="true" />
+                  <p-button (onClick)="uploadEvent(uploadCallback)" icon="pi pi-cloud-upload" [rounded]="true"
+                    [outlined]="true" severity="success" [disabled]="!files || files.length === 0" />
+                  <p-button (onClick)="clearCallback()" icon="pi pi-times" [rounded]="true" [outlined]="true"
+                    severity="danger" [disabled]="!files || files.length === 0" />
+                </div>
+                <p-progressbar [value]="totalSizePercent" [showValue]="false" class="w-full"
+                  class="md:w-20rem h-1 w-full md:ml-auto">
+                  <span class="whitespace-nowrap">{{ totalSize }}B / 1Mb</span>
+                </p-progressbar>
+              </div>
+            </ng-template>
+            <ng-template #content let-files let-uploadedFiles="uploadedFiles"
+              let-removeFileCallback="removeFileCallback" let-removeUploadedFileCallback="removeUploadedFileCallback">
+              <div class="flex flex-col gap-8 pt-4">
+                <div *ngIf="files?.length > 0">
+                  <h5>Pending</h5>
+                  <div class="flex flex-wrap gap-4">
+                    <div *ngFor="let file of files; let i = index"
+                      class="p-8 rounded-border flex flex-col border border-surface items-center gap-4">
+                      <div>
+                        <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
+                      </div>
+                      <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name
+                        }}</span>
+                      <div>{{ formatSize(file.size) }}</div>
+                      <p-badge value="Pending" severity="warn" />
+                      <p-button icon="pi pi-times"
+                        (click)="onRemoveTemplatingFile($event, file, removeFileCallback, i)" [outlined]="true"
+                        [rounded]="true" severity="danger" />
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="uploadedFiles?.length > 0">
+                  <h5>Completed</h5>
+                  <div class="flex flex-wrap gap-4">
+                    <div *ngFor="let file of uploadedFiles; let i = index"
+                      class="card m-0 px-12 flex flex-col border border-surface items-center gap-4">
+                      <div>
+                        <img role="presentation" [alt]="file.name" [src]="file.objectURL" width="100" height="50" />
+                      </div>
+                      <span class="font-semibold text-ellipsis max-w-60 whitespace-nowrap overflow-hidden">{{ file.name
+                        }}</span>
+                      <div>{{ formatSize(file.size) }}</div>
+                      <p-badge value="Completed" class="mt-4" severity="success" />
+                      <p-button icon="pi pi-times" (onClick)="removeUploadedFileCallback(i)" [outlined]="true"
+                        [rounded]="true" severity="danger" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+            <ng-template #file></ng-template>
+            <ng-template #empty>
+              <div class="flex items-center justify-center flex-col">
+                <i class="pi pi-cloud-upload !border-2 !rounded-full !p-8 !text-4xl !text-muted-color"></i>
+                <p class="mt-6 mb-0">Drag and drop files to here to upload.</p>
+              </div>
+            </ng-template>
+          </p-fileupload> -->
+
+          <p-fileupload 
+  name="demo[]" 
+  [multiple]="true"
+  accept="image/*"
+  maxFileSize="1000000"
+  mode="basic"
+
+    (onSelect)="onSelectedFiles($event)"
+  (onRemove)="onRemoveTemplatingFile($event)"
+  (onClear)="onClearTemplatingUpload()"
+  (onUpload)="onTemplatedUpload()"
+>
+  <ng-template #empty>
+    <div>Drag and drop files to here to upload.</div>
+  </ng-template>
+</p-fileupload>
+
+        </div>
+
+
+        <div class="register-btns align-self-center w-full pt-3">
+          <button class="btn w-full md:w-full btn-primary py-2 lg:text-xl md:text-xl sm:text-base" type="submit">Send Request</button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>

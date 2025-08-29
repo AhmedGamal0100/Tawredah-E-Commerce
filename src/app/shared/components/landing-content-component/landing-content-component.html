@@ -1,0 +1,290 @@
+<!-- Hero section with full-width background -->
+<section class="hero-section">
+  <div class="hero-overlay">
+    <div class="hero-overlay-bg"></div>
+    <video autoplay loop playsinline class="bg-video">
+      <source src="vid2.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+
+  </div>
+
+  <div class="hero-content">
+    <!-- <div class=""> -->
+
+    <h2 class="hero-subsubtitle mb-2 text-hidden-sm">The most trusted B2B platform</h2>
+    <h1 class="hero-title">Tawredah</h1>
+    <p class="hero-subtitle my-4 w-6 m-auto"> Your fast, secure, and reliable B2B e-commerce platform<span class="text-hidden-sm"> that
+      connects suppliers with retailers across Egypt.<span class="text-hidden-md"> It offers a seamless
+      online experience with competitive pricing
+      and easier delivery.</span></span>
+    </p>
+    <!-- </div> -->
+    <!-- <div class="flex gap-5 align-items-center"> -->
+    <button class="hero-btn px-4 py-2" [routerLink]="['/products']" routerLinkActive="router-link-active">
+     Explore <i class="pi pi-arrow-right ml-2"></i>
+    </button>
+    <!-- </div> -->
+  </div>
+</section>
+
+<section class="latest-products-section">
+  <!-- Header -->
+  <div class="header">
+    <h2>Latest Products</h2>
+    <p>Discover the latest products that are trending in the market.</p>
+  </div>
+
+  <!-- Categories -->
+  <div class="categories flex flex-wrap justify-content-center mb-5 gap-2">
+    @for (cat of categories; track $index) {
+      <button
+        class="category-chip"
+        (click)="selectCategory(cat)"
+        [class.active]="cat === selectedCategory">
+        {{ cat }}
+      </button>
+    }
+  </div>
+
+  <!-- Products -->
+  <div class="products-container flex">
+    <!-- Selected Category Image -->
+    <!-- <div class="w-3 categories-title">
+      <img [src]="categoryImages[selectedCategory]" [alt]="selectedCategory" />
+    </div> -->
+
+    <!-- Product Cards -->
+    <div class="products-grid w-9 m-auto">
+      @if (products.length > 0) {
+        <div class="slider grid">
+          @for (item of products; track item.id) {
+            <app-new-big-product-card [product]="item"></app-new-big-product-card>
+          }
+        </div>
+      } @else {
+        <p class="empty-state">No products available in this category.</p>
+      }
+    </div>
+  </div>
+</section>
+
+
+
+
+<!-- Landing content container -->
+<div class="landing-container w-11 m-auto py-8 lg:px-5 md:px-5 sm:px-0">
+  <!-- About Section -->
+  <section class="about-section p-5 shadow-1" data-aos="fade-in" data-aos-duration="1000">
+    <div class="grid">
+      <div class="lg:col-6 md:col-12 flex">
+        <div class="flex-column align-content-around justify-content-center p-2">
+          <h2 class="section-title" data-aos="fade-up" data-aos-delay="200">
+            OUR MISSION
+          </h2>
+          <p class="mt-5 pb-2">"Is to empower businesses by providing them with the best prices, reliable delivery, and
+            a
+            seamless online ordering experience."
+          "We strive to simplify procurement, saving our clients time and effort."
+
+<br><br>"Our focus is on building long-term partnerships based on trust and value."
+</p>
+        </div>
+      </div>
+      <div class="mission lg:col-6 md:col-12 ">
+        <img src="landing/new/mission.jpg" alt="mission image" class="border-round-2xl">
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<section class="about-cards py-8 px-5" data-aos="fade-right" data-aos-duration="1000">
+  <h2 class="text-center mb-3">TAWREDAH OFFERS</h2>
+
+  <div class="features-grid flex lg:p-5 md:p-5 sm:p-5 flex-wrap">
+
+
+    <div class="lg:w-3 md:w-6 p-2">
+      <div class="feature-item px-4 py-6" data-aos="zoom-in" data-aos-delay="100">
+        <i class="pi pi-users feature-icon"></i>
+        <div>
+          <h4 class="feature-text py-4">Verified Suppliers</h4>
+          <p>
+            We work only with trusted, vetted wholesalers to ensure quality and
+            reliability.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:w-3 md:w-6 p-2">
+      <div class="feature-item px-4 py-6" data-aos="zoom-in" data-aos-delay="100">
+        <i class="pi pi-shopping-cart feature-icon"></i>
+        <div>
+          <h4 class="feature-text py-4">Bulk Ordering</h4>
+          <p>
+            Order large quantities with confidence through a smooth, user-friendly
+            interface.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:w-3 md:w-6 p-2">
+      <div class="feature-item px-4 py-6" data-aos="zoom-in" data-aos-delay="100">
+        <i class="pi pi-wallet feature-icon"></i>
+        <div>
+          <h4 class="feature-text py-4">Competitive Prices</h4>
+          <p>
+            Get the best value and quality with prices optimized for retail business margins.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="lg:w-3 md:w-6 p-2">
+      <div class="feature-item px-4 py-6" data-aos="zoom-in" data-aos-delay="100">
+        <i class="pi pi-headphones feature-icon"></i>
+        <div>
+          <h4 class="feature-text py-4">Business Support</h4>
+          <p>
+            Dedicated support team to assist you every step of the way — before
+            and after purchase.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<div class="landing-container px-5 py-8">
+  <!-- How it Works Section -->
+  <section class="how-it-works">
+    <h2 class="text-center lg:text-left lg:pl-8">WORKFLOW</h2>
+    <!-- <h2 class="section-title">How does Tawredah work?</h2> -->
+    <!-- <h2 class="text-center">HOW DOES IT WORK?</h2> -->
+
+    <div data-aos="fade-up" data-aos-delay="150" class="w-11 m-auto">
+      <div class="h-full grid mb-4 ">
+        <div class="grid flex lg:p-5 md:p-5 sm:p-0 align-items-center">
+          <div class="lg:col-7 md:12 how-it-works-content lg:pr-5 md:pr-0 sm:p-0">
+            <div>
+              <h3><b>1. Check </b> what the market wants in Market place</h3>
+              <p class="section-text lg:p-5 md:p-5 sm:py-0">
+                “Check what the market wants in the Marketplace and discover trending products in real time. Gain
+                insights
+                into customer demand and upcoming industry shifts. Explore categories with the highest growth and profit
+                potential. Compare product performance before making bulk purchases. Stay ahead of competitors with
+                data-driven sourcing decisions. Turn market trends into business opportunities effortlessly.”
+              </p>
+            </div>
+            <div>
+              <button class="btn btn-primary explore-btn w-fit lg:ml-5 md:ml-5 md:mb-5  px-4 py-2"
+                [routerLink]="['/requested-products']" routerLinkActive="router-link-active">
+                Marketplace <i class="pi pi-arrow-right ml-2"></i>
+              </button>
+            </div>
+          </div>
+          <div class="lg:col-5 md:12 how-it-works-img">
+            <img src="landing/new/stats.jpg" alt="delivery image">
+          </div>
+        </div>
+      </div>
+      <div class="h-full grid mb-4 ">
+        <div class="grid flex lg:p-5 md:p-5 sm:p-0 align-items-center">
+          <div class="lg:col-5 md:12 how-it-works-img res-order-1">
+            <img src="landing/new/order.jpg" alt="delivery image">
+          </div>
+          <div class="lg:col-7 md:12 how-it-works-content res-order-0 lg:pl-5 md:pl-0 sm:pl-0">
+            <div>
+              <h3><b>2. Shipping</b> made easier and more transparent</h3>
+              <p class="section-text lg:p-5 md:p-5 sm:p-0">
+                “Orders are delivered directly to your store or warehouse quickly and safely through our trusted
+                logistics partners. Choose from multiple shipping options, each with clear ratings, delivery times, and
+                costs. Compare and select the method that best fits your business needs. Enjoy full transparency and
+                flexibility in every shipment. Track your deliveries in real time with live updates. Receive instant
+                notifications on shipping status and estimated arrival.”
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="h-full grid mb-4">
+        <div class="grid flex lg:p-5 md:p-5 sm:p-0 align-items-center">
+          <div class="lg:col-7 md:12 how-it-works-content lg:pr-5 md:pr-0 sm:pr-0">
+            <div>
+              <h3><b>3.</b> Browse & <b>Order</b></h3>
+              <p class="section-text lg:p-5 md:p-5 sm:p-0">
+                “Retailers explore a wide range of wholesale products, check real-time stock, and place bulk orders in
+                just a few clicks. Discover exclusive deals from verified suppliers, ensuring quality and trust. Save
+                time with a seamless ordering process tailored for bulk purchases. Track shipments and manage inventory
+                effortlessly from one platform. Grow your business faster with reliable wholesale sourcing at your
+                fingertips.”
+              </p>
+            </div>
+            <div class="lg:pb-5 md:pb-5 sm:pb-5">
+              <a routerLink="/products" class="lg:p-5 md:p-5 sm:pb-0">Latest Products ...</a>
+            </div>
+          </div>
+          <div class="lg:col-5 md:12 how-it-works-img">
+            <img src="landing/new/deliver.jpg" alt="delivery image">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <app-testimoinals-component></app-testimoinals-component>
+</div>
+
+<!-- Testimonials Section -->
+
+<app-logos-slider-component [logos]="[
+    'landing/logos/logoSlider/logo1.png',
+    'landing/logos/logoSlider/logo2.png',
+    'landing/logos/logoSlider/logo3.png',
+    'landing/logos/logoSlider/logo4.png',
+    'landing/logos/logoSlider/logo5.png',
+    'landing/logos/logoSlider/logo6.png',
+    'landing/logos/logoSlider/logo7.png',
+    'landing/logos/logoSlider/logo8.png',
+    'landing/logos/logoSlider/logo9.png',
+    'landing/logos/logoSlider/logo10.png',
+    'landing/logos/logoSlider/logo1.png',
+    'landing/logos/logoSlider/logo2.png',
+    'landing/logos/logoSlider/logo3.png',
+    'landing/logos/logoSlider/logo4.png',
+    'landing/logos/logoSlider/logo5.png',
+    'landing/logos/logoSlider/logo6.png',
+    'landing/logos/logoSlider/logo7.png',
+    'landing/logos/logoSlider/logo8.png',
+    'landing/logos/logoSlider/logo9.png',
+    'landing/logos/logoSlider/logo10.png',
+  ]" [speed]="10" />
+
+
+<!-- Call To Action Section -->
+<section class="cta-section">
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="grid w-11 m-auto lg:p-7 md:p-5">
+      <div class="lg:col-6 md:12 lg:p-7 md:p-5">
+        <h2 class="section-title">Having Questions?</h2>
+        <p class="section-text">Get in touch with us easily, send us an email and we will answer all your questions as
+          soon as possible. </p>
+      </div>
+      <div class="lg:col-6 md:12 lg:p-7 md:p-5">
+        <input type="email" formControlName="email" placeholder="Enter your email" class="cta-input col-12 mb-3"
+          required />
+        <textarea formControlName="desc" placeholder="Enter your Questions" class="cta-input col-12 mb-3" rows="4"
+          required>
+</textarea> <button type="submit" class="hero-btn px-4 py-2 cta-button px-4 py-2">Send</button>
+      </div>
+
+    </div>
+  </form>
+
+</section>

@@ -1,0 +1,57 @@
+<section class="wishlist">
+  <!-- Animated Background -->
+  <div class="wishlist-bg">
+    <i class="pi pi-heart"></i>
+    <i class="pi pi-heart"></i>
+    <i class="pi pi-heart"></i>
+    <i class="pi pi-heart"></i>
+    <i class="pi pi-heart"></i>
+  </div>
+
+  <!-- Page Title -->
+  <div class="wishlist-header">
+    <h1>My Wishlist</h1>
+    <p>Keep track of products you love and order them when ready.</p>
+  </div>
+
+  <!-- Wishlist Items -->
+  @if (wishlistItems.length> 0) {
+  <div class="wishlist-items" data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
+    @for (item of wishlistItems; track item.id; let i = $index) {
+    <div class="wishlist-item" [class.removing]="removingItems.has(item.id)" [attr.id]="'wishlist-item-' + item?.id"
+      data-aos="fade-up" data-aos-duration="1000" data-aos-easing="ease-in-out">
+      <div class="item-image">
+
+        <img [src]="item.imageUrl" [alt]="item.name" />
+      </div>
+      <div class="item-details">
+        <h3>{{ item.name }}</h3>
+        <!-- <p class="price">{{ item.price | currency : "EGP" }}</p> -->
+
+        <p class="price">
+          {{ item.price.discountTiers[0].minQty | usdToEgp }} - {{ item.price.discountTiers[2].minQty | usdToEgp }}
+        </p>
+
+        <div class="actions">
+          <button pButton type="button" class="add-btn" (click)="goToDetails(item)">
+            <i class="pi pi-info-circle"></i> View Details
+          </button>
+          <button pButton type="button" label="" icon="pi pi-trash" class="remove-btn"
+            (click)="removeFromWishList(item)"></button>
+
+        </div>
+      </div>
+    </div>
+
+    }
+  </div>
+  } @else {
+  <div class="empty-wishlist" data-aos="fade-up" data-aos-delay="200">
+    <i class="pi pi-heart"></i>
+    <p>Your wishlist is empty. Start adding products you like!</p>
+  </div>
+  }
+</section>
+<div class="card flex justify-center gap-2">
+  <p-toast />
+</div>

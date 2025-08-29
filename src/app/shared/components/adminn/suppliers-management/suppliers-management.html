@@ -1,0 +1,169 @@
+<div class="suppliers-management">
+  <!-- Header Section -->
+  <div class="header-section mb-4">
+    <div class="flex justify-content-between align-items-center">
+      <h2>Suppliers Management</h2>
+      <button pButton icon="pi pi-plus" label="Add Supplier" class="p-button-success" (click)="addSupplier()"></button>
+    </div>
+    <p>Manage all your suppliers in one place. View details, edit information, and monitor performance.</p>
+  </div>
+
+  <!-- Stats Cards -->
+  <div class="grid mb-4">
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-blue-100">
+          <i class="pi pi-building text-blue-500"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Total Suppliers</span>
+          <span class="stat-value">{{ suppliers.length }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-green-100">
+          <i class="pi pi-check-circle text-green-500"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Active Suppliers</span>
+          <span class="stat-value">{{ activeSuppliersCount }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-yellow-100">
+          <i class="pi pi-star text-yellow-500"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Average Rating</span>
+          <span class="stat-value">{{ averageRating | number:'1.1-1' }}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 md:col-6 lg:col-3">
+      <div class="stat-card">
+        <div class="stat-icon bg-purple-100">
+          <i class="pi pi-box text-purple-500"></i>
+        </div>
+        <div class="stat-content">
+          <span class="stat-label">Total Products</span>
+          <span class="stat-value">{{ totalProducts }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search and Filter -->
+  <div class="flex flex-wrap gap-2 align-items-center mb-4">
+    <div class="search-container">
+      <div class="search-content">
+        <div class="flex w-full search">
+          <input placeholder="Search suppliers..." [(ngModel)]="searchInput" (ngModelChange)="applyFilters()" />
+          <button variant="text"><i class="pi pi-search"></i></button>
+        </div>
+      </div>
+    </div>
+
+    <div class="custom-selector">
+      <button class="selector-trigger" (click)="toggleStatusDropdown()">
+        <span>{{ getStatusLabel(selectedStatus) }}</span>
+        <i class="pi" [ngClass]="{'pi-chevron-down': !statusDropdownOpen, 'pi-chevron-up': statusDropdownOpen}"></i>
+      </button>
+      <div class="selector-options" [class.open]="statusDropdownOpen">
+        @for (option of statusOptions; track option.value) {
+        <div class="option" (click)="selectStatus(option.value)">
+          {{ option.label }}
+        </div>
+        }
+      </div>
+    </div>
+
+    <div class="custom-selector">
+      <button class="selector-trigger" (click)="toggleRatingDropdown()">
+        <span>{{ getRatingLabel(selectedRating) }}</span>
+        <i class="pi" [ngClass]="{'pi-chevron-down': !ratingDropdownOpen, 'pi-chevron-up': ratingDropdownOpen}"></i>
+      </button>
+      <div class="selector-options" [class.open]="ratingDropdownOpen">
+        @for (option of ratingOptions; track option.value) {
+        <div class="option" (click)="selectRating(option.value)">
+          {{ option.label }}
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Suppliers Table -->
+  <p-table [value]="filteredSuppliers" [rows]="10" [paginator]="true" [rowsPerPageOptions]="[10, 25, 50]"
+    [globalFilterFields]="['name','contactEmail','phone','address']">
+    <ng-template pTemplate="header">
+      <tr>
+        <th pSortableColumn="name">Supplier <p-sortIcon field="name"></p-sortIcon></th>
+        <th pSortableColumn="rating">Rating <p-sortIcon field="rating"></p-sortIcon></th>
+        <th pSortableColumn="totalProducts">Products <p-sortIcon field="totalProducts"></p-sortIcon></th>
+        <th pSortableColumn="status">Status <p-sortIcon field="status"></p-sortIcon></th>
+        <th>Actions</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-supplier>
+      <tr>
+        <td>
+          <div class="supplier-info">
+            <div class="supplier-avatar">
+              {{ supplier.name.charAt(0).toUpperCase() }}
+            </div>
+            <div class="supplier-details">
+              <span class="supplier-name">{{ supplier.name }}</span>
+              <span class="supplier-contact">{{ supplier.contactEmail }}</span>
+            </div>
+          </div>
+        </td>
+        <td>
+          <div class="rating">
+            <div class="stars">
+              @for (star of [1,2,3,4,5]; track star) {
+              <i class="pi"
+                [ngClass]="{'pi-star-fill': star <= supplier.rating, 'pi-star': star > supplier.rating}"></i>
+              }
+            </div>
+            <span class="rating-value">{{ supplier.rating | number:'1.1-1' }}</span>
+          </div>
+        </td>
+        <td>
+          <div class="products-count">
+            <span>{{ supplier.totalProducts }}</span>
+            <small>products</small>
+          </div>
+        </td>
+        <td>
+          <p-tag [value]="supplier.status" [severity]="supplier.status === 'Active' ? 'success' : 
+                            (supplier.status === 'Pending' ? 'warning' : 'danger')"></p-tag>
+        </td>
+        <td>
+          <div class="action-buttons">
+            <button pButton icon="pi pi-eye" class="p-button-rounded p-button-text p-button-sm"
+              (click)="viewSupplier(supplier)" pTooltip="View Details" tooltipPosition="top"></button>
+            <button pButton icon="pi pi-pencil" class="p-button-rounded p-button-text p-button-sm"
+              (click)="editSupplier(supplier)" pTooltip="Edit Supplier" tooltipPosition="top"></button>
+            <button pButton icon="pi pi-trash" class="p-button-rounded p-button-text p-button-danger p-button-sm"
+              (click)="deleteSupplier(supplier)" pTooltip="Delete Supplier" tooltipPosition="top"></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td colspan="5" class="empty-table">
+          <div class="empty-content">
+            <i class="pi pi-inbox"></i>
+            <h4>No suppliers found</h4>
+            <p>Try adjusting your search or filter criteria</p>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>

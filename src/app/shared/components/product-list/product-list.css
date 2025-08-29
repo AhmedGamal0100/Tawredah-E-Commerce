@@ -1,0 +1,23 @@
+:host ::ng-deep .no-bg-paginator {
+  background: transparent;
+  border: none;
+}
+
+:host
+  ::ng-deep
+  .no-bg-paginator
+  .p-paginator-pages
+  .p-paginator-page.p-highlight {
+  background: transparent;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+:host ::ng-deep .p-input-icon-left > i {
+  left: 0.5rem;
+}
+
+:host ::ng-deep .p-inputtext-sm {
+  height: 2.2rem;
+  font-size: 0.85rem;
+}

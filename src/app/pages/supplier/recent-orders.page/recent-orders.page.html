@@ -1,0 +1,81 @@
+<div class="recent-container card-container">
+
+  <div class="page-header ">
+        <div class="flex align-items-center justify-content-between ">
+          <h1>Recent Orders</h1>
+        </div>
+      </div>
+
+  <p-card header="Recent Orders">
+    <p-table
+      [value]="orders"
+      [rows]="5"
+      [paginator]="true"
+      class="p-datatable-sm"
+      [scrollable]="true"
+      scrollHeight="flex"
+    >
+      <ng-template pTemplate="header" class="table-header">
+        <tr>
+          <th class="header" pSortableColumn="id">
+            Order ID <p-sortIcon field="id"></p-sortIcon>
+          </th>
+          <th class="header" pSortableColumn="productName">
+            Product Name <p-sortIcon field="productName"></p-sortIcon>
+          </th>
+          <th class="header" pSortableColumn="customer">
+            Customer <p-sortIcon field="customer"></p-sortIcon>
+          </th>
+          <th class="header" pSortableColumn="date">
+            Date <p-sortIcon field="date"></p-sortIcon>
+          </th>
+          <th class="header" pSortableColumn="amount">
+            Amount <p-sortIcon field="amount"></p-sortIcon>
+          </th>
+          <th class="header">Status</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-order>
+        <tr (click)="selectOrder(order)" class="clickable-row">
+          <td class="py-3 data">{{ order.id }}</td>
+          <td class="data">{{ order.productName }}</td>
+          <td class="data">{{ order.customer }}</td>
+          <td class="data">{{ order.date }}</td>
+          <td class="data">
+            {{ order.amount | currency: 'EGP':'symbol':'1.0-0' }}  
+          </td>
+          <td class="data">
+            <p-tag
+              [value]="order.status"
+              [severity]="getSeverity(order.status)"
+            ></p-tag>
+          </td>
+        </tr>
+
+        <!-- Expanded details row -->
+        <div
+          class="progress-bar"
+          [style.--progress.%]="selectedOrder?.progress"
+          *ngIf="selectedOrder?.id === order.id"
+        >
+          <div class="line"></div>
+          <div class="dots">
+            <div class="dot" [class.active]="selectedOrder.progress >= 0">
+              1<span>Placed</span>
+            </div>
+            <div class="dot" [class.active]="selectedOrder.progress >= 25">
+              2<span>Processing</span>
+            </div>
+            <div class="dot" [class.active]="selectedOrder.progress >= 50">
+              3<span>Shipped</span>
+            </div>
+            <div class="dot" [class.active]="selectedOrder.progress >= 100">
+              4<span>Delivered</span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>

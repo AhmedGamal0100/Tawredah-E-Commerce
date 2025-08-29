@@ -1,0 +1,33 @@
+<div class="fancy-card h-full">
+    <div class="card-image">
+        <img [src]="product.imageUrl[0]" [alt]="product.name" (click)="goToDetails(product)" />
+        <!-- @if (product.status.tags && product.status.tags.length > 0) {
+        <div class="badge p-2">
+            <span>{{product.status.tags}}</span>
+        </div>
+    } -->
+    </div>
+
+    <div class="p-3">
+        <div class="card-info">
+            <div class="flex align-items-center justify-content-between">
+                <h4>{{ product.name }}</h4>
+            </div>
+            <p>
+                {{ product.description.slice(0, 50) }}
+            </p>
+        </div>
+        <div class="card-actions flex justify-content-between mt-auto">
+            <button class="btn-action px-4 py-2" (click)="goToDetails(product)">View details</button>
+            <div class="button-group flex justify-content-between">
+                @if (upvoteClicked) {
+                <button class="btn-gold w-full" (click)="upvoteProduct(product)"  data-aos="fade-in">{{upvotes}}<i
+                        class="pi pi-thumbs-up-fill pl-2" style="color: var(--background-content)"></i></button>
+                } @else { <button class="btn-upvote px-4 py-2 w-full" (click)="upvoteProduct(product)">{{upvotes}}<i
+                        class="pi pi-thumbs-up-fill pl-2"></i></button>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,16 @@
+<div class="slider-container">
+  <div class="slider-track" [style.--speed]="speed + 's'">
+    @for (logo of logos; track logo) {
+      <div class="slide">
+        <img [src]="logo" alt="logo" />
+      </div>
+    }
+
+    <!-- duplicate for infinite loop -->
+    @for (logo of logos; track logo) {
+      <div class="slide">
+        <img [src]="logo" alt="logo" />
+      </div>
+    }
+  </div>
+</div>

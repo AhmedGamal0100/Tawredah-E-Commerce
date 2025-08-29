@@ -1,0 +1,43 @@
+<div class="fancy-card">
+  <div class="card-image w-5 relative">
+    <!-- Status Tag -->
+     @if (productData.status.tags?.[0]) {
+    <span class="status-tag" [ngClass]="getStatusClass(productData.status.tags[0])">
+      {{ productData.status.tags?.[0] }}
+    </span>
+    }
+    <!-- Product Image -->
+    <img [src]="productData.imageUrl?.[0]" [alt]="productData.name" />
+  </div>
+
+  <div class="py-3 px-4 w-full">
+    <div class="card-info">
+      <div class="flex align-items-center justify-content-between">
+        <h4>{{ productData.name }}</h4>
+        <div>
+          <span class="rating-text pr-1">{{ productData.supplier.rating }}</span>
+          <i class="pi pi-star-fill rating"></i>
+        </div>
+      </div>
+      <p class="price mb-0">
+        {{ price(0) }} - {{ price(2)}} EGP
+      </p>
+      <p class="info-small">Min. order {{ productData.inventory.moq }}</p>
+    </div>
+
+    <div class="card-actions flex justify-content-between">
+      <button class="btn-action px-4 py-2" (click)="goToDetails(productData)" [disabled]="role != `user`? true: false">Add to Cart</button>
+      <button class="btn-icon wishlist ml-auto" (click)="addToWishList()" [disabled]="role != `user`? true: false">
+        @if (isWished) {
+          <i class="pi pi-heart-fill"></i>
+        } @else {
+          <i class="pi pi-heart"></i>
+        }
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="card flex justify-center gap-2">
+  <p-toast class="mt-7" />
+</div>

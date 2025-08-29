@@ -1,0 +1,190 @@
+:host {
+  position: relative;
+}
+
+
+app-supplier-navbar {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  top: 0;
+}
+
+
+
+.page-header {
+  background-color: var(--background-content);
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--surface-border);
+  margin-bottom: 1.5rem;
+}
+
+.page-header h1 {
+  color: var(--primary-color);
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.page-header p {
+  color: var(--text-color-secondary);
+  margin: 0.5rem 0 0 0;
+  font-size: 1rem;
+}
+
+  .page-header {
+    padding: 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .addProduct{
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+  }
+
+app-supplier-sidebar {
+  position: fixed;
+  z-index: 999;
+}
+
+.card-container {
+  margin-top: 7rem;
+  width: 80%;
+  position: relative;
+  left: 17%;
+  transition: all 0.3s ease;
+  background-color: var(--primary-color-dark);
+}
+
+
+/* When sidebar is collapsed */
+.card-container.expanded {
+  width: 90%;
+  left: 5%;
+}
+
+.clickable-row {
+  cursor: pointer;
+}
+
+.p-datatable-sm {
+  font-size: 0.875rem;
+}
+
+.product-img {
+  width: 60px;
+  height: 60px;
+}
+
+
+/* ========================= */
+/* Tablet (≤768px) */
+/* ========================= */
+@media (max-width: 768px) {
+  .card-container {
+    width: 65%;
+    left: 30%;
+  }
+
+  /* When sidebar is collapsed */
+  .card-container.expanded {
+    width: 85%;
+    left: 5%;
+  }
+
+
+
+  .p-datatable-sm {
+    font-size: 0.8rem;
+  }
+
+  /* pagination */
+  :host ::ng-deep .p-paginator {
+    font-size: 12px;
+    padding: 0.5rem;
+  }
+
+  :host ::ng-deep .p-paginator .p-paginator-page,
+  :host ::ng-deep .p-paginator .p-paginator-next,
+  :host ::ng-deep .p-paginator .p-paginator-prev {
+    width: 2rem;
+    height: 2rem;
+    font-size: 12px;
+  }
+}
+
+/* ========================= */
+/* Mobile (≤412px) */
+/* ========================= */
+@media (max-width: 412px) {
+
+  .card-container,
+  .card-container.expanded {
+    width: 95%;
+    left: 0;
+    /* margin-top: 5rem; */
+  }
+
+  .header {
+    font-size: 14px !important;
+  }
+
+  p-sortIcon {
+    display: none;
+  }
+
+  td.data,
+  p-tag {
+    font-size: 10px !important;
+  }
+
+  .p-datatable-sm {
+    font-size: 0.75rem;
+  }
+
+  /* .order-details {
+    width: 85%;
+    padding: 0.6rem;
+    font-size: 0.8rem;
+  }
+
+  .progress-bar {
+    margin-top: 0.4rem;
+  }
+
+  .progress-bar .line {
+    top: 23px;
+  }
+
+  .progress-bar .dot {
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    font-size: 0.65rem;
+  }
+
+  .progress-bar .dot span {
+    font-size: 0.55rem;
+    margin-top: 4px;
+  } */
+
+  /* pagination */
+  :host ::ng-deep .p-paginator {
+    font-size: 10px;
+    padding: 0.25rem;
+  }
+
+  :host ::ng-deep .p-paginator .p-paginator-page,
+  :host ::ng-deep .p-paginator .p-paginator-next,
+  :host ::ng-deep .p-paginator .p-paginator-prev {
+    width: 1.5rem;
+    height: 1.5rem;
+    font-size: 10px;
+  }
+}
