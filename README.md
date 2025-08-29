@@ -1,156 +1,157 @@
-# TawredahApp
+# Tawredah E‑Commerce (Front‑End)
 
-TawredahApp is a modern, scalable web application built with [Angular](https://angular.dev/) designed to streamline product sourcing, customization requests, and supplier interactions. The project leverages Angular best practices, modular architecture, and integrates with Firebase for backend services.
+A modern, production‑ready e‑commerce front‑end built with Angular. It delivers a fast, responsive shopping experience with authentication, product discovery, cart & checkout flows, wishlist, user profile, order history, notifications, and a supplier portal for product management.
 
-## Table of Contents
+- Live Deployment: [tawredah-e-commerce-fzwk-delta.vercel.app](https://tawredah-e-commerce-fzwk-delta.vercel.app/)
+- Status: Actively developed — admin role and subscriptions are in progress.
 
-- [Features](#features)
-- [Project Structure](#project-structure)
-- [Getting Started](#getting-started)
-- [Development](#development)
-- [Testing](#testing)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
-- [Additional Resources](#additional-resources)
+## Overview
+This application focuses on a seamless shopping journey:
+- Browse and search a rich product catalog
+- Filter, sort, and view detailed product information
+- Add to cart, manage quantities, and proceed to checkout
+- Save items to a wishlist
+- Authenticate, manage profile, and review past orders
+- Receive notifications
+- Supplier portal for inventory and order management
 
-## Features
+## Key Features
+- Authentication & Authorization
+  - Email/password login and registration
+  - Session persistence
+  - Route protection and role‑based access (customer, supplier; admin WIP)
 
-- **Product Catalog**: Browse and search products with advanced filtering.
-- **Customization Requests**: Suppliers can view and manage product customization requests.
-- **Wishlist & Cart**: Users can add products to their wishlist or cart.
-- **Responsive Design**: Fully responsive UI for desktop and mobile.
-- **Supplier Dashboard**: Tools for suppliers to manage products and requests.
-- **Firebase Integration**: Authentication, hosting, and database support.
-- **Unit & E2E Testing**: Comprehensive test coverage using Angular CLI.
+- Product Discovery
+  - Landing experience with banners and sliders
+  - Category and keyword search
+  - Sidebar filters (price ranges, categories, etc.)
+  - Product cards and product detail pages with similar items
 
-## Project Structure
+- Shopping Cart & Checkout
+  - Cart sidebar overlay and full cart page
+  - Quantity updates and removals
+  - Checkout flow with address/contact capture and order review
+  - Order confirmation and status feedback
 
-```
-tawredah-angular-app/
-  tawredah-app/
-    src/
-      app/
-        shared/
-          components/
-            supplier/
-              customization-requests/
-                customization-requests.html
-                customization-requests.css
-            new-big-product-card/
-              new-big-product-card.html
-      index.html
-      main.ts
-    public/
-      ...assets...
-    .editorconfig
-    .gitignore
-    angular.json
-    firebase.json
-    package.json
-    README.md
-    tsconfig*.json
-```
+- Wishlist
+  - Save products to revisit later
+  - Empty‑state UX for clarity
 
-- **src/app/shared/components**: Reusable UI components such as product cards and supplier customization requests.
-- **public/**: Static assets (SVGs, icons, videos).
-- **angular.json**: Angular CLI configuration.
-- **firebase.json**: Firebase hosting configuration.
+- User Profile & Orders
+  - Profile details and account management
+  - Past orders view and order detail
+  - Notifications center
+
+- Supplier Portal
+  - Supplier dashboard overview
+  - Product list, inventory management, and add product flow
+  - Recent orders and customization requests management
+
+- Requested Products
+  - Dedicated views for requested products and request submission
+  - Requested product detail exploration
+
+- UI/UX
+  - Responsive, mobile‑first design
+  - Reusable components (navigation, sliders, banners, product cards)
+  - Loading states and skeletons
+
+- Performance & Quality
+  - Lazy‑loaded pages and components where applicable
+  - Route guards and interceptors for robust flows
+  - Modular services and state stores for predictable data flow
+
+## Architecture & Technology
+- Angular (standalone components, modern Angular patterns)
+- TypeScript for strong typing and maintainability
+- RxJS for reactive programming where appropriate
+- Client‑side state stores for session, products, and templates
+- Services for API/data access, authentication, and domain logic
+- Guards for route protection, redirection, and form deactivation
+- Pipes and directives for view utilities
+- Environment‑based configuration (e.g., API base, Firebase keys)
+
+## Application Structure (High‑Level)
+Without referencing specific directory names, the application is organized around:
+- Core application bootstrap and configuration
+- Layouts for public, authenticated, admin/supplier contexts
+- Pages for major user journeys (landing, search, product details, cart, checkout, wishlist, profile, orders, notifications, supplier)
+- Shared components (navigation, sliders, lists, cards, filters, banners, loading, forms)
+- Core layer for guards, interceptors, services, models, and state
+- Shared utilities like pipes and directives
+- Global styles, fonts, and assets
+
+## State Management
+- Lightweight store modules for login/session, products, and template data
+- Clear read/update flows via services and stores
+- Optimistic UI patterns where suitable
+
+## Routing & Guards
+- Public routes for browsing and discovery
+- Protected routes for profile, orders, and supplier tools
+- Redirection for authenticated/unauthenticated flows
+- Form deactivation guard to prevent accidental data loss
+
+## Styling & Theming
+- Component‑scoped styles alongside global styles
+- Reusable CSS variables for consistent theming
+- Responsiveness validated across mobile, tablet, and desktop
+
+## Integrations
+- Firebase authentication and hosting configuration supported
+- Pluggable API layer for product, cart, and order endpoints
+- Ready for third‑party analytics and error reporting
 
 ## Getting Started
+Prerequisites:
+- Node.js (LTS recommended)
+- npm or yarn
 
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (v18+ recommended)
-- [Angular CLI](https://angular.dev/tools/cli)
-- [Firebase CLI](https://firebase.google.com/docs/cli) (for deployment)
-
-### Installation
-
-1. Clone the repository:
-    ```sh
-    git clone https://github.com/your-org/tawredah-angular-app.git
-    cd tawredah-angular-app/tawredah-app
-    ```
-
+Setup:
+1. Clone the repository.
 2. Install dependencies:
-    ```sh
-    npm install
-    ```
+   - npm: `npm install`
+   - yarn: `yarn install`
+3. Create environment files for your local settings (API base URL, Firebase keys, etc.).
+4. Start the development server:
+   - npm: `npm start` or `ng serve`
+   - yarn: `yarn start`
 
-## Development
+Build:
+- Production build: `ng build --configuration production`
 
-### Start the Development Server
-
-```sh
-ng serve
-```
-Visit [http://localhost:4200/](http://localhost:4200/) to view the app.
-
-### Code Scaffolding
-
-Generate a new component:
-```sh
-ng generate component component-name
-```
-For more schematics:
-```sh
-ng generate --help
-```
-
-### Building for Production
-
-```sh
-ng build
-```
-Build artifacts will be stored in the `dist/` directory.
-
-## Testing
-
-### Unit Tests
-
-Run unit tests with [Karma](https://karma-runner.github.io):
-```sh
-ng test
-```
-
-### End-to-End Tests
-
-Run e2e tests:
-```sh
-ng e2e
-```
-> Note: Configure your preferred e2e framework as Angular CLI does not include one by default.
+Testing:
+- Unit tests (if configured): `ng test`
+- E2E tests (if configured): `ng e2e`
 
 ## Deployment
+The application is deployed and accessible at:
+- Production: [https://tawredah-e-commerce-fzwk-delta.vercel.app/](https://tawredah-e-commerce-fzwk-delta.vercel.app/)
 
-### Firebase Hosting
+Typical steps to deploy:
+1. Build production artifacts.
+2. Upload/serve the `dist` output with your hosting provider (e.g., Vercel).
+3. Configure environment variables and rewrites as needed.
 
-1. Build the project:
-    ```sh
-    ng build --prod
-    ```
-2. Deploy to Firebase:
-    ```sh
-    firebase deploy
-    ```
+## Roadmap
+- Admin Role: Advanced dashboards, moderation, user and content management (in progress)
+- Subscriptions: Plan management, billing integration, and entitlements (in progress)
+- Enhanced analytics and observability
+- Expanded product filters and personalized recommendations
+- Accessibility refinements and audits
 
 ## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request.
-
-1. Fork the repo
-2. Create your feature branch (`git checkout -b feature/YourFeature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin feature/YourFeature`)
-5. Open a pull request
+1. Create a new branch for your feature/fix.
+2. Write clear, self‑documenting TypeScript and Angular code.
+3. Ensure builds pass and follow the existing formatting and linting standards.
+4. Open a pull request with a concise description and screenshots as relevant.
 
 ## License
+This project’s license will be defined by the maintainers. Until then, treat it as “All Rights Reserved.”
 
-This project is licensed under the MIT License.
+## Acknowledgements
+- Angular, TypeScript, and the open‑source ecosystem
+- Firebase for authentication and hosting support
 
-## Additional Resources
-
-- [Angular CLI Documentation](https://angular.dev/tools/cli)
-- [Angular Tutorials](https://angular.dev/tutorials)
-- [Firebase Documentation](https://firebase.google.com/docs)
+## Links
+- Live Site: [tawredah-e-commerce-fzwk-delta.vercel.app](https://tawredah-e-commerce-fzwk-delta.vercel.app/)
