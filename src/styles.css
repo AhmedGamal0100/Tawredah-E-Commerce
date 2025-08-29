@@ -1,12 +1,13 @@
 @import './assets/styles/variables.css';
-@import "primeicons/primeicons.css";
+@import './primeicons-overrides.css';
 
 @font-face {
   font-family: 'PrimeIcons';
   src: url('/assets/fonts/primeicons.woff2') format('woff2'),
     url('/assets/fonts/primeicons.woff') format('woff'),
     url('/assets/fonts/primeicons.ttf') format('truetype'),
-    url('/assets/fonts/primeicons.svg#primeicons') format('svg');
+    url('/assets/fonts/primeicons.svg#primeicons') format('svg'),
+    url('/assets/fonts/primeicons.eot') format('embedded-opentype');
 }
 
 
