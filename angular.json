@@ -33,11 +33,7 @@
               "node_modules/aos/dist/aos.js"
             ],
             "externalDependencies": [
-              "**/*.eot",
-              "**/*.woff",
-              "**/*.woff2",
-              "**/*.ttf",
-              "**/*.svg"
+              "primeicons"
             ]
           },
           "configurations": {
